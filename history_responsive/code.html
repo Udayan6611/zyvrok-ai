@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>PostMorph AI - Saved Posts & History</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#f8f9ff",
+            "on-background": "#0b1c30",
+            "surface": "#f8f9ff",
+            "surface-container": "#e5eeff",
+            "surface-container-low": "#eff4ff",
+            "surface-container-high": "#dce9ff",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#6b38d4",
+            "primary-container": "#8455ef",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#fffbff",
+            "secondary": "#565e74",
+            "secondary-container": "#dae2fd",
+            "on-surface-variant": "#494454",
+            "outline-variant": "#cbc3d7"
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            heading: ["Space Grotesk", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(203, 195, 215, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-sans h-full flex overflow-hidden antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+  <!-- Desktop SideNav -->
+  <aside class="hidden md:flex flex-col h-full w-[280px] bg-surface dark:bg-surface-container shadow-xl fixed inset-y-0 left-0 z-[60] p-4 border-r border-outline-variant/30">
+    <a href="../landing_page_responsive/code.html" class="flex items-center gap-3 px-4 py-4 mb-6 group cursor-pointer">
+      <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-105">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+      </div>
+      <span class="font-heading text-xl font-bold text-primary">PostMorph AI</span>
+    </a>
+
+    <ul class="space-y-2">
+      <li>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors text-sm font-medium" href="../landing_page_responsive/code.html">
+          <span class="material-symbols-outlined">home</span>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors text-sm font-medium" href="../repurpose_studio_responsive/code.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Studio</span>
+        </a>
+      </li>
+      <li>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors text-sm font-medium" href="../upgrade_to_pro_responsive/code.html">
+          <span class="material-symbols-outlined">payments</span>
+          <span>Pricing & Pro Pack</span>
+        </a>
+      </li>
+      <li>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container text-on-primary-container font-semibold text-sm shadow-sm" href="code.html">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+          <span>Saved Posts History</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Bottom Credits Info -->
+    <div class="mt-auto flex flex-col gap-3 border-t border-outline-variant/20 pt-4">
+      <div class="flex items-center justify-between px-4 py-3 bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm">
+        <div class="flex items-center gap-2 text-on-surface-variant font-mono text-xs">
+          <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">token</span>
+          <span>Credits: <strong class="text-primary font-bold">50</strong></span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 ml-0 md:ml-[280px] h-full overflow-y-auto p-4 md:p-8">
+    <div class="max-w-6xl mx-auto space-y-6 pt-16 md:pt-0">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-outline-variant/20 pb-4">
+        <div>
+          <h1 class="font-heading text-2xl sm:text-3xl font-bold text-on-background">Saved Posts History</h1>
+          <p class="text-xs sm:text-sm text-secondary mt-1">Review, re-copy, or inspect your previously generated LinkedIn, Twitter, and Newsletter outputs.</p>
+        </div>
+        <a href="../repurpose_studio_responsive/code.html" class="px-4 py-2 bg-primary hover:bg-primary-container text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 shadow-sm transition-all self-start">
+          <span class="material-symbols-outlined text-sm">add</span>
+          <span>New Morph</span>
+        </a>
+      </div>
+
+      <!-- History Content List Container -->
+      <div id="history-container" class="space-y-4">
+        <!-- Sample/Saved Items will be rendered here -->
+        <div class="glass-panel rounded-2xl p-6 space-y-4 shadow-sm hover:border-primary/40 transition-all">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-mono text-xs font-semibold">Raw Text</span>
+              <span class="px-2.5 py-1 rounded-lg bg-surface-container-high text-secondary font-mono text-xs">Tone: Thought Leader</span>
+            </div>
+            <span class="text-xs font-mono text-secondary">Just now</span>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-bold font-mono text-secondary uppercase mb-1">Source Excerpt</h4>
+            <p class="text-sm text-on-surface line-clamp-2 bg-surface-container-low p-3 rounded-xl border border-outline-variant/30">
+              "We noticed that creating distinct content for LinkedIn, Twitter, and email newsletters takes 4+ hours every week..."
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+            <button onclick="navigator.clipboard.writeText('🚀 90% of content creators are doing distribution completely backwards...\n\n#ContentStrategy #Growth'); alert('Copied LinkedIn Post to clipboard!');" class="p-3 bg-white hover:bg-surface-container-low border border-outline-variant/40 rounded-xl text-left text-xs space-y-1 transition-all">
+              <div class="flex items-center justify-between font-bold text-primary">
+                <span>LinkedIn Post</span>
+                <span class="material-symbols-outlined text-sm">content_copy</span>
+              </div>
+              <p class="text-secondary line-clamp-2">"90% of creators are doing distribution completely backwards..."</p>
+            </button>
+
+            <button onclick="navigator.clipboard.writeText('🧵 1/4 If you spend more than 15 mins repurposing content, you are losing leverage...'); alert('Copied Twitter Thread to clipboard!');" class="p-3 bg-white hover:bg-surface-container-low border border-outline-variant/40 rounded-xl text-left text-xs space-y-1 transition-all">
+              <div class="flex items-center justify-between font-bold text-purple-600">
+                <span>Twitter Thread</span>
+                <span class="material-symbols-outlined text-sm">content_copy</span>
+              </div>
+              <p class="text-secondary line-clamp-2">"1/4: If you spend more than 15 mins repurposing content..."</p>
+            </button>
+
+            <button onclick="navigator.clipboard.writeText('### In Case You Missed It\n\nTurn every meeting note or draft into an omni-channel distribution engine.'); alert('Copied Newsletter snippet to clipboard!');" class="p-3 bg-white hover:bg-surface-container-low border border-outline-variant/40 rounded-xl text-left text-xs space-y-1 transition-all">
+              <div class="flex items-center justify-between font-bold text-pink-600">
+                <span>Newsletter Snippet</span>
+                <span class="material-symbols-outlined text-sm">content_copy</span>
+              </div>
+              <p class="text-secondary line-clamp-2">"### In Case You Missed It: Key Insights & Takeaways..."</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { supabase } from '../src/lib/supabase.js';
+
+    async function loadHistory() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user?.id) return;
+
+        const { data: posts, error } = await supabase
+          .from('repurposed_posts')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
+
+        if (!error && posts && posts.length > 0) {
+          const container = document.getElementById('history-container');
+          container.innerHTML = posts.map(post => `
+            <div class="glass-panel rounded-2xl p-6 space-y-4 shadow-sm hover:border-primary/40 transition-all">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-mono text-xs font-semibold uppercase">${post.input_type || 'text'}</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-surface-container-high text-secondary font-mono text-xs">Tone: ${post.tone || 'professional'}</span>
+                </div>
+                <span class="text-xs font-mono text-secondary">${new Date(post.created_at || Date.now()).toLocaleDateString()}</span>
+              </div>
+              <div>
+                <p class="text-xs text-on-surface line-clamp-2 bg-surface-container-low p-3 rounded-xl border border-outline-variant/30">
+                  ${post.original_snippet || 'Source content snippet'}
+                </p>
+              </div>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.warn('History fetch:', err);
+      }
+    }
+
+    loadHistory();
+  </script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>PostMorph AI - Repurpose Studio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#f8f9ff",
+            "on-background": "#0b1c30",
+            "surface": "#f8f9ff",
+            "surface-container": "#e5eeff",
+            "surface-container-low": "#eff4ff",
+            "surface-container-high": "#dce9ff",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#6b38d4",
+            "primary-container": "#8455ef",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#fffbff",
+            "secondary": "#565e74",
+            "secondary-container": "#dae2fd",
+            "on-surface": "#0b1c30",
+            "on-surface-variant": "#494454",
+            "outline": "#7b7486",
+            "outline-variant": "#cbc3d7"
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            heading: ["Space Grotesk", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: theme('colors.background');
+      color: theme('colors.on-background');
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid theme('colors.outline-variant');
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen flex font-sans antialiased selection:bg-primary/20 selection:text-primary">
+
+  <!-- Desktop SideNav -->
+  <aside class="hidden md:flex flex-col h-full w-[280px] bg-surface shadow-xl fixed inset-y-0 left-0 z-[60] p-4 border-r border-outline-variant/30">
+    <a href="../landing_page_responsive/code.html" class="flex items-center gap-3 px-4 py-4 mb-6 group cursor-pointer">
+      <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-105">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+      </div>
+      <span class="font-heading text-xl font-bold text-primary">PostMorph AI</span>
+    </a>
+
+    <div class="flex flex-col gap-2 flex-grow">
+      <!-- Home -->
+      <a href="../landing_page_responsive/code.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
+        <span class="material-symbols-outlined">home</span>
+        <span>Home</span>
+      </a>
+
+      <!-- Studio (Active) -->
+      <a href="code.html" class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-xl font-semibold shadow-sm transition-all duration-200">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+        <span>Repurpose Studio</span>
+      </a>
+
+      <!-- History -->
+      <a href="../dashboard_history_responsive/code.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
+        <span class="material-symbols-outlined">history</span>
+        <span>History</span>
+      </a>
+
+      <!-- Pricing / Upgrade -->
+      <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
+        <span class="material-symbols-outlined">payments</span>
+        <span>Pricing & Pro Pack</span>
+      </a>
+
+      <!-- Log In / Sign Up -->
+      <a href="../login_sign_up_responsive/code.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
+        <span class="material-symbols-outlined">account_circle</span>
+        <span>Account</span>
+      </a>
+    </div>
+
+    <!-- Bottom Account & Credits Info -->
+    <div class="mt-auto flex flex-col gap-3 border-t border-outline-variant/20 pt-4">
+      <div class="flex items-center justify-between px-4 py-3 bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm">
+        <div class="flex items-center gap-2 text-on-surface-variant font-mono text-xs">
+          <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">token</span>
+          <span>Credits: <strong id="sidebar-credits" class="text-primary font-bold">50</strong></span>
+        </div>
+        <button id="btn-refresh-credits" type="button" title="Sync / Refresh Credits" class="text-secondary hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-high flex items-center justify-center">
+          <span class="material-symbols-outlined text-sm">refresh</span>
+        </button>
+      </div>
+      <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary rounded-xl font-semibold text-sm shadow-md hover:bg-primary-container transition-all active:scale-95 duration-200">
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+        <span>Upgrade to Pro (₹199)</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile Top Header -->
+  <header class="md:hidden fixed top-0 w-full bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm flex items-center justify-between px-4 h-16 z-50">
+    <a href="../landing_page_responsive/code.html" class="flex items-center gap-2">
+      <div class="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white">
+        <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+      </div>
+      <span class="font-heading text-lg font-bold text-primary">PostMorph</span>
+    </a>
+    
+    <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1 px-2.5 py-1 bg-surface-container-low border border-outline-variant/30 rounded-lg text-xs font-mono">
+        <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">token</span>
+        <strong id="mobile-credits" class="text-primary font-bold">50</strong>
+      </div>
+      <a href="../dashboard_history_responsive/code.html" class="px-2.5 py-1.5 text-xs text-secondary font-medium">History</a>
+      <a href="../upgrade_to_pro_responsive/code.html" class="px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg">Upgrade</a>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 ml-0 md:ml-[280px] pt-20 md:pt-6 p-4 md:p-8 min-h-screen flex flex-col">
+    <div class="max-w-7xl mx-auto w-full flex-grow flex flex-col space-y-6">
+      
+      <!-- Studio Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-outline-variant/20 pb-4">
+        <div>
+          <h1 class="font-heading text-2xl sm:text-3xl font-bold text-on-background">Content Repurpose Studio</h1>
+          <p class="text-xs sm:text-sm text-secondary mt-1">Transform long-form text, blogs, or YouTube transcripts into multi-format viral posts.</p>
+        </div>
+      </div>
+
+      <!-- Main Two-Column Workspace -->
+      <div class="flex-grow flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
+        
+        <!-- Left Column: Input Form -->
+        <div class="w-full lg:w-5/12 flex flex-col gap-6">
+          <div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/40 overflow-hidden flex flex-col">
+            
+            <!-- Source Type Tabs -->
+            <div class="flex items-center border-b border-outline-variant/20 px-3 pt-3 bg-surface-container-low/40 overflow-x-auto no-scrollbar gap-1">
+              <button id="tab-input-text" class="input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg transition-all flex items-center gap-2 bg-primary text-white shadow-sm" data-type="text">
+                <span class="material-symbols-outlined text-sm">content_paste</span>
+                <span>Raw Text</span>
+              </button>
+              <button id="tab-input-url" class="input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg text-secondary hover:text-primary transition-all flex items-center gap-2" data-type="url">
+                <span class="material-symbols-outlined text-sm">link</span>
+                <span>Blog URL</span>
+              </button>
+              <button id="tab-input-youtube" class="input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg text-secondary hover:text-primary transition-all flex items-center gap-2" data-type="youtube">
+                <span class="material-symbols-outlined text-sm">play_circle</span>
+                <span>YouTube</span>
+              </button>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-6 flex flex-col gap-3">
+              <label for="source-text" class="text-xs font-bold font-mono uppercase text-secondary tracking-wider">Source Content</label>
+              <textarea id="source-text" rows="10" class="w-full resize-none bg-surface-container-low/60 border border-outline-variant/40 rounded-xl p-4 text-sm text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary focus:bg-white transition-all outline-none leading-relaxed" placeholder="Paste your article draft, meeting transcript, or raw ideas here..."></textarea>
+              
+              <div class="flex items-center justify-between text-xs text-secondary font-mono">
+                <span id="char-counter">0 chars | 0 words</span>
+                <span class="text-primary font-semibold">Cost: 1 Credit</span>
+              </div>
+            </div>
+
+            <!-- Target Tone Selector & Morph CTA -->
+            <div class="px-6 pb-6 pt-4 border-t border-outline-variant/20 bg-surface-container-low/20 flex flex-col gap-4">
+              <div>
+                <label class="block text-xs font-bold font-mono uppercase text-secondary tracking-wider mb-2">Target Voice & Tone</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="tone-pills">
+                  <button type="button" class="tone-btn active px-3 py-2 text-xs font-medium rounded-lg border border-primary bg-primary/10 text-primary transition-all" data-tone="professional">Professional</button>
+                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="thought leader">Thought Leader</button>
+                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="punchy">Punchy</button>
+                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="storytelling">Storytelling</button>
+                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="contrarian">Contrarian</button>
+                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="conversational">Conversational</button>
+                </div>
+              </div>
+
+              <button id="morph-btn" class="w-full py-4 bg-primary hover:bg-primary-container text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/25 transition-all active:scale-[0.98] duration-200 flex items-center justify-center gap-2 group">
+                <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                <span id="morph-btn-text">Morph Content (1 Credit)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Formatted Outputs -->
+        <div class="w-full lg:w-7/12 flex flex-col min-h-[560px]">
+          <div class="glass-panel rounded-2xl shadow-sm overflow-hidden flex flex-col flex-grow">
+            
+            <!-- Output Format Switcher -->
+            <div class="flex items-center justify-between p-3 bg-surface-container-low/60 border-b border-outline-variant/20 flex-wrap gap-2">
+              <div class="flex items-center gap-1 overflow-x-auto no-scrollbar">
+                <button class="output-tab active px-4 py-2 bg-white text-primary rounded-lg font-bold text-xs shadow-sm border border-primary/20 flex items-center gap-1.5 transition-all" data-output="linkedin">
+                  <span class="material-symbols-outlined text-sm">work</span>
+                  <span>LinkedIn Post</span>
+                </button>
+                <button class="output-tab px-4 py-2 text-secondary hover:text-primary rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all" data-output="twitter">
+                  <span class="material-symbols-outlined text-sm">tag</span>
+                  <span>Twitter / X Thread</span>
+                </button>
+                <button class="output-tab px-4 py-2 text-secondary hover:text-primary rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all" data-output="newsletter">
+                  <span class="material-symbols-outlined text-sm">mail</span>
+                  <span>Newsletter Snippet</span>
+                </button>
+              </div>
+
+              <button id="copy-btn" class="flex items-center gap-1.5 px-4 py-2 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-semibold text-xs transition-colors border border-outline-variant/30 active:scale-95">
+                <span class="material-symbols-outlined text-sm">content_copy</span>
+                <span id="copy-btn-label">Copy Output</span>
+              </button>
+            </div>
+
+            <!-- Output Container Panes -->
+            <div class="p-6 md:p-8 flex-grow flex flex-col bg-surface-container-lowest overflow-y-auto max-h-[580px]">
+              
+              <!-- Empty State -->
+              <div id="output-empty" class="my-auto flex flex-col items-center justify-center text-center py-12 space-y-4">
+                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                  <span class="material-symbols-outlined text-3xl">auto_awesome</span>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="font-heading font-bold text-lg text-on-background">Ready to Morph</h3>
+                  <p class="text-xs text-secondary max-w-sm">Enter your source text or URL on the left and click "Morph Content" to generate tailored copy.</p>
+                </div>
+              </div>
+
+              <!-- LinkedIn Output Pane -->
+              <div id="output-linkedin-pane" class="output-pane hidden flex-grow">
+                <div class="prose max-w-none text-sm text-on-surface leading-relaxed whitespace-pre-wrap font-sans" id="linkedin-text"></div>
+              </div>
+
+              <!-- Twitter Output Pane -->
+              <div id="output-twitter-pane" class="output-pane hidden flex-grow space-y-3">
+                <div id="twitter-thread-list" class="space-y-3"></div>
+              </div>
+
+              <!-- Newsletter Output Pane -->
+              <div id="output-newsletter-pane" class="output-pane hidden flex-grow">
+                <div class="prose max-w-none text-sm text-on-surface leading-relaxed whitespace-pre-wrap font-sans" id="newsletter-text"></div>
+              </div>
+            </div>
+
+            <!-- Output Footer Info Bar -->
+            <div class="p-4 border-t border-outline-variant/20 bg-surface-container-low/30 flex items-center justify-between text-xs text-secondary font-mono">
+              <div class="flex items-center gap-4">
+                <span id="active-tone-label">Tone: Professional</span>
+                <span>•</span>
+                <span id="output-words-label">0 words</span>
+              </div>
+              <a href="../dashboard_history_responsive/code.html" class="text-primary hover:underline font-semibold flex items-center gap-1">
+                <span>View in History</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Application Logic -->
+  <script type="module">
+    import { repurposeContent } from '../src/lib/aiService.js';
+    import { supabase, getCurrentUser, getEffectiveCredits, signOutUser, resetToSignupCredits } from '../src/lib/supabase.js';
+
+    // State Variables
+    let selectedTone = 'professional';
+    let activeInputType = 'text';
+    let currentUser = null;
+    let userCredits = 0;
+    let currentResult = null;
+
+    // DOM References
+    const sourceTextArea = document.getElementById('source-text');
+    const charCounter = document.getElementById('char-counter');
+    const morphBtn = document.getElementById('morph-btn');
+    const morphBtnText = document.getElementById('morph-btn-text');
+    const copyBtn = document.getElementById('copy-btn');
+    const copyBtnLabel = document.getElementById('copy-btn-label');
+    const sidebarCredits = document.getElementById('sidebar-credits');
+    const mobileCredits = document.getElementById('mobile-credits');
+    const btnRefreshCredits = document.getElementById('btn-refresh-credits');
+    const activeToneLabel = document.getElementById('active-tone-label');
+    const outputWordsLabel = document.getElementById('output-words-label');
+
+    // Initialize Persistent User Session & Credits (Closes refresh loophole)
+    function updateCreditsDisplay() {
+      if (sidebarCredits) sidebarCredits.textContent = userCredits;
+      if (mobileCredits) mobileCredits.textContent = userCredits;
+    }
+
+    async function initSession() {
+      currentUser = await getCurrentUser();
+      userCredits = await getEffectiveCredits(currentUser?.id);
+      updateCreditsDisplay();
+
+      // Update sidebar account link if logged in
+      const accountLink = document.querySelector('a[href="../login_sign_up_responsive/code.html"]');
+      if (accountLink && currentUser) {
+        accountLink.innerHTML = `
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+          <span class="truncate text-xs font-semibold text-primary" title="${currentUser.email}">${currentUser.email.split('@')[0]}</span>
+        `;
+        if (!document.getElementById('btn-sidebar-signout')) {
+          const signoutBtn = document.createElement('button');
+          signoutBtn.id = 'btn-sidebar-signout';
+          signoutBtn.className = 'text-[11px] text-red-500 hover:text-red-700 px-4 py-1 text-left font-mono block transition-colors';
+          signoutBtn.textContent = 'Sign Out';
+          signoutBtn.addEventListener('click', async () => {
+            await signOutUser();
+            window.location.reload();
+          });
+          accountLink.parentElement.appendChild(signoutBtn);
+        }
+      }
+    }
+
+    initSession();
+
+    // Real-time synchronization across events and tabs
+    window.addEventListener('pm_credits_updated', (e) => {
+      if (typeof e.detail?.credits === 'number') {
+        userCredits = e.detail.credits;
+        updateCreditsDisplay();
+      }
+    });
+
+    window.addEventListener('storage', async (e) => {
+      if (e.key && (e.key.startsWith('pm_credits') || e.key.includes('guest_credits') || e.key.includes('paid'))) {
+        userCredits = await getEffectiveCredits(currentUser?.id);
+        updateCreditsDisplay();
+      }
+    });
+
+    window.addEventListener('focus', async () => {
+      userCredits = await getEffectiveCredits(currentUser?.id);
+      updateCreditsDisplay();
+    });
+
+    if (btnRefreshCredits) {
+      btnRefreshCredits.addEventListener('click', async () => {
+        btnRefreshCredits.classList.add('animate-spin');
+        try {
+          userCredits = await getEffectiveCredits(currentUser?.id);
+          updateCreditsDisplay();
+          alert(`Credits synced with server! Current balance: ${userCredits} credits.`);
+        } finally {
+          setTimeout(() => btnRefreshCredits.classList.remove('animate-spin'), 600);
+        }
+      });
+    }
+
+    // Panes
+    const emptyState = document.getElementById('output-empty');
+    const linkedinPane = document.getElementById('output-linkedin-pane');
+    const twitterPane = document.getElementById('output-twitter-pane');
+    const newsletterPane = document.getElementById('output-newsletter-pane');
+    const linkedinText = document.getElementById('linkedin-text');
+    const twitterThreadList = document.getElementById('twitter-thread-list');
+    const newsletterText = document.getElementById('newsletter-text');
+
+    // Input Tabs
+    const inputTypeBtns = document.querySelectorAll('.input-type-btn');
+    inputTypeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        inputTypeBtns.forEach(b => {
+          b.className = 'input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg text-secondary hover:text-primary transition-all flex items-center gap-2';
+        });
+        btn.className = 'input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg transition-all flex items-center gap-2 bg-primary text-white shadow-sm';
+        activeInputType = btn.dataset.type;
+
+        if (activeInputType === 'text') {
+          sourceTextArea.placeholder = 'Paste your article draft, meeting transcript, or raw ideas here...';
+        } else if (activeInputType === 'url') {
+          sourceTextArea.placeholder = 'Paste public blog or article URL here (e.g., https://medium.com/@user/article)...';
+        } else if (activeInputType === 'youtube') {
+          sourceTextArea.placeholder = 'Paste YouTube video URL here (e.g., https://youtube.com/watch?v=...)...';
+        }
+      });
+    });
+
+    // Tone Buttons
+    const toneBtns = document.querySelectorAll('.tone-btn');
+    toneBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        toneBtns.forEach(b => {
+          b.className = 'tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all';
+        });
+        btn.className = 'tone-btn active px-3 py-2 text-xs font-medium rounded-lg border border-primary bg-primary/10 text-primary transition-all';
+        selectedTone = btn.dataset.tone;
+        activeToneLabel.textContent = `Tone: ${selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)}`;
+      });
+    });
+
+    // Character Counter
+    sourceTextArea.addEventListener('input', () => {
+      const text = sourceTextArea.value;
+      const chars = text.length;
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      charCounter.textContent = `${chars} chars | ${words} words`;
+    });
+
+    // Output Tabs
+    const outputTabs = document.querySelectorAll('.output-tab');
+    let currentActiveTab = 'linkedin';
+
+    function switchOutputTab(targetTab) {
+      currentActiveTab = targetTab;
+      outputTabs.forEach(t => {
+        if (t.dataset.output === targetTab) {
+          t.className = 'output-tab active px-4 py-2 bg-white text-primary rounded-lg font-bold text-xs shadow-sm border border-primary/20 flex items-center gap-1.5 transition-all';
+        } else {
+          t.className = 'output-tab px-4 py-2 text-secondary hover:text-primary rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all';
+        }
+      });
+
+      if (!currentResult) return;
+
+      emptyState.classList.add('hidden');
+      linkedinPane.classList.toggle('hidden', targetTab !== 'linkedin');
+      twitterPane.classList.toggle('hidden', targetTab !== 'twitter');
+      newsletterPane.classList.toggle('hidden', targetTab !== 'newsletter');
+
+      if (targetTab === 'linkedin') {
+        const words = (currentResult.linkedin_post || '').split(/\s+/).length;
+        outputWordsLabel.textContent = `${words} words`;
+      } else if (targetTab === 'twitter') {
+        const words = Array.isArray(currentResult.twitter_thread) ? currentResult.twitter_thread.join(' ').split(/\s+/).length : 0;
+        outputWordsLabel.textContent = `${words} words`;
+      } else if (targetTab === 'newsletter') {
+        const words = (currentResult.newsletter_blurb || '').split(/\s+/).length;
+        outputWordsLabel.textContent = `${words} words`;
+      }
+    }
+
+    outputTabs.forEach(tab => {
+      tab.addEventListener('click', () => switchOutputTab(tab.dataset.output));
+    });
+
+    // Copy to Clipboard
+    copyBtn.addEventListener('click', async () => {
+      if (!currentResult) {
+        alert('No morphed content available to copy.');
+        return;
+      }
+
+      let textToCopy = '';
+      if (currentActiveTab === 'linkedin') {
+        textToCopy = currentResult.linkedin_post || '';
+      } else if (currentActiveTab === 'twitter') {
+        textToCopy = Array.isArray(currentResult.twitter_thread) ? currentResult.twitter_thread.join('\n\n') : currentResult.twitter_thread || '';
+      } else if (currentActiveTab === 'newsletter') {
+        textToCopy = currentResult.newsletter_blurb || '';
+      }
+
+      if (!textToCopy) return;
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        const originalLabel = copyBtnLabel.textContent;
+        copyBtnLabel.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtnLabel.textContent = originalLabel;
+        }, 1800);
+      } catch (err) {
+        console.error('Clipboard copy failed:', err);
+      }
+    });
+
+    // Morph Content Button Click Handler
+    morphBtn.addEventListener('click', async () => {
+      const content = sourceTextArea.value.trim();
+      if (!content) {
+        alert('Please enter some text or a valid link to repurpose.');
+        return;
+      }
+
+      if (userCredits <= 0) {
+        alert('Insufficient credits! You have 0 credits remaining. Please upgrade to Pro to continue morphing.');
+        window.location.href = '../upgrade_to_pro_responsive/code.html';
+        return;
+      }
+      const userId = currentUser?.id || 'demo-user-id';
+
+      morphBtn.disabled = true;
+      morphBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      morphBtnText.textContent = 'Morphing content...';
+
+      try {
+        const result = await repurposeContent({
+          userId,
+          content,
+          inputType: activeInputType,
+          tone: selectedTone
+        });
+
+        currentResult = result;
+
+        // Render LinkedIn Post
+        linkedinText.textContent = result.linkedin_post || '';
+
+        // Render Twitter Thread
+        if (Array.isArray(result.twitter_thread)) {
+          twitterThreadList.innerHTML = result.twitter_thread.map((tweet, i) => `
+            <div class="p-4 rounded-xl border border-outline-variant/30 bg-surface-container-low/40 text-on-surface">
+              <span class="text-[11px] font-bold font-mono text-primary uppercase tracking-wider block mb-1">Tweet ${i + 1}</span>
+              <p class="text-xs leading-relaxed whitespace-pre-wrap">${tweet}</p>
+            </div>
+          `).join('');
+        } else {
+          twitterThreadList.innerHTML = `<div class="p-4 rounded-xl border border-outline-variant/30 text-xs">${result.twitter_thread}</div>`;
+        }
+
+        // Render Newsletter Blurb
+        newsletterText.textContent = result.newsletter_blurb || '';
+
+        // Update persistent credits
+        userCredits = result.remainingCredits;
+        updateCreditsDisplay();
+
+        // Show pane
+        switchOutputTab(currentActiveTab);
+
+      } catch (err) {
+        console.error('Morphing error:', err);
+        if (err.message && err.message.toLowerCase().includes('credit')) {
+          alert('Insufficient credits. Redirecting to Upgrade page...');
+          window.location.href = '../upgrade_to_pro_responsive/code.html';
+        } else {
+          alert(err.message || 'Failed to repurpose content. Please try again.');
+        }
+      } finally {
+        morphBtn.disabled = false;
+        morphBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        morphBtnText.textContent = 'Morph Content (1 Credit)';
+      }
+    });
+  </script>
+</body>
+</html>
