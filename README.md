@@ -6,7 +6,7 @@ Transform long-form articles, YouTube videos, and text notes into high-convertin
 - **Multi-Channel Repurposing**: Convert input into LinkedIn posts, Twitter/X threads, and Newsletter summaries.
 - **Tone Customization**: Support for Thought Leader, Contrarian, Technical, Casual, and Storytelling voices.
 - **Supabase Authentication**: User sign up, sign in, and persistent credit tracking.
-- **Razorpay Payments**: Integrated ₹199 / 500 AI credits Pro top-up with serverless order creation.
+- **Razorpay Payments**: Integrated ₹199 for 50 credits (Starter Pack) and ₹499 for 150 credits (Creator Pro) with serverless order creation.
 - **Vercel Serverless Ready**: Production-ready configuration with API routes and multi-page routing.
 
 ## Tech Stack
