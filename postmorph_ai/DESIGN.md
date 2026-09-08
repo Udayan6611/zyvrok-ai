@@ -1,5 +1,5 @@
 ---
-name: PostMorph AI
+name: Zyvrok
 colors:
   surface: '#f8f9ff'
   surface-dim: '#cbdbf5'
