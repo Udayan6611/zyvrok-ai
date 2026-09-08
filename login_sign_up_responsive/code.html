@@ -53,8 +53,17 @@
 
   <div class="max-w-md w-full glass-card rounded-3xl p-8 space-y-6">
     <div class="text-center space-y-2">
-      <a href="../landing_page_responsive/code.html" class="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-gradient-to-tr from-primary to-primary-container text-white shadow-lg shadow-primary/25 mb-2">
-        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+      <a href="../index.html" class="inline-flex items-center gap-3 mb-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-primary/25 transition-transform group-hover:scale-105 flex-shrink-0">
+        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16L7 20h13"/>
+          <circle cx="19" cy="5" r="1.5" fill="#34d399" stroke="none"/>
+        </svg>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="font-heading text-xl font-extrabold tracking-tight text-on-background leading-none">Zyvrok</span>
+        <span class="text-[10px] font-mono lowercase text-secondary tracking-tight mt-1">turn links into signal</span>
+      </div>
       </a>
       <h2 id="auth-title" class="font-heading text-2xl font-bold text-on-background">Zyvrok Account</h2>
       <p id="auth-subtitle" class="text-xs text-secondary">Manage your profile, sync credits, and access your generated content library.</p>
@@ -78,7 +87,7 @@
         </div>
         <div class="flex items-center gap-1.5 text-primary font-bold font-mono text-base">
           <span class="material-symbols-outlined text-amber-500 text-lg" style="font-variation-settings: 'FILL' 1;">token</span>
-          <span id="logged-in-credits">50</span>
+          <span id="logged-in-credits">...</span>
         </div>
       </div>
 
