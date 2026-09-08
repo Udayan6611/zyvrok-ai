@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>PostMorph AI - Upgrade to Pro & Pricing</title>
+  <title>Zyvrok — Upgrade to Pro & Pricing</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -158,47 +158,68 @@
           <div>
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">stars</span>
-                <h2 class="font-heading text-2xl font-bold text-on-background">Pro Pack</h2>
+                <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                <h2 class="font-heading text-2xl font-bold text-on-background">Select Credit Pack</h2>
               </div>
-              <span class="px-3 py-1 rounded-full text-xs font-bold bg-primary text-white uppercase tracking-wider">Most Popular</span>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-primary text-white uppercase tracking-wider">Pay-As-You-Go</span>
             </div>
 
-            <div class="mb-6">
-              <div class="flex items-baseline gap-2">
-                <span class="font-heading text-4xl sm:text-5xl font-extrabold text-on-background">₹199</span>
-                <span class="text-xs font-mono text-secondary">/ 500 Credits (Intro Offer)</span>
-              </div>
-              <p class="text-xs text-secondary mt-1">One-time payment • Never expires • No recurring charges</p>
+            <!-- Tier Selector Radio Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <label class="plan-option cursor-pointer p-4 rounded-2xl border-2 border-primary bg-primary/5 transition-all flex flex-col justify-between relative" data-plan="starter" data-price="199" data-credits="50">
+                <input type="radio" name="plan" value="199" checked class="sr-only">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-on-background">Starter Pack</span>
+                  <span class="w-4 h-4 rounded-full border-2 border-primary bg-primary flex items-center justify-center text-white text-[10px]">✓</span>
+                </div>
+                <div class="mt-3">
+                  <span class="font-heading text-2xl sm:text-3xl font-extrabold text-on-background">₹199</span>
+                  <span class="text-xs font-mono text-secondary">/ 50 Credits</span>
+                </div>
+                <p class="text-[11px] text-secondary mt-1.5">~₹3.98/post • Ideal for weekly creators</p>
+              </label>
+
+              <label class="plan-option cursor-pointer p-4 rounded-2xl border-2 border-outline-variant/60 hover:border-primary/50 bg-white transition-all flex flex-col justify-between relative" data-plan="pro" data-price="499" data-credits="150">
+                <input type="radio" name="plan" value="499" class="sr-only">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-on-background">Creator Pro</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 uppercase">Best Value</span>
+                </div>
+                <div class="mt-3">
+                  <span class="font-heading text-2xl sm:text-3xl font-extrabold text-on-background">₹499</span>
+                  <span class="text-xs font-mono text-secondary">/ 150 Credits</span>
+                </div>
+                <p class="text-[11px] text-secondary mt-1.5">~₹3.32/post • Priority queue & AI refine</p>
+              </label>
             </div>
 
-            <ul class="space-y-4 mb-8 text-sm">
+            <ul class="space-y-3.5 mb-8 text-sm">
               <li class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                <span class="material-symbols-outlined text-primary mt-0.5 text-lg">check_circle</span>
                 <div>
-                  <strong class="block text-on-background">500 AI Generation Credits</strong>
-                  <span class="block text-xs text-on-surface-variant">Morph up to 500 articles, transcripts, or notes.</span>
+                  <strong class="block text-on-background" id="plan-credits-feature">50 AI Generation Credits Included</strong>
+                  <span class="block text-xs text-on-surface-variant">Credits never expire. No hidden recurring subscriptions.</span>
                 </div>
               </li>
               <li class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                <span class="material-symbols-outlined text-primary mt-0.5 text-lg">check_circle</span>
                 <div>
-                  <strong class="block text-on-background">Priority GPU Cluster Queue</strong>
-                  <span class="block text-xs text-on-surface-variant">Instant sub-3-second processing with zero waiting.</span>
+                  <strong class="block text-on-background">Built-in Draft Editor & 1-Click AI Refinements</strong>
+                  <span class="block text-xs text-on-surface-variant">Interactive editor with ⚡ Shorten, 🔥 Hook, and 🎯 Contrarian actions.</span>
                 </div>
               </li>
               <li class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                <span class="material-symbols-outlined text-primary mt-0.5 text-lg">check_circle</span>
                 <div>
-                  <strong class="block text-on-background">Full Multi-Channel Suite</strong>
-                  <span class="block text-xs text-on-surface-variant">LinkedIn Posts, Twitter Threads & Newsletter highlights.</span>
+                  <strong class="block text-on-background">Full Multi-Format Bundle</strong>
+                  <span class="block text-xs text-on-surface-variant">LinkedIn Posts, Twitter/X Threads & News Article summaries.</span>
                 </div>
               </li>
               <li class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                <span class="material-symbols-outlined text-primary mt-0.5 text-lg">check_circle</span>
                 <div>
-                  <strong class="block text-on-background">Commercial Publishing License</strong>
-                  <span class="block text-xs text-on-surface-variant">Full rights to use and monetize generated copy.</span>
+                  <strong class="block text-on-background">Full Commercial Publishing Rights</strong>
+                  <span class="block text-xs text-on-surface-variant">Publish, monetize, or ghostwrite for clients with 100% ownership.</span>
                 </div>
               </li>
             </ul>
@@ -206,7 +227,7 @@
 
           <div class="pt-6 border-t border-outline-variant/30 space-y-3">
             <button id="btn-pay" class="w-full bg-primary hover:bg-primary-container text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/25 transition-all active:scale-[0.98] flex justify-center items-center gap-2 group">
-              <span class="text-base font-semibold">Pay Securely via Razorpay (₹199)</span>
+              <span id="btn-pay-text" class="text-base font-semibold">Pay Securely via Razorpay (₹199)</span>
               <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </button>
 
@@ -284,6 +305,30 @@
       }
     });
 
+    // Plan Tier Selection Logic
+    let selectedPrice = 199;
+    let selectedCredits = 50;
+    const btnPayText = document.getElementById('btn-pay-text');
+    const planCreditsFeature = document.getElementById('plan-credits-feature');
+    const planOptions = document.querySelectorAll('.plan-option');
+
+    planOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        planOptions.forEach(o => {
+          o.className = 'plan-option cursor-pointer p-4 rounded-2xl border-2 border-outline-variant/60 hover:border-primary/50 bg-white transition-all flex flex-col justify-between relative';
+          const indicator = o.querySelector('input[type="radio"] + div span:last-child');
+          if (indicator && indicator.textContent === '✓') indicator.remove();
+        });
+
+        opt.className = 'plan-option cursor-pointer p-4 rounded-2xl border-2 border-primary bg-primary/5 transition-all flex flex-col justify-between relative';
+        selectedPrice = Number(opt.dataset.price);
+        selectedCredits = Number(opt.dataset.credits);
+
+        if (btnPayText) btnPayText.textContent = `Pay Securely via Razorpay (₹${selectedPrice})`;
+        if (planCreditsFeature) planCreditsFeature.textContent = `${selectedCredits} AI Generation Credits Included`;
+      });
+    });
+
     // Production Razorpay Checkout Handler
     const btnPay = document.getElementById('btn-pay');
     let isPaying = false;
@@ -331,8 +376,10 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            amount: 19900,
+            amount: selectedPrice * 100,
             currency: 'INR',
+            credits: selectedCredits,
+            userId: currentUser.id,
             receipt: `rcpt_${Date.now()}`
           })
         });
@@ -354,10 +401,10 @@
 
       const options = {
         key: razorpayKey,
-        amount: orderData?.amount || 19900,
+        amount: orderData?.amount || (selectedPrice * 100),
         currency: orderData?.currency || 'INR',
-        name: 'PostMorph AI',
-        description: 'Pro Pack - 500 Credits Top-Up',
+        name: 'Zyvrok',
+        description: `Zyvrok Pro Pack - ${selectedCredits} Credits Top-Up`,
         image: 'https://cdn-icons-png.flaticon.com/512/8637/8637106.png',
         order_id: orderData?.id || undefined, // Mandated by Razorpay to avoid 'Please use another method' errors
         prefill: {
@@ -369,8 +416,8 @@
         key: razorpayKey,
         amount: 19900, // ₹199 in paise
         currency: 'INR',
-        name: 'PostMorph AI',
-        description: 'Pro Pack - 500 Credits Top-Up',
+        name: 'Zyvrok',
+        description: `Zyvrok Pro Pack - ${selectedCredits} Credits Top-Up`,
         image: 'https://cdn-icons-png.flaticon.com/512/8637/8637106.png',
         prefill: {
           email: currentUser.email || ''
@@ -384,8 +431,8 @@
 
           if (response && response.razorpay_payment_id) {
             try {
-              const newTotal = await addPaidCredits(currentUser.id, 500, response.razorpay_payment_id);
-              alert(`Payment Successful!\n\nPayment ID: ${response.razorpay_payment_id}\n500 Credits added to your account.\nYour new balance is ${newTotal} credits.`);
+              const newTotal = await addPaidCredits(currentUser.id, selectedCredits, response.razorpay_payment_id);
+              alert(`Payment Successful!\n\nPayment ID: ${response.razorpay_payment_id}\n${selectedCredits} Credits added to your account.\nYour new balance is ${newTotal} credits.`);
               window.location.href = '../repurpose_studio_responsive/code.html';
             } catch (err) {
               alert('Payment succeeded but error updating profile: ' + err.message);

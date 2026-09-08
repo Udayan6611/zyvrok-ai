@@ -135,9 +135,9 @@ export async function getEffectiveCredits(userId) {
       if (!profile || profile.credits === null || profile.credits === undefined) {
         await supabase
           .from('profiles')
-          .upsert({ id: userId, credits: 50 }, { onConflict: 'id' });
-        localStorage.setItem(userKey, '50');
-        return 50;
+          .upsert({ id: userId, credits: 5 }, { onConflict: 'id' });
+        localStorage.setItem(userKey, '5');
+        return 5;
       }
     } catch (e) {
       console.warn('Supabase fetch error, fallback to cached:', e);
@@ -145,14 +145,14 @@ export async function getEffectiveCredits(userId) {
 
     // Offline cache fallback
     const cached = localStorage.getItem(userKey);
-    return cached !== null ? Math.max(0, parseInt(cached, 10) || 0) : 50;
+    return cached !== null ? Math.max(0, parseInt(cached, 10) || 0) : 5;
   }
 
   // Guest mode
   const guestCached = localStorage.getItem('pm_guest_credits');
   if (guestCached === null) {
-    localStorage.setItem('pm_guest_credits', '50');
-    return 50;
+    localStorage.setItem('pm_guest_credits', '5');
+    return 5;
   }
   return Math.max(0, parseInt(guestCached, 10) || 0);
 }
@@ -220,7 +220,7 @@ export async function addPaidCredits(userId, amount, paymentId) {
 /**
  * Resets credits (for new signups or explicit admin balance resets)
  */
-export async function resetToSignupCredits(userId, target = 50) {
+export async function resetToSignupCredits(userId, target = 5) {
   const isRegistered = userId && userId !== 'demo-user-id';
   const userKey = getCreditsStorageKey(userId);
 

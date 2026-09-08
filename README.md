@@ -1,4 +1,4 @@
-# PostMorph AI — Content Repurposing Studio
+# Zyvrok — Content Repurposing Studio
 
 Transform long-form articles, YouTube videos, and text notes into high-converting LinkedIn posts, Twitter threads, and newsletter blurbs.
 

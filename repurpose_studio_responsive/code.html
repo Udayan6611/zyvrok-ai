@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>PostMorph AI - Repurpose Studio</title>
+  <title>Zyvrok — Content Repurposing Studio</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <!-- Google Fonts & Material Symbols -->
@@ -64,11 +64,17 @@
 
   <!-- Desktop SideNav -->
   <aside class="hidden md:flex flex-col h-full w-[280px] bg-surface shadow-xl fixed inset-y-0 left-0 z-[60] p-4 border-r border-outline-variant/30">
-    <a href="../landing_page_responsive/code.html" class="flex items-center gap-3 px-4 py-4 mb-6 group cursor-pointer">
-      <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-105">
-        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+    <a href="../landing_page_responsive/code.html" class="flex items-center gap-3 px-3 py-4 mb-6 group cursor-pointer">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-primary/25 transition-transform group-hover:scale-105 flex-shrink-0">
+        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16L7 20h13"/>
+          <circle cx="19" cy="5" r="1.5" fill="#34d399" stroke="none"/>
+        </svg>
       </div>
-      <span class="font-heading text-xl font-bold text-primary">PostMorph AI</span>
+      <div class="flex flex-col text-left">
+        <span class="font-heading text-xl font-extrabold tracking-tight text-on-background leading-none">Zyvrok</span>
+        <span class="text-[10px] font-mono lowercase text-secondary tracking-tight mt-1">turn links into signal</span>
+      </div>
     </a>
 
     <div class="flex flex-col gap-2 flex-grow">
@@ -235,9 +241,31 @@
               </button>
             </div>
 
-            <!-- Output Container Panes -->
-            <div class="p-6 md:p-8 flex-grow flex flex-col bg-surface-container-lowest overflow-y-auto max-h-[580px]">
+            <!-- Output Container Panes with Interactive Draft Editor -->
+            <div class="p-6 md:p-8 flex-grow flex flex-col bg-surface-container-lowest overflow-y-auto max-h-[620px]">
               
+              <!-- Refine with AI Action Bar (Appears when content is generated) -->
+              <div id="refine-toolbar" class="hidden pb-3 mb-3 border-b border-outline-variant/30 flex items-center justify-between gap-2 flex-wrap text-xs">
+                <div class="flex items-center gap-1.5 text-secondary font-mono text-[11px]">
+                  <span class="material-symbols-outlined text-sm text-primary animate-pulse">auto_fix_high</span>
+                  <span class="font-semibold text-on-background">Refine with AI:</span>
+                </div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Make this draft more punchy, direct, and roughly 30% shorter without losing core insights">
+                    <span>⚡ Shorten</span>
+                  </button>
+                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Rewrite the opening 2 lines with a much stronger scroll-stopping viral hook, bold contrast, or honest builder confession">
+                    <span>🔥 Stronger Hook</span>
+                  </button>
+                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Reframe the central thesis with a provocative, contrarian angle that challenges popular industry dogma">
+                    <span>🎯 Contrarian</span>
+                  </button>
+                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Refine the tone for C-suite executives and tech founders, emphasizing operational efficiency and strategic ROI">
+                    <span>👔 Executive</span>
+                  </button>
+                </div>
+              </div>
+
               <!-- Empty State -->
               <div id="output-empty" class="my-auto flex flex-col items-center justify-center text-center py-12 space-y-4">
                 <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
@@ -245,23 +273,35 @@
                 </div>
                 <div class="space-y-1">
                   <h3 class="font-heading font-bold text-lg text-on-background">Ready to Morph</h3>
-                  <p class="text-xs text-secondary max-w-sm">Enter your source text or URL on the left and click "Morph Content" to generate tailored copy.</p>
+                  <p class="text-xs text-secondary max-w-sm">Paste your article link, YouTube URL, or raw notes on the left and click "Morph Content".</p>
                 </div>
               </div>
 
-              <!-- LinkedIn Output Pane -->
-              <div id="output-linkedin-pane" class="output-pane hidden flex-grow">
-                <div class="prose max-w-none text-sm text-on-surface leading-relaxed whitespace-pre-wrap font-sans" id="linkedin-text"></div>
+              <!-- LinkedIn Output Pane (Interactive Draft Editor) -->
+              <div id="output-linkedin-pane" class="output-pane hidden flex-grow flex flex-col space-y-2">
+                <div class="flex items-center justify-between text-[11px] font-mono text-secondary px-1">
+                  <span>Draft Editor • Click anywhere to edit directly</span>
+                  <span id="linkedin-live-count">0 chars</span>
+                </div>
+                <textarea id="linkedin-text" class="w-full flex-grow p-4 rounded-xl border border-outline-variant/40 focus:border-primary focus:ring-2 focus:ring-primary/15 bg-white text-sm text-on-surface leading-relaxed resize-y font-sans min-h-[340px] outline-none shadow-inner" placeholder="Generated LinkedIn draft will appear here for editing..."></textarea>
               </div>
 
               <!-- Twitter Output Pane -->
               <div id="output-twitter-pane" class="output-pane hidden flex-grow space-y-3">
+                <div class="flex items-center justify-between text-[11px] font-mono text-secondary px-1">
+                  <span>Thread Cards • Edit individual tweets directly</span>
+                  <span>5-6 Tweets</span>
+                </div>
                 <div id="twitter-thread-list" class="space-y-3"></div>
               </div>
 
-              <!-- Newsletter Output Pane -->
-              <div id="output-newsletter-pane" class="output-pane hidden flex-grow">
-                <div class="prose max-w-none text-sm text-on-surface leading-relaxed whitespace-pre-wrap font-sans" id="newsletter-text"></div>
+              <!-- Newsletter / Article Output Pane (Interactive Draft Editor) -->
+              <div id="output-newsletter-pane" class="output-pane hidden flex-grow flex flex-col space-y-2">
+                <div class="flex items-center justify-between text-[11px] font-mono text-secondary px-1">
+                  <span>News Article & Newsletter Draft Editor</span>
+                  <span id="newsletter-live-count">0 chars</span>
+                </div>
+                <textarea id="newsletter-text" class="w-full flex-grow p-4 rounded-xl border border-outline-variant/40 focus:border-primary focus:ring-2 focus:ring-primary/15 bg-white text-sm text-on-surface leading-relaxed resize-y font-sans min-h-[340px] outline-none shadow-inner" placeholder="Generated newsletter draft or news summary will appear here for editing..."></textarea>
               </div>
             </div>
 
@@ -285,7 +325,7 @@
 
   <!-- Application Logic -->
   <script type="module">
-    import { repurposeContent } from '../src/lib/aiService.js';
+    import { repurposeContent, refineDraft } from '../src/lib/aiService.js';
     import { supabase, getCurrentUser, getEffectiveCredits, signOutUser, resetToSignupCredits } from '../src/lib/supabase.js';
 
     // State Variables
@@ -460,6 +500,102 @@
 
     outputTabs.forEach(tab => {
       tab.addEventListener('click', () => switchOutputTab(tab.dataset.output));
+    });
+
+
+    function updateLiveCount(type) {
+      if (type === 'linkedin' && linkedinText) {
+        const text = linkedinText.value || '';
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const countEl = document.getElementById('linkedin-live-count');
+        if (countEl) countEl.textContent = `${text.length} chars • ${words} words`;
+        if (currentActiveTab === 'linkedin' && outputWordsLabel) outputWordsLabel.textContent = `${words} words`;
+        if (currentResult) currentResult.linkedin_post = text;
+      } else if (type === 'newsletter' && newsletterText) {
+        const text = newsletterText.value || '';
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const countEl = document.getElementById('newsletter-live-count');
+        if (countEl) countEl.textContent = `${text.length} chars • ${words} words`;
+        if (currentActiveTab === 'newsletter' && outputWordsLabel) outputWordsLabel.textContent = `${words} words`;
+        if (currentResult) currentResult.newsletter_blurb = text;
+      }
+    }
+
+    function renderTwitterCards(thread) {
+      if (!Array.isArray(thread)) return;
+      twitterThreadList.innerHTML = thread.map((tweet, i) => `
+        <div class="p-4 rounded-xl border border-outline-variant/30 bg-surface-container-low/40 text-on-surface space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-primary">Tweet ${i + 1}/${thread.length}</span>
+            <span class="text-[10px] font-mono text-secondary tweet-char-count">${tweet.length} chars</span>
+          </div>
+          <textarea class="tweet-editor w-full p-2.5 rounded-lg border border-outline-variant/30 bg-white text-sm text-on-surface leading-relaxed outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 resize-y" rows="3" data-index="${i}">${tweet}</textarea>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.tweet-editor').forEach(te => {
+        te.addEventListener('input', (e) => {
+          const idx = Number(e.target.dataset.index);
+          const val = e.target.value;
+          if (Array.isArray(currentResult?.twitter_thread)) {
+            currentResult.twitter_thread[idx] = val;
+          }
+          const charBadge = e.target.closest('div').querySelector('.tweet-char-count');
+          if (charBadge) charBadge.textContent = `${val.length} chars`;
+        });
+      });
+    }
+
+    linkedinText?.addEventListener('input', () => updateLiveCount('linkedin'));
+    newsletterText?.addEventListener('input', () => updateLiveCount('newsletter'));
+
+    // 1-Click AI Refinement Actions
+    document.querySelectorAll('.btn-refine').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        let activeText = '';
+        if (currentActiveTab === 'linkedin') {
+          activeText = linkedinText.value;
+        } else if (currentActiveTab === 'newsletter') {
+          activeText = newsletterText.value;
+        } else if (currentActiveTab === 'twitter') {
+          activeText = Array.isArray(currentResult?.twitter_thread) ? currentResult.twitter_thread.join('\n\n') : '';
+        }
+
+        if (!activeText || !activeText.trim()) {
+          alert('Please generate or enter content first before refining.');
+          return;
+        }
+
+        const instruction = btn.dataset.instruction;
+        const origContent = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<span class="material-symbols-outlined text-xs animate-spin">refresh</span> Refining...`;
+
+        try {
+          const refined = await refineDraft({
+            text: activeText,
+            instruction: instruction,
+            tone: selectedTone
+          });
+
+          if (currentActiveTab === 'linkedin') {
+            linkedinText.value = refined;
+            updateLiveCount('linkedin');
+          } else if (currentActiveTab === 'newsletter') {
+            newsletterText.value = refined;
+            updateLiveCount('newsletter');
+          } else if (currentActiveTab === 'twitter') {
+            const tweets = refined.split(/\n\n+/).filter(t => t.trim().length > 0);
+            if (currentResult) currentResult.twitter_thread = tweets;
+            renderTwitterCards(tweets);
+          }
+        } catch (err) {
+          alert('Refine failed: ' + err.message);
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = origContent;
+        }
+      });
     });
 
     // Copy to Clipboard

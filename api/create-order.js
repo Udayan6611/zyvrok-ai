@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { amount = 19900, currency = 'INR', receipt = `rcpt_${Date.now()}` } = req.body || {};
+    const { amount = 19900, currency = 'INR', receipt = `rcpt_${Date.now()}`, userId = 'guest', credits = 50 } = req.body || {};
 
     const auth = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
     const response = await fetch('https://api.razorpay.com/v1/orders', {
@@ -25,7 +25,11 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         amount: Number(amount),
         currency,
-        receipt
+        receipt,
+        notes: {
+          userId: String(userId),
+          credits: Number(credits) || (Number(amount) >= 49900 ? 150 : 50)
+        }
       })
     });
 

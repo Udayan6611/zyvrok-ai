@@ -1,0 +1,115 @@
+{
+  "name": "PostMorph AI - Content Repurposing Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "repurpose",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook Inbound",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "id": "node-webhook-inbound"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$env.VITE_GROQ_API_KEY || $env.GROQ_API_KEY}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.3-70b-versatile\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a master viral tech ghostwriter for elite founders. Output ONLY valid JSON with keys: linkedin_post, twitter_thread (array of 5-6 strings), and newsletter_blurb. Strictly plain text, NO markdown asterisks in social copy.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"TOPIC: {{$json.body.topicTitle || 'Content'}}\\nTONE: {{$json.body.tone || 'professional'}}\\nSOURCE:\\n{{$json.body.resolvedText || $json.body.content}}\"\n    }\n  ],\n  \"response_format\": {\"type\": \"json_object\"},\n  \"temperature\": 0.85\n}",
+        "options": {}
+      },
+      "name": "Groq LLM Generation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        480,
+        300
+      ],
+      "id": "node-groq-llm"
+    },
+    {
+      "parameters": {
+        "jsCode": "const groqResp = $input.first().json;\nconst content = groqResp.choices[0].message.content;\nlet parsed = {};\ntry {\n  parsed = JSON.parse(content);\n} catch (e) {\n  parsed = { error: 'JSON parse error', raw: content };\n}\nreturn [{ json: parsed }];"
+      },
+      "name": "Format JSON Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ],
+      "id": "node-format-json"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "name": "Respond to Frontend",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        960,
+        300
+      ],
+      "id": "node-respond-webhook"
+    }
+  ],
+  "connections": {
+    "Webhook Inbound": {
+      "main": [
+        [
+          {
+            "node": "Groq LLM Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq LLM Generation": {
+      "main": [
+        [
+          {
+            "node": "Format JSON Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format JSON Output": {
+      "main": [
+        [
+          {
+            "node": "Respond to Frontend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
