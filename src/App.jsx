@@ -8,10 +8,11 @@ import StudioPage from './pages/StudioPage';
 import PricingPage from './pages/PricingPage';
 import HistoryPage from './pages/HistoryPage';
 import AuthPage from './pages/AuthPage';
+import AccountPage from './pages/AccountPage';
 
 function Layout() {
   const location = useLocation();
-  const isCustomLayout = ['/legal', '/studio', '/pricing', '/history', '/login'].includes(location.pathname);
+  const isCustomLayout = ['/legal', '/studio', '/pricing', '/history', '/login', '/account'].includes(location.pathname);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#09090b] text-[#fafafa]">
@@ -25,6 +26,7 @@ function Layout() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/login" element={<AuthPage />} />
+          <Route path="/account" element={<AccountPage />} />
           <Route path="*" element={<LandingPage />} />
         </Routes>
       </main>
