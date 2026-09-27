@@ -1,114 +1,51 @@
-import React from "react";
-import MagneticButton from "./ui/MagneticButton";
-import ShimmerBadge from "./ui/ShimmerBadge";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import MagneticButton from './MagneticButton';
 
-export default function Navbar({ activeTab, setActiveTab, user, credits, onOpenAuth, onSignOut }) {
+export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border-crisp transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         
-        {/* Logo */}
-        <div 
-          onClick={() => setActiveTab("landing")}
-          className="flex items-center gap-3 cursor-pointer group"
-        >
-          <div className="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95 shadow-sm shadow-blue-500/20">
+        {/* Brand Monogram & Name */}
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-bold text-xs tracking-tight transition-transform group-hover:scale-95 shadow-sm shadow-white/20">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 4h16L7 20h13" />
+              <path d="M4 4h16L7 20h13"/>
             </svg>
           </div>
           <div className="flex flex-col">
-            <span className="font-extrabold text-base tracking-tight leading-none text-text-primary">Zyvrok</span>
-            <span className="text-[10px] font-mono text-text-muted tracking-tight mt-0.5 lowercase">repurpose studio</span>
+            <span className="font-extrabold text-base tracking-tight leading-none text-white">Zyvrok</span>
+            <span className="text-[10px] font-mono text-zinc-400 tracking-tight mt-0.5 lowercase">turn links into signal</span>
           </div>
-        </div>
+        </Link>
 
-        {/* Navigation Tabs */}
-        <nav className="hidden md:flex items-center gap-1 bg-subtle p-1 rounded-xl border border-border-crisp/60 text-xs font-medium">
-          <button
-            onClick={() => setActiveTab("landing")}
-            className={`px-3 py-1.5 rounded-lg transition-all ${
-              activeTab === "landing"
-                ? "bg-white text-text-primary shadow-xs font-semibold"
-                : "text-text-secondary hover:text-text-primary hover:bg-white/50"
-            }`}
-          >
-            Overview
-          </button>
-          <button
-            onClick={() => setActiveTab("studio")}
-            className={`px-3 py-1.5 rounded-lg transition-all ${
-              activeTab === "studio"
-                ? "bg-white text-text-primary shadow-xs font-semibold"
-                : "text-text-secondary hover:text-text-primary hover:bg-white/50"
-            }`}
-          >
-            Studio
-          </button>
-          <button
-            onClick={() => setActiveTab("pricing")}
-            className={`px-3 py-1.5 rounded-lg transition-all ${
-              activeTab === "pricing"
-                ? "bg-white text-text-primary shadow-xs font-semibold"
-                : "text-text-secondary hover:text-text-primary hover:bg-white/50"
-            }`}
-          >
-            Pricing
-          </button>
-          <button
-            onClick={() => setActiveTab("history")}
-            className={`px-3 py-1.5 rounded-lg transition-all ${
-              activeTab === "history"
-                ? "bg-white text-text-primary shadow-xs font-semibold"
-                : "text-text-secondary hover:text-text-primary hover:bg-white/50"
-            }`}
-          >
-            History
-          </button>
+        {/* Navigation Links */}
+        <nav className="hidden md:flex items-center gap-7 text-xs font-medium text-zinc-400">
+          <a href="/#features" className="hover:text-white transition-colors">Features</a>
+          <a href="/#preview" className="hover:text-white transition-colors">Studio Interface</a>
+          <a href="/#pricing" className="hover:text-white transition-colors">Pricing</a>
         </nav>
 
-        {/* Actions & User Info */}
+        {/* Action Buttons */}
         <div className="flex items-center gap-3">
-          {/* Credits Counter */}
-          <div 
-            onClick={() => setActiveTab("pricing")}
-            className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 border border-blue-200/80 rounded-lg text-xs font-mono text-primary cursor-pointer hover:bg-blue-100/70 transition-colors"
-            title="Click to get more credits"
-          >
-            <span className="font-bold">{credits}</span>
-            <span className="text-[11px] text-blue-600/80">credits</span>
-          </div>
-
-          {user ? (
-            <div className="flex items-center gap-2">
-              <span className="hidden sm:inline text-xs text-text-secondary font-mono max-w-[120px] truncate">
-                {user.email}
-              </span>
-              <button
-                onClick={onSignOut}
-                className="text-xs px-2.5 py-1.5 rounded-lg text-text-secondary hover:text-red-600 hover:bg-red-50 border border-border-crisp transition-colors"
-              >
-                Log Out
-              </button>
-            </div>
-          ) : (
-            <MagneticButton
-              onClick={onOpenAuth}
-              className="text-xs px-3.5 py-1.5 rounded-lg bg-text-primary text-white hover:bg-text-primary/90 shadow-xs"
+          <Link to="/login" className="text-xs font-medium text-zinc-400 hover:text-white px-3 py-1.5 transition-colors">
+            Sign In
+          </Link>
+          <MagneticButton>
+            <Link
+              to="/studio"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-zinc-950 text-xs font-semibold hover:bg-zinc-200 transition-colors shadow-sm shadow-white/10"
             >
-              Sign In
-            </MagneticButton>
-          )}
-
-          <MagneticButton
-            onClick={() => setActiveTab("studio")}
-            className="text-xs px-3.5 py-1.5 rounded-lg bg-primary text-white hover:bg-primary-container shadow-xs shadow-blue-500/20"
-          >
-            Launch Studio
+              <span>Open Studio</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </MagneticButton>
         </div>
-
       </div>
     </header>
   );
 }
+
+export default Navbar;

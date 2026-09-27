@@ -1,45 +1,36 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function Footer({ onNavigate }) {
+export function Footer() {
   return (
-    <footer className="border-t border-border-crisp bg-white py-12 text-xs text-text-secondary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="py-12 bg-[#09090b] text-zinc-400 text-xs relative z-10 border-t border-white/10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         
-        {/* Brand */}
-        <div className="flex flex-col items-center md:items-start">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-6 h-6 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs">
-              Z
-            </div>
-            <span className="font-extrabold text-sm text-text-primary">Zyvrok</span>
+        {/* Brand & Copyright */}
+        <div className="flex items-center gap-3">
+          <div className="w-6 h-6 rounded-md bg-white text-zinc-950 flex items-center justify-center font-bold text-[10px]">
+            Z
           </div>
-          <p className="text-text-muted font-mono text-[11px]">
-            Content Repurposing Studio • Pune, Maharashtra, India
-          </p>
+          <span className="text-[11px] font-mono text-zinc-400">© 2026 Zyvrok (Udayan Dusane). All rights reserved.</span>
         </div>
 
-        {/* Links */}
-        <div className="flex items-center gap-6 font-medium">
-          <button onClick={() => onNavigate("landing")} className="hover:text-text-primary transition-colors">
-            Overview
-          </button>
-          <button onClick={() => onNavigate("studio")} className="hover:text-text-primary transition-colors">
-            Studio
-          </button>
-          <button onClick={() => onNavigate("pricing")} className="hover:text-text-primary transition-colors">
-            Pricing
-          </button>
-          <a href="/legal.html" className="hover:text-text-primary transition-colors">
+        {/* Navigation & Legal Links */}
+        <div className="flex items-center gap-6 text-[11px] font-medium text-zinc-400">
+          <Link to="/studio" className="hover:text-white transition-colors">Studio</Link>
+          <Link to="/history" className="hover:text-white transition-colors">History</Link>
+          <Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link>
+          <Link to="/login" className="hover:text-white transition-colors">Sign In</Link>
+          {/* Explicit Working Legal & Compliance Link */}
+          <Link
+            to="/legal"
+            className="hover:text-white transition-colors font-semibold text-zinc-300 underline decoration-zinc-700 underline-offset-4"
+          >
             Legal & Compliance
-          </a>
+          </Link>
         </div>
-
-        {/* Copyright */}
-        <div className="text-text-muted font-mono text-[11px] text-center md:text-right">
-          © {new Date().getFullYear()} Zyvrok (Udayan Dusane). All rights reserved.
-        </div>
-
       </div>
     </footer>
   );
 }
+
+export default Footer;

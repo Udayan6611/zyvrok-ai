@@ -2,46 +2,35 @@
 export default {
   content: [
     "./index.html",
+    "./legal.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./**/*.html"
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        "base": "#F9FAFB",
-        "surface": "#FFFFFF",
-        "subtle": "#F3F4F6",
-        "subtle-hover": "#E5E7EB",
-        "border-crisp": "#E5E7EB",
-        "border-highlight": "#D1D5DB",
-        "text-primary": "#111827",
-        "text-secondary": "#4B5563",
-        "text-muted": "#9CA3AF",
-        "primary": "#2563EB",
-        "primary-container": "#1D4ED8",
-        "primary-subtle": "#EFF6FF",
-        "accent": "#10B981",
-        "accent-subtle": "#ECFDF5",
+        "base": "#09090b",
+        "surface": "#111116",
+        "surface-elevated": "#181820",
+        "subtle": "#181822",
+        "subtle-hover": "#22222e",
+        "border-crisp": "rgba(255, 255, 255, 0.08)",
+        "border-highlight": "rgba(255, 255, 255, 0.16)",
+        "text-primary": "#fafafa",
+        "text-secondary": "#a1a1aa",
+        "text-muted": "#71717a",
+        "primary": "#3b82f6",
+        "primary-container": "#2563eb",
+        "primary-subtle": "rgba(59, 130, 246, 0.15)",
+        "accent": "#10b981",
+        "accent-subtle": "rgba(16, 185, 129, 0.15)"
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
-      },
-      animation: {
-        "shimmer": "shimmer 2s linear infinite",
-        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "spotlight": "spotlight 2s ease .75s 1 forwards",
-      },
-      keyframes: {
-        shimmer: {
-          from: { backgroundPosition: "0 0" },
-          to: { backgroundPosition: "-200% 0" },
-        },
-        spotlight: {
-          "0%": { opacity: 0, transform: "translate(-72%, -62%) scale(0.5)" },
-          "100%": { opacity: 1, transform: "translate(-50%,-40%) scale(1)" },
-        },
-      },
-    },
+      }
+    }
   },
-  plugins: [],
-}
+  plugins: []
+};

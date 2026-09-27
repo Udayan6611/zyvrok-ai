@@ -1,20 +1,24 @@
-# Zyvrok — Full React + Vengeance UI Content Studio
+# Zyvrok — Content Repurposing Studio (React + Vengeance UI)
 
-Transform long-form articles, YouTube videos, and text notes into high-converting LinkedIn posts, Twitter threads, and newsletter summaries with animated Vengeance UI motion primitives.
+A high-density content repurposing studio engineered for founders, creators, and technical writers. Converts YouTube video transcripts and long-form articles into platform-native distribution bundles: LinkedIn posts, X threads, and executive newsletter briefs.
 
-## Architecture
-- **Framework**: React 18 + Vite (ES Modules)
-- **Styling**: Tailwind CSS + PostCSS + Autoprefixer
-- **Motion & Interactions**: Framer Motion + Vengeance UI components (Spotlight Cards, Magnetic Buttons, Shimmer Badges)
-- **Component CLI**: Configured for `npx shadcn@latest add @vengeanceui/[component]`
-- **AI Engine**: Groq API (Llama 3.3 70B Versatile)
-- **Backend & Auth**: Supabase (PostgreSQL + RLS + Persistent Credits)
-- **Payments**: Razorpay Standard Checkout + Vercel Serverless Orders & Webhook API
-- **Deployment**: Vercel Ready (`vercel.json` SPA rewrites & serverless functions)
+## Architecture (Path B: Modern React + Vengeance UI)
+Built with **React 18**, **Vite**, **Tailwind CSS**, and **Framer Motion**:
+- **Design Aesthetic**: Dark obsidian `#09090b` background, `#111116` surface cards, subtle white borders (`rgba(255, 255, 255, 0.08)`), emerald accents, and an ambient top lighting beam.
+- **Vengeance UI Primitives**:
+  - `SpotlightCard`: Mouse-tracking radial gradient spotlight borders & surfaces.
+  - `MagneticButton`: Smooth spring physics cursor proximity displacement powered by Framer Motion.
+  - `ShimmerBadge`: Animated status pill badge with pulsing radar beacon.
+- **Copy & Formatting**:
+  - Zero tacky emojis (clean SVG icons instead).
+  - High-density copy focused on signal extraction, arguments, and multi-channel publishing.
+- **Client-Side Routing**:
+  - Full React Router (`react-router-dom`) with client-side transitions.
+  - Working **Legal & Compliance** route (`/legal`) with merchant details, Terms of Service, and Refund Policy with no reloads.
 
 ---
 
-## 1. Local Installation & Run Commands
+## 1. Local Setup & Run Commands
 
 ### Prerequisites
 - Node.js (v18 or v20+)
@@ -25,8 +29,8 @@ Transform long-form articles, YouTube videos, and text notes into high-convertin
 npm install
 ```
 
-### Step 2: Set Up Environment Variables
-Create or verify `.env` in the root directory:
+### Step 2: Configure Environment Variables
+Ensure your `.env` file in the root directory contains your credentials:
 ```env
 VITE_SUPABASE_URL=https://xfezjftwdaykfznrawdu.supabase.co
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -35,7 +39,7 @@ VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 ```
 
-### Step 3: Run Local Dev Server
+### Step 3: Run Development Server
 ```bash
 npm run dev
 ```
@@ -44,42 +48,43 @@ Open `http://localhost:5173` in your browser.
 ### Step 4: Build for Production
 ```bash
 npm run build
+npm run preview
 ```
 
 ---
 
-## 2. Adding Vengeance UI Components via CLI
+## 2. Routes & Navigation
 
-With `components.json` pre-configured, install additional Vengeance UI primitives using:
-```bash
-npx shadcn@latest add @vengeanceui/[component-name]
-```
-Examples:
-- `npx shadcn@latest add @vengeanceui/magnetic-button`
-- `npx shadcn@latest add @vengeanceui/spotlight-card`
-- `npx shadcn@latest add @vengeanceui/staggered-grid`
+- `/`: Main Landing Page with interactive preview, bento grid, and pricing.
+- `/legal`: Dedicated Legal, Terms of Service & Refund Policy page.
+- `/studio`: Repurposing Studio workspace with source selector and draft refinement.
+- `/pricing`: Credit Packages & Razorpay checkout (₹199 Starter Pack & ₹499 Creator Pro).
+- `/history`: Cloud generation history.
+- `/login`: Authentication page.
 
 ---
 
 ## 3. Git Commands (Pushing to GitHub)
 
+Run these commands in your project root:
+
 ```bash
-# 1. Initialize git
+# 1. Initialize git repository
 git init
 
-# 2. Add all files
+# 2. Stage all files
 git add .
 
-# 3. Create initial commit
-git commit -m "feat: complete React migration with Vengeance UI and Razorpay integration"
+# 3. Commit
+git commit -m "feat: Zyvrok content studio in React with Vengeance UI obsidian design system"
 
 # 4. Set main branch
 git branch -M main
 
-# 5. Link to your remote GitHub repo
+# 5. Link your GitHub remote repository
 git remote add origin https://github.com/<your-username>/<your-repo-name>.git
 
-# 6. Push
+# 6. Push to GitHub
 git push -u origin main
 ```
 
@@ -87,7 +92,6 @@ git push -u origin main
 
 ## 4. Deploying to Vercel
 
-### Option A: Via GitHub (Recommended)
 1. Push your repository to GitHub.
 2. Go to [Vercel Dashboard](https://vercel.com/dashboard) and click **Add New > Project**.
 3. Select your repository. Framework preset will automatically detect **Vite**.
@@ -98,10 +102,3 @@ git push -u origin main
    - `VITE_RAZORPAY_KEY_ID`
    - `RAZORPAY_KEY_SECRET`
 5. Click **Deploy**.
-
-### Option B: Via Vercel CLI
-```bash
-npm i -g vercel
-vercel
-vercel --prod
-```

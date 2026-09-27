@@ -246,26 +246,26 @@ TONE SPECIFICATIONS:
 
 FOR TWITTER / X THREAD:
 - 5 to 6 modular tweets.
-- Tweet 1: Pure viral hook with curiosity gap, ending in 🧵👇.
+- Tweet 1: Pure viral hook with curiosity gap, ending in .
 - Tweets 2-5: Sharp, high-signal observations with line breaks. NO asterisks (**).
 - Tweet 6: Punchline, bookmark/repost prompt, and open question.
 
 FOR NEWSLETTER SNIPPET:
 - 200-300 words with a witty/editorial headline.
-- Deep-dive context and a formatted "💡 Key Takeaways" section.
+- Deep-dive context and a formatted " Key Takeaways" section.
 
 OUTPUT JSON SCHEMA:
 {
   "linkedin_post": "A clean, humanized, viral LinkedIn post (strictly plain text, NO asterisks or markdown bolding) with natural line breaks, visual pacing, 2-3 bullet insights (•), and relevant hashtags.",
   "twitter_thread": [
-    "Tweet 1 (Viral scroll-stopping hook with 🧵👇)",
+    "Tweet 1 (Viral scroll-stopping hook with )",
     "Tweet 2 (The friction / context)",
     "Tweet 3 (Deep-dive insight #1)",
     "Tweet 4 (Deep-dive insight #2)",
     "Tweet 5 (Actionable takeaway)",
     "Tweet 6 (Wrap-up & bookmark CTA)"
   ],
-  "newsletter_blurb": "A crisp, witty 200-300 word newsletter section with a sharp editorial headline, deep-dive synthesis, and a formatted '💡 Key Takeaways' section."
+  "newsletter_blurb": "A crisp, witty 200-300 word newsletter section with a sharp editorial headline, deep-dive synthesis, and a formatted ' Key Takeaways' section."
 }
 
 CRITICAL:

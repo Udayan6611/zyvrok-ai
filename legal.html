@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,25 +19,16 @@
       theme: {
         extend: {
           colors: {
-            "base": "#F9FAFB",
-            "surface": "#FFFFFF",
-            "subtle": "#F0EFEB",
-            "border-crisp": "#E5E7EB",
-            "obsidian": "#111827",
-            "obsidian-hover": "#272523",
-            "muted": "#9CA3AF",
-            "accent": "#10B981",
-            
-            /* Backward compatibility aliases */
-            "primary": "#2563EB",
-            "primary-container": "#1D4ED8",
-            "secondary": "#63615A",
-            "background": "#F8F8F6",
-            "on-background": "#141312",
-            "surface-container": "#F0EFEB",
-            "surface-container-low": "#F8F8F6",
-            "surface-container-lowest": "#FFFFFF",
-            "outline-variant": "#E4E2DC"
+            "base": "#09090b",
+            "surface": "#111116",
+            "subtle": "#181820",
+            "border-crisp": "rgba(255, 255, 255, 0.08)",
+            "border-highlight": "rgba(255, 255, 255, 0.16)",
+            "text-primary": "#fafafa",
+            "text-secondary": "#a1a1aa",
+            "text-muted": "#71717a",
+            "primary": "#3b82f6",
+            "accent": "#10b981",
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
@@ -47,120 +38,116 @@
       }
     }
   </script>
-</head>
-<body class="bg-base text-text-primary min-h-screen flex flex-col font-sans selection:bg-primary-subtle selection:text-primary">
-  
-  <!-- Header -->
-  <header class="border-b border-border-crisp bg-surface sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16L7 20h13"/>
-          </svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="font-bold text-base tracking-tight leading-none text-text-primary">Zyvrok</span>
-          <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
-        </div>
-      </a>
 
-      <a href="index.html" class="text-xs font-semibold text-muted hover:text-text-primary transition-colors inline-flex items-center gap-1">
-        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="19" y1="12" x2="5" y2="12"/>
-          <polyline points="12 19 5 12 12 5"/>
-        </svg>
-        <span>Back to Home</span>
+  <style>
+    body {
+      background-color: #09090b;
+      color: #fafafa;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .spotlight-card {
+      position: relative;
+      background: #111116;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="bg-base text-text-primary font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Header -->
+  <header class="border-b border-border-crisp bg-[#09090b]/80 backdrop-blur-xl sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-bold text-xs tracking-tight">
+          Z
+        </div>
+        <span class="font-extrabold text-base tracking-tight text-white">Zyvrok</span>
+      </a>
+      <a href="index.html" class="text-xs font-mono text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors">
+        <span>← Back to Home</span>
       </a>
     </div>
   </header>
 
-  <!-- Legal Main Content -->
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 flex-1 space-y-8">
+  <!-- Legal Body Content -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-14 flex-1 space-y-12">
     <div>
-      <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Compliance & Terms</span>
-      <h1 class="text-3xl font-bold tracking-tight text-text-primary mt-1">Legal Policies & Merchant Terms</h1>
-      <p class="text-xs sm:text-sm text-muted mt-2">
-        Official terms governing service access, billing, privacy, and consumer dispute resolutions for Zyvrok.
-      </p>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-zinc-900 border border-white/10 text-zinc-400 mb-4">
+        <span>Compliance & Policies</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Legal, Terms of Service & Refund Policy
+      </h1>
+      <p class="text-xs font-mono text-zinc-500 mt-2">Last updated: September 2026 • Registered in Pune, Maharashtra, India</p>
     </div>
 
-    <!-- 1. Terms of Service -->
-    <section id="terms" class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-3">
-      <div class="flex items-center justify-between">
-        <h2 class="text-base font-bold text-text-primary font-mono uppercase">01 · Terms of Service</h2>
-        <span class="text-[11px] font-mono text-muted">Updated September 2026</span>
-      </div>
-      <p class="text-xs text-muted leading-relaxed">
-        By accessing or using Zyvrok ("Service"), you agree to these Terms. Zyvrok provides an AI-assisted workflow engine to convert public blog links, YouTube transcripts, and raw notes into social media copy. You retain full intellectual property ownership of your source content and all commercial rights to publish, modify, or monetize the generated output. The service is provided on an "as is" and "as available" basis without warranties of uninterrupted uptime.
-      </p>
-    </section>
-
-    <!-- 2. Privacy Policy -->
-    <section id="privacy" class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-3">
-      <div class="flex items-center justify-between">
-        <h2 class="text-base font-bold text-text-primary font-mono uppercase">02 · Privacy Policy</h2>
-        <span class="text-[11px] font-mono text-muted">Data Security & Storage</span>
-      </div>
-      <p class="text-xs text-muted leading-relaxed">
-        We respect user privacy. We store user account email addresses and generation counts strictly for authentication and credit tracking in Supabase PostgreSQL (secured with Row Level Security). We never sell your personal information or content drafts to data brokers. Payment transactions are processed directly by 256-bit encrypted Razorpay infrastructure; credit card numbers, CVVs, and banking credentials are never handled or stored on our servers.
-      </p>
-    </section>
-
-    <!-- 3. Cancellation & Refund Policy -->
-    <section id="refund" class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-3">
-      <div class="flex items-center justify-between">
-        <h2 class="text-base font-bold text-text-primary font-mono uppercase">03 · Cancellation & Refund Policy</h2>
-        <span class="text-[11px] font-mono text-muted">Digital Tokens & Pay-As-You-Go</span>
-      </div>
-      <p class="text-xs text-muted leading-relaxed">
-        Zyvrok credits (Starter Pack ₹199 for 50 credits, Creator Pro ₹499 for 150 credits) are digital goods delivered immediately to your account ledger upon transaction confirmation. Because credits are delivered and ready for use instantly, completed token purchases are generally non-refundable once credits have been consumed. 
-      </p>
-      <p class="text-xs text-muted leading-relaxed">
-        However, if you experience a technical failure where a payment was debited but credits were not added to your balance, or if an accidental duplicate charge occurred, please contact support within 7 days. Verified refund requests are processed via Razorpay directly back to your original payment method (UPI/card/netbanking) within 5–7 business days.
-      </p>
-    </section>
-
-    <!-- 4. Merchant Contact & Support -->
-    <section id="contact" class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4">
-      <div class="flex items-center justify-between">
-        <h2 class="text-base font-bold text-text-primary font-mono uppercase">04 · Merchant Information & Support</h2>
-        <span class="text-[11px] font-mono text-muted">Customer Service</span>
-      </div>
-      <p class="text-xs text-muted leading-relaxed">
-        For technical assistance, billing inquiries, or refund escalation, reach out directly to the merchant:
-      </p>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono pt-1">
-        <div class="p-4 rounded-lg bg-base border border-border-crisp space-y-1">
-          <span class="text-[10px] text-muted uppercase font-bold block">Merchant & Operator</span>
-          <p class="font-bold text-text-primary">Zyvrok (Udayan Dusane)</p>
-          <p class="text-muted text-[11px]">Pune, Maharashtra, India</p>
+    <!-- Section 1: Merchant & Business Information -->
+    <div class="spotlight-card p-6 sm:p-8 space-y-4">
+      <h2 class="text-lg font-bold text-white tracking-tight">1. Merchant & Business Details</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono text-zinc-300">
+        <div class="p-3.5 rounded-lg bg-zinc-900/60 border border-border-crisp">
+          <span class="text-zinc-500 block mb-1">Entity / Trade Name</span>
+          <span class="font-bold text-white">Zyvrok</span>
         </div>
-
-        <div class="p-4 rounded-lg bg-base border border-border-crisp space-y-1">
-          <span class="text-[10px] text-muted uppercase font-bold block">Support Email</span>
-          <a href="mailto:udayandusane9604@gmail.com" class="font-bold text-text-primary hover:underline block text-xs">
-            udayandusane9604@gmail.com
-          </a>
-          <p class="text-muted text-[11px]">Response timeline: Within 24 hours</p>
+        <div class="p-3.5 rounded-lg bg-zinc-900/60 border border-border-crisp">
+          <span class="text-zinc-500 block mb-1">Operating Founder</span>
+          <span class="font-bold text-white">Udayan Dusane</span>
+        </div>
+        <div class="p-3.5 rounded-lg bg-zinc-900/60 border border-border-crisp">
+          <span class="text-zinc-500 block mb-1">Operating Jurisdiction</span>
+          <span class="font-bold text-white">Pune, Maharashtra, India</span>
+        </div>
+        <div class="p-3.5 rounded-lg bg-zinc-900/60 border border-border-crisp">
+          <span class="text-zinc-500 block mb-1">Official Support Desk</span>
+          <a href="mailto:udayandusane9604@gmail.com" class="text-blue-400 hover:underline font-bold">udayandusane9604@gmail.com</a>
         </div>
       </div>
-    </section>
+    </div>
+
+    <!-- Section 2: Cancellation & Refund Policy -->
+    <div class="spotlight-card p-6 sm:p-8 space-y-4">
+      <h2 class="text-lg font-bold text-white tracking-tight">2. Cancellation & Refund Policy</h2>
+      <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
+        <p>
+          At Zyvrok, we operate an instant digital credit delivery model. All credit packs purchased (including the ₹199 Starter Pack and ₹499 Creator Pro Pack) are immediately credited to the purchaser's authenticated profile balance upon successful transaction verification through Razorpay.
+        </p>
+        <p>
+          <strong>Refund Eligibility:</strong> Because compute resources and language model inference fees are incurred upon content processing, credit packs that have been partially or fully utilized are non-refundable. However, if you experience a technical failure where credits were deducted without producing output, or if you were charged twice for an order, please email <a href="mailto:udayandusane9604@gmail.com" class="text-blue-400 hover:underline">udayandusane9604@gmail.com</a> with your Payment ID within 7 business days. We will investigate and process a full refund or credit restoration within 5-7 working days.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: Terms of Service -->
+    <div class="spotlight-card p-6 sm:p-8 space-y-4">
+      <h2 class="text-lg font-bold text-white tracking-tight">3. Terms of Service</h2>
+      <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
+        <p>
+          By accessing Zyvrok Studio, you agree to comply with our fair-use standards. You retain full commercial ownership of all output generated from your own original inputs or public videos you are legally authorized to review. You agree not to use the service to generate deceptive, hateful, or unlawful materials.
+        </p>
+        <p>
+          Zyvrok does not guarantee specific social media reach or engagement metrics resulting from published copy. Service availability is maintained on best-effort production standards.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: Privacy Policy -->
+    <div class="spotlight-card p-6 sm:p-8 space-y-4">
+      <h2 class="text-lg font-bold text-white tracking-tight">4. Privacy Policy</h2>
+      <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
+        <p>
+          We do not sell, rent, or trade your personal data. User email addresses and generated content archives are securely stored in Supabase PostgreSQL databases protected by Row-Level Security (RLS) policies. Payment details are processed directly and securely via Razorpay's PCI-DSS compliant checkout and are never stored on our application servers.
+        </p>
+      </div>
+    </div>
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-border-crisp py-8 bg-base text-muted text-xs">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-text-primary">Zyvrok</span>
-        <span class="text-muted text-[11px] font-mono">© 2026 Zyvrok. All rights reserved.</span>
-      </div>
-      <div class="flex items-center gap-4 text-[11px] font-semibold">
-        <a href="index.html" class="hover:text-text-primary">Home</a>
-        <a href="repurpose_studio_responsive/code.html" class="hover:text-text-primary">Studio</a>
-        <a href="upgrade_to_pro_responsive/code.html" class="hover:text-text-primary">Pricing</a>
-      </div>
+  <footer class="border-t border-border-crisp py-8 text-center text-xs text-zinc-500 font-mono">
+    <div class="max-w-4xl mx-auto px-4">
+      © 2026 Zyvrok (Udayan Dusane). All rights reserved. • <a href="index.html" class="text-zinc-400 hover:text-white">Return to Home</a>
     </div>
   </footer>
 

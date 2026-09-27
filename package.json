@@ -1,5 +1,5 @@
 {
-  "name": "zyvrok-ai-content-studio",
+  "name": "zyvrok-content-studio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -10,20 +10,22 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@radix-ui/react-slot": "^1.1.0",
     "@supabase/supabase-js": "^2.49.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.11.17",
-    "lucide-react": "^0.460.0",
+    "framer-motion": "^11.5.4",
+    "lucide-react": "^0.441.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.5.4"
+    "react-router-dom": "^6.26.2",
+    "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
-    "vite": "^5.4.11"
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.11",
+    "vite": "^5.4.21"
   }
 }

@@ -4,24 +4,22 @@
 
 @layer base {
   body {
-    background-color: #F9FAFB;
-    color: #111827;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: #09090b;
+    color: #fafafa;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #F9FAFB;
-}
-::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #9CA3AF;
+.ambient-beam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 480px;
+  background: radial-gradient(ellipse 65% 50% at 50% 0%, rgba(99, 102, 241, 0.15), rgba(16, 185, 129, 0.05), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }

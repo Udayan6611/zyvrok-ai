@@ -2,7 +2,6 @@
   "framework": "vite",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/legal", "destination": "/legal.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
