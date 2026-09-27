@@ -65,7 +65,7 @@ export async function signOutUser() {
  * Helper to get the localStorage key for credits
  */
 export function getCreditsStorageKey(userId) {
-  const isRegistered = userId && userId !== 'demo-user-id';
+  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   return isRegistered ? `pm_credits_${userId}` : 'pm_guest_credits';
 }
 
@@ -73,7 +73,7 @@ export function getCreditsStorageKey(userId) {
  * Helper to get the localStorage key for paid credits
  */
 export function getPaidCreditsStorageKey(userId) {
-  const isRegistered = userId && userId !== 'demo-user-id';
+  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   return isRegistered ? `pm_paid_credits_${userId}` : 'pm_guest_paid_credits';
 }
 
@@ -132,7 +132,7 @@ export async function syncCreditsToSupabase(userId, credits) {
  * Resets or claims the 50 Free Signup credits for user or guest
  */
 export async function resetToSignupCredits(userId, target = 50) {
-  const isRegistered = userId && userId !== 'demo-user-id';
+  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   const userKey = getCreditsStorageKey(userId);
   const paidKey = getPaidCreditsStorageKey(userId);
 
@@ -160,7 +160,7 @@ export async function resetToSignupCredits(userId, target = 50) {
  * Guaranteed to reflect top-ups and never silently revert to stale database values!
  */
 export async function getEffectiveCredits(userId, options = {}) {
-  const isRegistered = userId && userId !== 'demo-user-id';
+  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   const userKey = getCreditsStorageKey(userId);
   const paidKey = getPaidCreditsStorageKey(userId);
 
@@ -268,7 +268,7 @@ export async function getEffectiveCredits(userId, options = {}) {
  * Deducts 1 credit from Supabase and localStorage
  */
 export async function deductCredit(userId) {
-  const isRegistered = userId && userId !== 'demo-user-id';
+  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   const userKey = getCreditsStorageKey(userId);
   const current = await getEffectiveCredits(userId);
   const newCredits = Math.max(0, current - 1);
@@ -294,7 +294,7 @@ export async function deductCredit(userId) {
  * Supports BOTH registered users and guest testers so no one is blocked!
  */
 export async function addPaidCredits(userId, amount, paymentId) {
-  const isRegistered = userId && userId !== 'demo-user-id';
+  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   const userKey = getCreditsStorageKey(userId);
   const paidKey = getPaidCreditsStorageKey(userId);
 

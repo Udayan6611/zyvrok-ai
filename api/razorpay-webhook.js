@@ -38,15 +38,37 @@ export default async function handler(req, res) {
     if (eventType === 'payment.captured' || eventType === 'order.paid') {
       const paymentEntity = event.payload?.payment?.entity;
       const notes = paymentEntity?.notes || {};
-      const userId = notes.userId;
-      const creditsToAdd = Number(notes.credits) || (Number(paymentEntity?.amount) >= 49900 ? 150 : 50);
+      let userId = notes.userId;
+      const userEmail = notes.userEmail || paymentEntity?.email;
+      const paymentAmount = Number(paymentEntity?.amount) || 19900;
+      
+      // Starter is 50 credits (₹199 / 19900 paise); Pro is 150 credits (₹499 / 49900 paise)
+      const creditsToAdd = Number(notes.credits) || (paymentAmount >= 40000 ? 150 : 50);
       const paymentId = paymentEntity?.id;
 
-      if (userId && userId !== 'guest' && userId !== 'demo-user-id') {
-        const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://xfezjftwdaykfznrawdu.supabase.co';
-        const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-        const supabase = createClient(supabaseUrl, supabaseKey);
+      const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://xfezjftwdaykfznrawdu.supabase.co';
+      const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+      const supabase = createClient(supabaseUrl, supabaseKey);
 
+      // If user paid as guest or userId is missing, attempt resolution by email
+      if ((!userId || userId === 'guest' || userId === 'demo-user-id') && userEmail) {
+        try {
+          const { data: profileByEmail } = await supabase
+            .from('profiles')
+            .select('id, credits')
+            .eq('email', userEmail)
+            .maybeSingle();
+
+          if (profileByEmail?.id) {
+            userId = profileByEmail.id;
+            console.log(`Resolved guest payment ${paymentId} to registered user [${userId}] via email ${userEmail}`);
+          }
+        } catch (lookupErr) {
+          console.warn('Profile lookup by email note:', lookupErr.message);
+        }
+      }
+
+      if (userId && userId !== 'guest' && userId !== 'demo-user-id') {
         const { data: profile } = await supabase
           .from('profiles')
           .select('credits')
@@ -67,7 +89,16 @@ export default async function handler(req, res) {
         }
 
         console.log(`Webhook successfully credited user [${userId}] with ${creditsToAdd} credits. Payment: ${paymentId}`);
-        return res.status(200).json({ status: 'success', credited: creditsToAdd, newTotal });
+        return res.status(200).json({ status: 'success', credited: creditsToAdd, newTotal, userId });
+      } else {
+        console.log(`Webhook received guest payment [${paymentId}] for ${creditsToAdd} credits (email: ${userEmail || 'none'}). Ready for manual or client claim.`);
+        return res.status(200).json({ 
+          status: 'recorded_unlinked', 
+          message: 'Payment received for guest. Can be claimed via paymentId.',
+          paymentId, 
+          creditsToAdd, 
+          userEmail 
+        });
       }
     }
 
