@@ -70,7 +70,7 @@
     }
   </style>
 </head>
-<body class="bg-base text-obsidian font-sans h-screen flex flex-col md:flex-row overflow-hidden antialiased selection:bg-obsidian selection:text-white">
+<body class="bg-base text-text-primary font-sans h-screen flex flex-col md:flex-row overflow-hidden antialiased selection:bg-primary-subtle selection:text-white">
 
   <!-- Desktop Side Navigation -->
   <aside class="hidden md:flex flex-col h-full w-[260px] bg-surface border-r border-border-crisp flex-shrink-0 p-4 justify-between z-20">
@@ -78,20 +78,20 @@
       
       <!-- Brand & Tagline -->
       <a href="../index.html" class="flex items-center gap-2.5 px-2 py-2 group">
-        <div class="w-8 h-8 rounded-lg bg-primary text-white shadow-sm flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+        <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16L7 20h13"/>
           </svg>
         </div>
         <div class="flex flex-col">
-          <span class="font-bold text-base tracking-tight leading-none text-obsidian">Zyvrok</span>
+          <span class="font-bold text-base tracking-tight leading-none text-text-primary">Zyvrok</span>
           <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
         </div>
       </a>
 
       <!-- Primary Navigation Links -->
       <nav class="space-y-1">
-        <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+        <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-text-primary hover:bg-subtle transition-colors">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
             <polyline points="9 22 9 12 15 12 15 22"/>
@@ -99,14 +99,14 @@
           <span>Home</span>
         </a>
 
-        <a href="code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold bg-subtle text-obsidian transition-colors">
-          <svg class="w-4 h-4 text-obsidian" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a href="code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold bg-subtle text-text-primary transition-colors">
+          <svg class="w-4 h-4 text-text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
           <span>Repurpose Studio</span>
         </a>
 
-        <a href="../dashboard_history_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+        <a href="../dashboard_history_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-text-primary hover:bg-subtle transition-colors">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
@@ -114,7 +114,7 @@
           <span>Library & History</span>
         </a>
 
-        <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+        <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-text-primary hover:bg-subtle transition-colors">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="4" width="20" height="16" rx="2"/>
             <line x1="2" y1="10" x2="22" y2="10"/>
@@ -127,18 +127,18 @@
       <div class="p-3.5 rounded-xl border border-border-crisp bg-subtle space-y-2.5">
         <div class="flex items-center justify-between">
           <span class="text-[11px] font-mono uppercase font-bold text-muted">Available Balance</span>
-          <button id="btn-refresh-credits" title="Sync credits" class="text-muted hover:text-obsidian transition-colors p-1 rounded">
+          <button id="btn-refresh-credits" title="Sync credits" class="text-muted hover:text-text-primary transition-colors p-1 rounded">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
             </svg>
           </button>
         </div>
         <div class="flex items-baseline gap-1.5">
-          <span id="sidebar-credits" class="text-2xl font-extrabold text-obsidian tracking-tight font-mono">--</span>
+          <span id="sidebar-credits" class="text-2xl font-extrabold text-text-primary tracking-tight font-mono">--</span>
           <span class="text-xs font-mono text-muted">Credits</span>
         </div>
         <p class="text-[10px] text-muted font-mono leading-tight">1 generation = 1 credit (3 deliverables)</p>
-        <a href="../upgrade_to_pro_responsive/code.html" class="block w-full py-1.5 text-center rounded bg-primary text-white shadow-sm text-[11px] font-semibold hover:bg-primary-container transition-colors shadow-xs">
+        <a href="../upgrade_to_pro_responsive/code.html" class="block w-full py-1.5 text-center rounded bg-primary text-white text-[11px] font-semibold hover:bg-primary-container transition-colors shadow-xs">
           Top Up Balance
         </a>
       </div>
@@ -146,7 +146,7 @@
 
     <!-- User Account Status Link -->
     <div class="pt-4 border-t border-border-crisp">
-      <a href="../login_sign_up_responsive/code.html" class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-subtle transition-colors text-xs font-semibold text-muted hover:text-obsidian">
+      <a href="../login_sign_up_responsive/code.html" class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-subtle transition-colors text-xs font-semibold text-muted hover:text-text-primary">
         <svg class="w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
@@ -159,20 +159,20 @@
   <!-- Mobile Top Header -->
   <header class="md:hidden flex items-center justify-between px-4 h-14 bg-surface border-b border-border-crisp flex-shrink-0 z-30">
     <a href="../index.html" class="flex items-center gap-2">
-      <div class="w-7 h-7 rounded bg-primary text-white shadow-sm flex items-center justify-center font-bold text-xs">
+      <div class="w-7 h-7 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16L7 20h13"/>
         </svg>
       </div>
-      <span class="font-bold text-sm tracking-tight text-obsidian">Zyvrok</span>
+      <span class="font-bold text-sm tracking-tight text-text-primary">Zyvrok</span>
     </a>
 
     <div class="flex items-center gap-3">
       <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-subtle text-xs font-mono border border-border-crisp">
         <span class="text-muted">Bal:</span>
-        <strong id="mobile-credits" class="text-obsidian font-bold">--</strong>
+        <strong id="mobile-credits" class="text-text-primary font-bold">--</strong>
       </div>
-      <a href="../upgrade_to_pro_responsive/code.html" class="px-2.5 py-1 rounded bg-primary text-white shadow-sm text-[11px] font-semibold">
+      <a href="../upgrade_to_pro_responsive/code.html" class="px-2.5 py-1 rounded bg-primary text-white text-[11px] font-semibold">
         Top Up
       </a>
     </div>
@@ -187,13 +187,13 @@
       <!-- Section Title & Input Tabs -->
       <div class="space-y-2">
         <div class="flex items-center justify-between">
-          <h1 class="text-base font-bold text-obsidian tracking-tight">Source Material</h1>
+          <h1 class="text-base font-bold text-text-primary tracking-tight">Source Material</h1>
           <span class="text-[11px] font-mono text-muted">1 credit per run</span>
         </div>
         
         <!-- Input Type Toggle Tabs -->
         <div class="grid grid-cols-3 gap-1 p-1 bg-subtle rounded-lg border border-border-crisp">
-          <button id="tab-input-text" data-type="text" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center justify-center gap-1.5 bg-primary text-white shadow-sm shadow-xs">
+          <button id="tab-input-text" data-type="text" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center justify-center gap-1.5 bg-primary text-white shadow-xs">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
               <polyline points="14 2 14 8 20 8"/>
@@ -201,7 +201,7 @@
             <span>Raw Text</span>
           </button>
           
-          <button id="tab-input-url" data-type="url" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-obsidian transition-colors flex items-center justify-center gap-1.5">
+          <button id="tab-input-url" data-type="url" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-text-primary transition-colors flex items-center justify-center gap-1.5">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>
               <line x1="2" y1="12" x2="22" y2="12"/>
@@ -209,7 +209,7 @@
             <span>Article URL</span>
           </button>
           
-          <button id="tab-input-youtube" data-type="youtube" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-obsidian transition-colors flex items-center justify-center gap-1.5">
+          <button id="tab-input-youtube" data-type="youtube" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-text-primary transition-colors flex items-center justify-center gap-1.5">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
@@ -220,7 +220,7 @@
 
       <!-- Source Text Area -->
       <div class="flex-1 flex flex-col min-h-[220px]">
-        <textarea id="source-text" class="w-full flex-1 p-3.5 rounded-lg border border-border-crisp bg-base text-xs font-sans leading-relaxed text-obsidian placeholder:text-muted/60 focus:border-obsidian focus:bg-surface transition-all outline-none resize-none" placeholder="Paste your article draft, meeting transcript, or raw ideas here..."></textarea>
+        <textarea id="source-text" class="w-full flex-1 p-3.5 rounded-lg border border-border-crisp bg-base text-xs font-sans leading-relaxed text-text-primary placeholder:text-muted/60 focus:border-obsidian focus:bg-surface transition-all outline-none resize-none" placeholder="Paste your article draft, meeting transcript, or raw ideas here..."></textarea>
         
         <div class="mt-2 flex items-center justify-between text-[11px] font-mono text-muted">
           <span id="char-counter">0 chars | 0 words</span>
@@ -232,19 +232,19 @@
       <div class="space-y-2">
         <label class="block text-[11px] font-mono uppercase font-semibold text-muted">Voice Architecture</label>
         <div id="tone-pills" class="flex flex-wrap gap-1.5">
-          <button data-tone="professional" class="tone-btn active px-3 py-1.5 text-xs font-medium rounded-md border border-obsidian bg-subtle text-obsidian transition-colors">
+          <button data-tone="professional" class="tone-btn active px-3 py-1.5 text-xs font-medium rounded-md border border-obsidian bg-subtle text-text-primary transition-colors">
             Professional / Thought Leader
           </button>
-          <button data-tone="contrarian" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+          <button data-tone="contrarian" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-text-primary hover:border-obsidian transition-colors">
             Contrarian
           </button>
-          <button data-tone="technical" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+          <button data-tone="technical" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-text-primary hover:border-obsidian transition-colors">
             Technical Breakdown
           </button>
-          <button data-tone="casual" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+          <button data-tone="casual" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-text-primary hover:border-obsidian transition-colors">
             Casual / Candid
           </button>
-          <button data-tone="storytelling" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+          <button data-tone="storytelling" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-text-primary hover:border-obsidian transition-colors">
             Storytelling
           </button>
         </div>
@@ -252,7 +252,7 @@
 
       <!-- Action Button -->
       <div class="pt-2">
-        <button id="morph-btn" class="w-full py-3 rounded-lg bg-primary text-white shadow-sm font-semibold text-xs tracking-wide hover:bg-primary-container transition-colors flex items-center justify-center gap-2 shadow-sm">
+        <button id="morph-btn" class="w-full py-3 rounded-lg bg-primary text-white font-semibold text-xs tracking-wide hover:bg-primary-container transition-colors flex items-center justify-center gap-2 shadow-sm">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
@@ -270,15 +270,15 @@
         
         <!-- Output Tabs -->
         <div class="flex items-center gap-1 p-1 bg-subtle rounded-lg border border-border-crisp">
-          <button data-output="linkedin" class="output-tab active px-3 py-1.5 rounded-md font-semibold text-xs bg-surface text-obsidian border border-border-crisp shadow-2xs flex items-center gap-1.5 transition-colors">
+          <button data-output="linkedin" class="output-tab active px-3 py-1.5 rounded-md font-semibold text-xs bg-surface text-text-primary border border-border-crisp shadow-2xs flex items-center gap-1.5 transition-colors">
             <span>LinkedIn Post</span>
           </button>
           
-          <button data-output="twitter" class="output-tab px-3 py-1.5 rounded-md font-semibold text-xs text-muted hover:text-obsidian flex items-center gap-1.5 transition-colors">
+          <button data-output="twitter" class="output-tab px-3 py-1.5 rounded-md font-semibold text-xs text-muted hover:text-text-primary flex items-center gap-1.5 transition-colors">
             <span>X Thread</span>
           </button>
           
-          <button data-output="newsletter" class="output-tab px-3 py-1.5 rounded-md font-semibold text-xs text-muted hover:text-obsidian flex items-center gap-1.5 transition-colors">
+          <button data-output="newsletter" class="output-tab px-3 py-1.5 rounded-md font-semibold text-xs text-muted hover:text-text-primary flex items-center gap-1.5 transition-colors">
             <span>Newsletter</span>
           </button>
         </div>
@@ -291,7 +291,7 @@
             <span id="output-words-label">0 words</span>
           </div>
 
-          <button id="copy-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface border border-border-crisp text-xs font-semibold text-obsidian hover:bg-subtle transition-colors shadow-2xs">
+          <button id="copy-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface border border-border-crisp text-xs font-semibold text-text-primary hover:bg-subtle transition-colors shadow-2xs">
             <svg class="w-3.5 h-3.5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
@@ -316,14 +316,14 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-sm font-bold text-obsidian">No content generated yet</h3>
+            <h3 class="text-sm font-bold text-text-primary">No content generated yet</h3>
             <p class="text-xs text-muted max-w-xs mt-1">Paste a video link, article URL, or notes on the left and click "Morph Content".</p>
           </div>
         </div>
 
         <!-- LinkedIn Pane -->
         <div id="output-linkedin-pane" class="output-pane hidden space-y-2">
-          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-obsidian selection:text-white" id="linkedin-text"></div>
+          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-text-primary whitespace-pre-wrap font-sans selection:bg-primary-subtle selection:text-white" id="linkedin-text"></div>
         </div>
 
         <!-- Twitter Thread Pane -->
@@ -333,7 +333,7 @@
 
         <!-- Newsletter Summary Pane -->
         <div id="output-newsletter-pane" class="output-pane hidden space-y-2">
-          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-obsidian selection:text-white" id="newsletter-text"></div>
+          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-text-primary whitespace-pre-wrap font-sans selection:bg-primary-subtle selection:text-white" id="newsletter-text"></div>
         </div>
 
       </div>

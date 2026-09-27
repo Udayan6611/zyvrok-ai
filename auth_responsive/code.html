@@ -54,7 +54,7 @@
     }
   </style>
 </head>
-<body class="bg-base text-obsidian font-sans min-h-screen flex items-center justify-center p-4 selection:bg-obsidian selection:text-white">
+<body class="bg-base text-text-primary font-sans min-h-screen flex items-center justify-center p-4 selection:bg-primary-subtle selection:text-white">
 
   <!-- Centered Auth Card Container -->
   <div class="max-w-md w-full bg-surface border border-border-crisp rounded-2xl p-7 sm:p-9 space-y-6 shadow-sm">
@@ -62,18 +62,18 @@
     <!-- Brand Header -->
     <div class="text-center space-y-2">
       <a href="../index.html" class="inline-flex items-center gap-2.5 mb-2 group">
-        <div class="w-9 h-9 rounded-lg bg-primary text-white shadow-sm flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+        <div class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16L7 20h13"/>
           </svg>
         </div>
         <div class="flex flex-col text-left">
-          <span class="font-bold text-lg tracking-tight leading-none text-obsidian">Zyvrok</span>
+          <span class="font-bold text-lg tracking-tight leading-none text-text-primary">Zyvrok</span>
           <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
         </div>
       </a>
 
-      <h1 id="auth-title" class="text-xl font-bold text-obsidian tracking-tight">Zyvrok Account</h1>
+      <h1 id="auth-title" class="text-xl font-bold text-text-primary tracking-tight">Zyvrok Account</h1>
       <p id="auth-subtitle" class="text-xs text-muted leading-relaxed">
         Sign in or create an account to synchronize credits and your saved post library.
       </p>
@@ -81,7 +81,7 @@
 
     <!-- Active User Details Card (Displayed when logged in) -->
     <div id="logged-in-panel" class="hidden p-5 rounded-xl bg-subtle border border-border-crisp space-y-4 text-center">
-      <div class="w-12 h-12 rounded-full bg-surface border border-border-crisp text-obsidian flex items-center justify-center mx-auto shadow-2xs">
+      <div class="w-12 h-12 rounded-full bg-surface border border-border-crisp text-text-primary flex items-center justify-center mx-auto shadow-2xs">
         <svg class="w-6 h-6 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
@@ -89,7 +89,7 @@
       </div>
 
       <div>
-        <h2 class="text-base font-bold text-obsidian" id="user-display-name">Creator</h2>
+        <h2 class="text-base font-bold text-text-primary" id="user-display-name">Creator</h2>
         <p class="text-xs font-mono text-muted mt-0.5" id="logged-in-email">user@example.com</p>
       </div>
 
@@ -99,20 +99,20 @@
           <span class="text-[11px] text-muted">Generation credits</span>
         </div>
         <div class="flex items-baseline gap-1 font-mono">
-          <strong id="logged-in-credits" class="text-xl font-extrabold text-obsidian">--</strong>
+          <strong id="logged-in-credits" class="text-xl font-extrabold text-text-primary">--</strong>
           <span class="text-xs text-muted">Credits</span>
         </div>
       </div>
 
       <div class="space-y-2 pt-1">
-        <a href="../repurpose_studio_responsive/code.html" class="w-full py-2.5 bg-obsidian hover:bg-primary-container text-white text-xs font-semibold rounded-lg shadow-sm transition-colors flex items-center justify-center gap-1.5">
+        <a href="../repurpose_studio_responsive/code.html" class="w-full py-2.5 bg-primary hover:bg-primary-container text-white text-xs font-semibold rounded-lg shadow-sm transition-colors flex items-center justify-center gap-1.5">
           <span>Open Repurpose Studio</span>
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </a>
 
-        <a href="../upgrade_to_pro_responsive/code.html" class="w-full py-2.5 bg-surface hover:bg-subtle text-obsidian text-xs font-semibold rounded-lg border border-border-crisp transition-colors flex items-center justify-center gap-1.5">
+        <a href="../upgrade_to_pro_responsive/code.html" class="w-full py-2.5 bg-surface hover:bg-subtle text-text-primary text-xs font-semibold rounded-lg border border-border-crisp transition-colors flex items-center justify-center gap-1.5">
           <span>Top Up Credits (from ₹199)</span>
         </a>
 
@@ -126,19 +126,19 @@
     <form id="auth-form" class="space-y-4" onsubmit="event.preventDefault();">
       <div class="space-y-1.5 text-left">
         <label for="email" class="block text-xs font-mono font-semibold text-muted uppercase">Email Address</label>
-        <input type="email" id="email" required placeholder="name@domain.com" class="w-full px-3.5 py-2.5 bg-base border border-border-crisp rounded-lg text-xs font-sans text-obsidian placeholder:text-muted/60 outline-none focus:border-obsidian focus:bg-surface transition-all"/>
+        <input type="email" id="email" required placeholder="name@domain.com" class="w-full px-3.5 py-2.5 bg-base border border-border-crisp rounded-lg text-xs font-sans text-text-primary placeholder:text-muted/60 outline-none focus:border-obsidian focus:bg-surface transition-all"/>
       </div>
 
       <div class="space-y-1.5 text-left">
         <label for="password" class="block text-xs font-mono font-semibold text-muted uppercase">Password</label>
-        <input type="password" id="password" required placeholder="Minimum 6 characters" class="w-full px-3.5 py-2.5 bg-base border border-border-crisp rounded-lg text-xs font-sans text-obsidian placeholder:text-muted/60 outline-none focus:border-obsidian focus:bg-surface transition-all"/>
+        <input type="password" id="password" required placeholder="Minimum 6 characters" class="w-full px-3.5 py-2.5 bg-base border border-border-crisp rounded-lg text-xs font-sans text-text-primary placeholder:text-muted/60 outline-none focus:border-obsidian focus:bg-surface transition-all"/>
       </div>
 
       <div class="flex gap-2.5 pt-1">
-        <button type="button" id="btn-login" class="flex-1 py-2.5 bg-obsidian hover:bg-primary-container text-white font-semibold text-xs rounded-lg shadow-sm transition-colors">
+        <button type="button" id="btn-login" class="flex-1 py-2.5 bg-primary hover:bg-primary-container text-white font-semibold text-xs rounded-lg shadow-sm transition-colors">
           Sign In
         </button>
-        <button type="button" id="btn-signup" class="flex-1 py-2.5 bg-surface hover:bg-subtle text-obsidian font-semibold text-xs rounded-lg border border-border-crisp transition-colors">
+        <button type="button" id="btn-signup" class="flex-1 py-2.5 bg-surface hover:bg-subtle text-text-primary font-semibold text-xs rounded-lg border border-border-crisp transition-colors">
           Create Account
         </button>
       </div>
@@ -149,14 +149,14 @@
         <div class="flex-grow border-t border-border-crisp"></div>
       </div>
 
-      <button type="button" id="btn-demo" class="w-full py-2.5 bg-subtle hover:bg-subtle-hover border border-border-crisp text-muted hover:text-obsidian text-xs font-semibold rounded-lg transition-colors">
+      <button type="button" id="btn-demo" class="w-full py-2.5 bg-subtle hover:bg-subtle-hover border border-border-crisp text-muted hover:text-text-primary text-xs font-semibold rounded-lg transition-colors">
         Continue in Guest Mode
       </button>
     </form>
 
     <!-- Footer Back Link -->
     <div class="pt-2 text-center border-t border-border-crisp">
-      <a href="../index.html" class="text-xs font-mono text-muted hover:text-obsidian inline-flex items-center gap-1 transition-colors">
+      <a href="../index.html" class="text-xs font-mono text-muted hover:text-text-primary inline-flex items-center gap-1 transition-colors">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"/>
           <polyline points="12 19 5 12 12 5"/>
