@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://zyvrok-ai.vercel.app/sitemap.xml
