@@ -1,9 +1,12 @@
 {
   "framework": "vite",
+  "cleanUrls": false,
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    }
+    { "source": "/studio", "destination": "/repurpose_studio_responsive/code.html" },
+    { "source": "/pricing", "destination": "/upgrade_to_pro_responsive/code.html" },
+    { "source": "/history", "destination": "/dashboard_history_responsive/code.html" },
+    { "source": "/login", "destination": "/login_sign_up_responsive/code.html" },
+    { "source": "/legal", "destination": "/legal.html" },
+    { "source": "/api/(.*)", "destination": "/api/$1" }
   ]
 }
