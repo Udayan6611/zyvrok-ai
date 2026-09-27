@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full dark" lang="en">
+<html class="h-full" lang="en">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -19,28 +19,25 @@
       theme: {
         extend: {
           colors: {
-            "base": "#09090B",
-            "surface": "#121215",
-            "subtle": "#18181B",
-            "subtle-hover": "#27272A",
-            "border-crisp": "#27272A",
-            "border-highlight": "#3F3F46",
-            "obsidian": "#FAFAFA",
-            "obsidian-hover": "#E4E4E7",
-            "muted": "#A1A1AA",
-            "accent": "#10B981",
+            "base": "#F8F8F6",
+            "surface": "#FFFFFF",
+            "subtle": "#F0EFEB",
+            "border-crisp": "#E4E2DC",
+            "obsidian": "#141312",
+            "obsidian-hover": "#272523",
+            "muted": "#63615A",
+            "accent": "#0E6655",
             
-            /* Compatibility tokens */
-            "primary": "#FAFAFA",
-            "primary-container": "#E4E4E7",
-            "secondary": "#A1A1AA",
-            "background": "#09090B",
-            "on-background": "#FAFAFA",
-            "on-surface": "#FAFAFA",
-            "surface-container": "#18181B",
-            "surface-container-low": "#121215",
-            "surface-container-lowest": "#09090B",
-            "outline-variant": "#27272A"
+            /* Backward compatibility aliases */
+            "primary": "#141312",
+            "primary-container": "#272523",
+            "secondary": "#63615A",
+            "background": "#F8F8F6",
+            "on-background": "#141312",
+            "surface-container": "#F0EFEB",
+            "surface-container-low": "#F8F8F6",
+            "surface-container-lowest": "#FFFFFF",
+            "outline-variant": "#E4E2DC"
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
@@ -52,12 +49,12 @@
   </script>
   <style>
     a:focus-visible, button:focus-visible {
-      outline: 2px solid #FAFAFA;
+      outline: 2px solid #141312;
       outline-offset: 1px;
     }
   </style>
 </head>
-<body class="bg-base text-obsidian font-sans h-full flex flex-col md:flex-row overflow-hidden antialiased selection:bg-zinc-800 selection:text-white">
+<body class="bg-base text-obsidian font-sans h-full flex flex-col md:flex-row overflow-hidden antialiased selection:bg-obsidian selection:text-white">
 
   <!-- Desktop Side Navigation -->
   <aside class="hidden md:flex flex-col h-full w-[260px] bg-surface border-r border-border-crisp flex-shrink-0 p-4 justify-between z-20">
@@ -65,7 +62,7 @@
       
       <!-- Brand & Tagline -->
       <a href="../index.html" class="flex items-center gap-2.5 px-2 py-2 group">
-        <div class="w-8 h-8 rounded-lg bg-obsidian text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+        <div class="w-8 h-8 rounded-lg bg-primary text-white shadow-sm flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16L7 20h13"/>
           </svg>
@@ -126,7 +123,7 @@
   <!-- Mobile Top Header -->
   <header class="md:hidden flex items-center justify-between px-4 h-14 bg-surface border-b border-border-crisp flex-shrink-0 z-30">
     <a href="../index.html" class="flex items-center gap-2">
-      <div class="w-7 h-7 rounded bg-obsidian text-white flex items-center justify-center font-bold text-xs">
+      <div class="w-7 h-7 rounded bg-primary text-white shadow-sm flex items-center justify-center font-bold text-xs">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16L7 20h13"/>
         </svg>
@@ -135,7 +132,7 @@
     </a>
 
     <div class="flex items-center gap-2">
-      <a href="../repurpose_studio_responsive/code.html" class="px-2.5 py-1 rounded bg-obsidian text-white text-xs font-semibold">
+      <a href="../repurpose_studio_responsive/code.html" class="px-2.5 py-1 rounded bg-primary text-white shadow-sm text-xs font-semibold">
         Studio
       </a>
     </div>
@@ -159,7 +156,7 @@
             <span class="text-muted">Credits</span>
           </div>
 
-          <a href="../repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-2xs">
+          <a href="../repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white shadow-sm text-xs font-semibold hover:bg-primary-container transition-colors shadow-2xs">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"/>
               <line x1="5" y1="12" x2="19" y2="12"/>
@@ -229,7 +226,7 @@
               <p class="text-xs text-secondary max-w-md mx-auto">
                 Sign in to save your history permanently to the cloud and access your generated posts from any device.
               </p>
-              <a href="../login_sign_up_responsive/code.html" class="inline-block px-4 py-2 bg-obsidian text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-obsidian-hover transition-colors">
+              <a href="../login_sign_up_responsive/code.html" class="inline-block px-4 py-2 bg-primary text-white shadow-sm text-xs font-semibold rounded-lg shadow-sm hover:bg-primary-container transition-colors">
                 Sign In or Create Free Account
               </a>
             </div>
@@ -249,7 +246,7 @@
               <span class="w-10 h-10 text-muted mx-auto">history_toggle_off</span>
               <h3 class="font-heading text-base font-bold text-on-background">No Saved Posts Yet</h3>
               <p class="text-xs text-secondary">You haven't generated any posts yet. Head to the Studio to morph your first link or text!</p>
-              <a href="../repurpose_studio_responsive/code.html" class="inline-block px-4 py-2 bg-obsidian text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-obsidian-hover transition-colors">
+              <a href="../repurpose_studio_responsive/code.html" class="inline-block px-4 py-2 bg-primary text-white shadow-sm text-xs font-semibold rounded-lg shadow-sm hover:bg-primary-container transition-colors">
                 Open Repurpose Studio
               </a>
             </div>

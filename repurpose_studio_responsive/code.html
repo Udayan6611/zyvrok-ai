@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -19,28 +19,26 @@
       theme: {
         extend: {
           colors: {
-            "base": "#09090B",
-            "surface": "#121215",
-            "subtle": "#18181B",
-            "subtle-hover": "#27272A",
-            "border-crisp": "#27272A",
-            "border-highlight": "#3F3F46",
-            "obsidian": "#FAFAFA",
-            "obsidian-hover": "#E4E4E7",
-            "muted": "#A1A1AA",
-            "accent": "#10B981",
+            "base": "#F8F8F6",
+            "surface": "#FFFFFF",
+            "subtle": "#F0EFEB",
+            "border-crisp": "#E4E2DC",
+            "obsidian": "#141312",
+            "obsidian-hover": "#272523",
+            "muted": "#63615A",
+            "accent": "#0E6655",
             
             /* Compatibility tokens */
-            "primary": "#FAFAFA",
-            "primary-container": "#E4E4E7",
-            "secondary": "#A1A1AA",
-            "background": "#09090B",
-            "on-background": "#FAFAFA",
-            "on-surface": "#FAFAFA",
-            "surface-container": "#18181B",
-            "surface-container-low": "#121215",
-            "surface-container-lowest": "#09090B",
-            "outline-variant": "#27272A"
+            "primary": "#141312",
+            "primary-container": "#272523",
+            "secondary": "#63615A",
+            "background": "#F8F8F6",
+            "on-background": "#141312",
+            "on-surface": "#141312",
+            "surface-container": "#F0EFEB",
+            "surface-container-low": "#F8F8F6",
+            "surface-container-lowest": "#FFFFFF",
+            "outline-variant": "#E4E2DC"
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
@@ -57,22 +55,22 @@
       height: 6px;
     }
     textarea::-webkit-scrollbar-track, div::-webkit-scrollbar-track {
-      background: #09090B;
+      background: #F8F8F6;
     }
     textarea::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb {
-      background: #27272A;
+      background: #E4E2DC;
       border-radius: 3px;
     }
     textarea::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
-      background: #52525B;
+      background: #63615A;
     }
     a:focus-visible, button:focus-visible, textarea:focus-visible {
-      outline: 2px solid #FAFAFA;
+      outline: 2px solid #141312;
       outline-offset: 1px;
     }
   </style>
 </head>
-<body class="bg-base text-obsidian font-sans h-screen flex flex-col md:flex-row overflow-hidden antialiased selection:bg-zinc-800 selection:text-white">
+<body class="bg-base text-obsidian font-sans h-screen flex flex-col md:flex-row overflow-hidden antialiased selection:bg-obsidian selection:text-white">
 
   <!-- Desktop Side Navigation -->
   <aside class="hidden md:flex flex-col h-full w-[260px] bg-surface border-r border-border-crisp flex-shrink-0 p-4 justify-between z-20">
@@ -80,7 +78,7 @@
       
       <!-- Brand & Tagline -->
       <a href="../index.html" class="flex items-center gap-2.5 px-2 py-2 group">
-        <div class="w-8 h-8 rounded-lg bg-obsidian text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+        <div class="w-8 h-8 rounded-lg bg-primary text-white shadow-sm flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16L7 20h13"/>
           </svg>
@@ -140,7 +138,7 @@
           <span class="text-xs font-mono text-muted">Credits</span>
         </div>
         <p class="text-[10px] text-muted font-mono leading-tight">1 generation = 1 credit (3 deliverables)</p>
-        <a href="../upgrade_to_pro_responsive/code.html" class="block w-full py-1.5 text-center rounded bg-obsidian text-white text-[11px] font-semibold hover:bg-obsidian-hover transition-colors shadow-xs">
+        <a href="../upgrade_to_pro_responsive/code.html" class="block w-full py-1.5 text-center rounded bg-primary text-white shadow-sm text-[11px] font-semibold hover:bg-primary-container transition-colors shadow-xs">
           Top Up Balance
         </a>
       </div>
@@ -161,7 +159,7 @@
   <!-- Mobile Top Header -->
   <header class="md:hidden flex items-center justify-between px-4 h-14 bg-surface border-b border-border-crisp flex-shrink-0 z-30">
     <a href="../index.html" class="flex items-center gap-2">
-      <div class="w-7 h-7 rounded bg-obsidian text-white flex items-center justify-center font-bold text-xs">
+      <div class="w-7 h-7 rounded bg-primary text-white shadow-sm flex items-center justify-center font-bold text-xs">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16L7 20h13"/>
         </svg>
@@ -174,7 +172,7 @@
         <span class="text-muted">Bal:</span>
         <strong id="mobile-credits" class="text-obsidian font-bold">--</strong>
       </div>
-      <a href="../upgrade_to_pro_responsive/code.html" class="px-2.5 py-1 rounded bg-obsidian text-white text-[11px] font-semibold">
+      <a href="../upgrade_to_pro_responsive/code.html" class="px-2.5 py-1 rounded bg-primary text-white shadow-sm text-[11px] font-semibold">
         Top Up
       </a>
     </div>
@@ -195,7 +193,7 @@
         
         <!-- Input Type Toggle Tabs -->
         <div class="grid grid-cols-3 gap-1 p-1 bg-subtle rounded-lg border border-border-crisp">
-          <button id="tab-input-text" data-type="text" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center justify-center gap-1.5 bg-obsidian text-white shadow-xs">
+          <button id="tab-input-text" data-type="text" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center justify-center gap-1.5 bg-primary text-white shadow-sm shadow-xs">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
               <polyline points="14 2 14 8 20 8"/>
@@ -254,7 +252,7 @@
 
       <!-- Action Button -->
       <div class="pt-2">
-        <button id="morph-btn" class="w-full py-3 rounded-lg bg-obsidian text-white font-semibold text-xs tracking-wide hover:bg-obsidian-hover transition-colors flex items-center justify-center gap-2 shadow-sm">
+        <button id="morph-btn" class="w-full py-3 rounded-lg bg-primary text-white shadow-sm font-semibold text-xs tracking-wide hover:bg-primary-container transition-colors flex items-center justify-center gap-2 shadow-sm">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
@@ -325,7 +323,7 @@
 
         <!-- LinkedIn Pane -->
         <div id="output-linkedin-pane" class="output-pane hidden space-y-2">
-          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-zinc-800 selection:text-white" id="linkedin-text"></div>
+          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-obsidian selection:text-white" id="linkedin-text"></div>
         </div>
 
         <!-- Twitter Thread Pane -->
@@ -335,7 +333,7 @@
 
         <!-- Newsletter Summary Pane -->
         <div id="output-newsletter-pane" class="output-pane hidden space-y-2">
-          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-zinc-800 selection:text-white" id="newsletter-text"></div>
+          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-obsidian selection:text-white" id="newsletter-text"></div>
         </div>
 
       </div>
