@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zyvrok — High-Density Content Repurposing Studio</title>
+  <title>Zyvrok — Content Repurposing Studio</title>
   <meta name="description" content="Turn YouTube videos, long-form articles, and draft notes into platform-native LinkedIn posts, Twitter/X threads, and newsletter summaries." />
   
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS CDN with dark mode support -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   
-  <!-- Typography: Plus Jakarta Sans & JetBrains Mono (Deliberate alternative to Inter / Space Grotesk) -->
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,27 +20,26 @@
       theme: {
         extend: {
           colors: {
-            "base": "#F8F8F6",
-            "surface": "#FFFFFF",
-            "subtle": "#F0EFEB",
-            "subtle-hover": "#E9E8E3",
-            "border-crisp": "#E4E2DC",
-            "obsidian": "#141312",
-            "obsidian-hover": "#272523",
-            "muted": "#63615A",
-            "accent": "#0E6655",
-            "accent-subtle": "#EBF4F1",
+            "canvas": "#09090B",
+            "surface": "#121215",
+            "surface-elevated": "#18181B",
+            "surface-subtle": "#27272A",
+            "border-crisp": "#27272A",
+            "border-highlight": "#3F3F46",
+            "text-primary": "#FAFAFA",
+            "text-secondary": "#A1A1AA",
+            "text-muted": "#71717A",
+            "accent": "#10B981",
+            "accent-glow": "rgba(16, 185, 129, 0.15)",
             
-            /* Backward compatibility aliases */
-            "primary": "#141312",
-            "primary-container": "#272523",
-            "secondary": "#63615A",
-            "background": "#F8F8F6",
-            "on-background": "#141312",
-            "surface-container": "#F0EFEB",
-            "surface-container-low": "#F8F8F6",
-            "surface-container-lowest": "#FFFFFF",
-            "outline-variant": "#E4E2DC"
+            /* Compatibility aliases */
+            "base": "#09090B",
+            "obsidian": "#FAFAFA",
+            "muted": "#A1A1AA",
+            "primary": "#FAFAFA",
+            "secondary": "#A1A1AA",
+            "background": "#09090B",
+            "on-background": "#FAFAFA"
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
@@ -51,46 +50,55 @@
     }
   </script>
   <style>
-    /* Focus rings for keyboard accessibility */
+    body {
+      background-color: #09090B;
+      color: #FAFAFA;
+    }
     a:focus-visible, button:focus-visible {
-      outline: 2px solid #141312;
+      outline: 2px solid #FAFAFA;
       outline-offset: 2px;
+    }
+    /* Subtle grid texture */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     }
   </style>
 </head>
-<body class="bg-base text-obsidian font-sans antialiased selection:bg-obsidian selection:text-white min-h-screen flex flex-col">
+<body class="bg-canvas text-text-primary font-sans antialiased selection:bg-surface-subtle selection:text-white min-h-screen flex flex-col">
 
   <!-- Header Navigation -->
-  <header class="sticky top-0 z-50 bg-base/90 backdrop-blur-md border-b border-border-crisp">
+  <header class="sticky top-0 z-50 bg-canvas/80 backdrop-blur-xl border-b border-border-crisp">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       
       <!-- Brand Monogram & Name -->
-      <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-lg bg-obsidian text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-surface-elevated border border-border-highlight text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95 shadow-sm">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16L7 20h13"/>
           </svg>
         </div>
         <div class="flex flex-col">
-          <span class="font-bold text-base tracking-tight leading-none text-obsidian">Zyvrok</span>
-          <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
+          <span class="font-bold text-base tracking-tight leading-none text-text-primary">Zyvrok</span>
+          <span class="text-[10px] font-mono text-text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
         </div>
       </a>
 
       <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-muted">
-        <a href="#workflow" class="hover:text-obsidian transition-colors">Workflow</a>
-        <a href="#features" class="hover:text-obsidian transition-colors">Engine</a>
-        <a href="#preview" class="hover:text-obsidian transition-colors">Live Studio Frame</a>
-        <a href="#pricing" class="hover:text-obsidian transition-colors">Pricing</a>
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-text-secondary">
+        <a href="#features" class="hover:text-text-primary transition-colors">Engine</a>
+        <a href="#preview" class="hover:text-text-primary transition-colors">Studio Interface</a>
+        <a href="#pricing" class="hover:text-text-primary transition-colors">Pricing</a>
       </nav>
 
       <!-- Action Buttons -->
       <div class="flex items-center gap-3">
-        <a href="login_sign_up_responsive/code.html" class="text-xs font-semibold text-muted hover:text-obsidian px-2.5 py-1.5 transition-colors">
+        <a href="login_sign_up_responsive/code.html" class="text-xs font-semibold text-text-secondary hover:text-text-primary px-2.5 py-1.5 transition-colors">
           Sign In
         </a>
-        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-sm">
+        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-text-primary text-canvas text-xs font-bold hover:bg-zinc-200 transition-colors shadow-sm">
           <span>Open Studio</span>
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -101,68 +109,62 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="pt-16 pb-14 border-b border-border-crisp">
+  <section class="relative pt-16 pb-14 border-b border-border-crisp bg-grid">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
       
-      <!-- Restrained Spec Badge -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-subtle border border-border-crisp text-[11px] font-mono font-medium text-muted mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
-        <span>Groq Llama 3.3 Engine · 1.8s Generation</span>
-      </div>
-
-      <!-- Solid High-Contrast Headline (Zero gradient) -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-obsidian leading-[1.12]">
+      <!-- Headline: Solid White, High Contrast (No Slop, No AI Badge) -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary leading-[1.15]">
         Turn raw video and text into ready-to-publish social copy.
       </h1>
 
-      <!-- Specific, Plainspoken Subtitle -->
-      <p class="mt-5 text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed">
+      <!-- Subtitle -->
+      <p class="mt-6 text-base sm:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
         Extract transcripts from YouTube or blog URLs. Zyvrok formats them into a 3-part distribution bundle: LinkedIn post, X thread, and newsletter summary.
       </p>
 
       <!-- Primary Action Buttons -->
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="repurpose_studio_responsive/code.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-sm">
+        <a href="repurpose_studio_responsive/code.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-text-primary text-canvas text-xs font-bold hover:bg-zinc-200 transition-colors shadow-sm">
           <span>Start in Studio</span>
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </a>
-        <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface border border-border-crisp text-obsidian text-xs font-semibold hover:bg-subtle transition-colors">
+        <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface border border-border-crisp text-text-primary text-xs font-semibold hover:bg-surface-elevated transition-colors">
           View Pricing (from ₹199)
         </a>
       </div>
 
-      <!-- Accurate Capability Metrics -->
-      <div class="mt-10 pt-8 border-t border-border-crisp/60 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] font-mono text-muted">
+      <!-- Real Metrics Strip -->
+      <div class="mt-10 pt-8 border-t border-border-crisp/60 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] font-mono text-text-muted">
         <div class="flex items-center gap-1.5">
-          <span class="text-obsidian font-bold">5</span>
+          <span class="text-text-primary font-bold">5</span>
           <span>Free trial credits</span>
         </div>
         <span class="text-border-crisp hidden sm:inline">|</span>
         <div class="flex items-center gap-1.5">
-          <span class="text-obsidian font-bold">3</span>
-          <span>Platform outputs in 1 click</span>
+          <span class="text-text-primary font-bold">3</span>
+          <span>Deliverables per link</span>
         </div>
         <span class="text-border-crisp hidden sm:inline">|</span>
         <div class="flex items-center gap-1.5">
-          <span class="text-obsidian font-bold">₹0</span>
+          <span class="text-text-primary font-bold">₹0</span>
           <span>Recurring subscription fees</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Product Hero Mockup (Real Studio Window Showcase) -->
-  <section id="preview" class="py-14 bg-base border-b border-border-crisp">
+  <!-- Product Preview Window Frame -->
+  <section id="preview" class="py-14 bg-canvas border-b border-border-crisp">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
       
       <div class="mb-5 flex items-center justify-between">
         <div>
-          <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Repurpose Studio Interface</span>
-          <h2 class="text-lg font-bold text-obsidian tracking-tight">One input. Three publication-ready drafts.</h2>
+          <span class="text-[11px] font-mono uppercase tracking-wider text-accent font-semibold">Repurpose Studio</span>
+          <h2 class="text-lg font-bold text-text-primary tracking-tight mt-0.5">One input. Three publication-ready drafts.</h2>
         </div>
-        <a href="repurpose_studio_responsive/code.html" class="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">
+        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors">
           <span>Open live app</span>
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
@@ -171,20 +173,20 @@
       </div>
 
       <!-- Studio Window Container Frame -->
-      <div class="rounded-xl border border-border-crisp bg-surface overflow-hidden shadow-sm">
+      <div class="rounded-xl border border-border-highlight bg-surface overflow-hidden shadow-2xl shadow-black/80">
         
         <!-- Application Window Chrome -->
-        <div class="bg-subtle px-4 py-2.5 border-b border-border-crisp flex items-center justify-between text-xs text-muted">
+        <div class="bg-surface-elevated px-4 py-2.5 border-b border-border-crisp flex items-center justify-between text-xs text-text-muted">
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#E0DED9] border border-border-crisp"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-[#E0DED9] border border-border-crisp"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-[#E0DED9] border border-border-crisp"></span>
-            <span class="ml-2 font-mono text-[11px] text-muted">zyvrok.app/studio</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#EF4444]/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#10B981]/80"></span>
+            <span class="ml-2 font-mono text-[11px] text-text-muted">zyvrok-ai.vercel.app/studio</span>
           </div>
           <div class="flex items-center gap-3 font-mono text-[11px]">
-            <span class="flex items-center gap-1 text-accent">
-              <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
-              <span>Llama-3.3-70B Ready</span>
+            <span class="flex items-center gap-1.5 text-accent">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+              <span>Model Ready</span>
             </span>
           </div>
         </div>
@@ -195,43 +197,43 @@
           <!-- Left Configuration & Input Panel -->
           <div class="lg:col-span-5 p-5 space-y-4 bg-surface">
             <div>
-              <label class="block text-[11px] font-mono uppercase font-semibold text-muted mb-2">Input Source</label>
-              <div class="grid grid-cols-3 gap-1 p-1 bg-subtle rounded-lg border border-border-crisp text-center text-xs font-medium">
-                <span class="py-1 text-muted">Text</span>
-                <span class="py-1 text-muted">Article</span>
-                <span class="py-1 bg-surface text-obsidian font-semibold rounded shadow-xs">YouTube</span>
+              <label class="block text-[11px] font-mono uppercase font-semibold text-text-muted mb-2">Input Source</label>
+              <div class="grid grid-cols-3 gap-1 p-1 bg-canvas rounded-lg border border-border-crisp text-center text-xs font-medium">
+                <span class="py-1 text-text-muted">Text</span>
+                <span class="py-1 text-text-muted">Article</span>
+                <span class="py-1 bg-surface-elevated text-text-primary font-semibold rounded border border-border-highlight">YouTube</span>
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono uppercase font-semibold text-muted mb-2">Source URL</label>
-              <div class="p-2.5 rounded-lg bg-subtle border border-border-crisp text-xs font-mono text-obsidian break-all">
+              <label class="block text-[11px] font-mono uppercase font-semibold text-text-muted mb-2">Source URL</label>
+              <div class="p-2.5 rounded-lg bg-canvas border border-border-crisp text-xs font-mono text-text-primary break-all">
                 https://youtube.com/watch?v=kCc8FmEb1nY
               </div>
-              <p class="text-[10px] text-muted font-mono mt-1">Andrej Karpathy: State of GPT & LLM Pipelines (42m 18s transcript extracted)</p>
+              <p class="text-[10px] text-text-muted font-mono mt-1">Andrej Karpathy: State of GPT & LLM Pipelines (Transcript extracted)</p>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono uppercase font-semibold text-muted mb-2">Framework & Tone</label>
+              <label class="block text-[11px] font-mono uppercase font-semibold text-text-muted mb-2">Framework & Tone</label>
               <div class="grid grid-cols-2 gap-1.5 text-xs font-medium">
-                <span class="p-2 rounded border border-obsidian bg-subtle text-obsidian font-semibold flex items-center justify-between">
+                <span class="p-2 rounded border border-accent bg-accent-glow text-accent font-semibold flex items-center justify-between">
                   <span>Professional</span>
                   <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
                 </span>
-                <span class="p-2 rounded border border-border-crisp text-muted">Contrarian</span>
-                <span class="p-2 rounded border border-border-crisp text-muted">Technical</span>
-                <span class="p-2 rounded border border-border-crisp text-muted">Storytelling</span>
+                <span class="p-2 rounded border border-border-crisp text-text-muted">Contrarian</span>
+                <span class="p-2 rounded border border-border-crisp text-text-muted">Technical</span>
+                <span class="p-2 rounded border border-border-crisp text-text-muted">Storytelling</span>
               </div>
             </div>
 
             <div class="pt-3 border-t border-border-crisp flex items-center justify-between">
-              <span class="text-[11px] font-mono text-muted">Cost: 1 Credit</span>
-              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-obsidian text-white text-xs font-semibold">
+              <span class="text-[11px] font-mono text-text-muted">Cost: 1 Credit</span>
+              <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-text-primary text-canvas text-xs font-bold hover:bg-zinc-200 transition-colors">
                 <span>Morph Content</span>
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
-              </span>
+              </a>
             </div>
           </div>
 
@@ -241,35 +243,35 @@
               <!-- Output Tabs -->
               <div class="flex items-center justify-between border-b border-border-crisp pb-3 mb-3">
                 <div class="flex items-center gap-1.5 text-xs font-semibold">
-                  <span class="px-2.5 py-1 rounded bg-obsidian text-white">LinkedIn Post</span>
-                  <span class="px-2.5 py-1 text-muted hover:text-obsidian">X Thread (5)</span>
-                  <span class="px-2.5 py-1 text-muted hover:text-obsidian">Newsletter</span>
+                  <span class="px-2.5 py-1 rounded bg-text-primary text-canvas">LinkedIn Post</span>
+                  <span class="px-2.5 py-1 text-text-muted hover:text-text-primary">X Thread (5)</span>
+                  <span class="px-2.5 py-1 text-text-muted hover:text-text-primary">Newsletter</span>
                 </div>
-                <span class="text-[11px] font-mono text-muted">184 words · 1,142 chars</span>
+                <span class="text-[11px] font-mono text-text-muted">184 words · 1,142 chars</span>
               </div>
 
               <!-- Refine Action Bar -->
-              <div class="flex items-center gap-1.5 text-[11px] font-mono text-muted pb-3 mb-3 border-b border-border-crisp/60 overflow-x-auto">
-                <span class="text-obsidian font-semibold">Refine:</span>
-                <span class="px-2 py-0.5 rounded border border-border-crisp bg-subtle text-obsidian">Shorten</span>
-                <span class="px-2 py-0.5 rounded border border-border-crisp bg-subtle text-obsidian">Stronger Hook</span>
-                <span class="px-2 py-0.5 rounded border border-border-crisp bg-subtle text-obsidian">Contrarian Take</span>
+              <div class="flex items-center gap-1.5 text-[11px] font-mono text-text-muted pb-3 mb-3 border-b border-border-crisp/60 overflow-x-auto">
+                <span class="text-text-primary font-semibold">Refine:</span>
+                <span class="px-2 py-0.5 rounded border border-border-crisp bg-surface-elevated text-text-secondary">⚡ Shorten</span>
+                <span class="px-2 py-0.5 rounded border border-border-crisp bg-surface-elevated text-text-secondary">🔥 Stronger Hook</span>
+                <span class="px-2 py-0.5 rounded border border-border-crisp bg-surface-elevated text-text-secondary">🎯 Contrarian Take</span>
               </div>
 
-              <!-- Real Un-emojified Formatted Output -->
-              <div class="text-xs text-obsidian font-sans leading-relaxed space-y-3 bg-base p-4 rounded-lg border border-border-crisp">
-                <p class="font-semibold text-obsidian">
+              <!-- Real Formatted Output -->
+              <div class="text-xs text-text-primary font-sans leading-relaxed space-y-3 bg-canvas p-4 rounded-lg border border-border-crisp">
+                <p class="font-semibold text-text-primary">
                   Most teams build LLM wrappers without understanding where inference economics break down.
                 </p>
-                <p class="text-muted">
+                <p class="text-text-secondary">
                   In Karpathy's architecture review, three operational constraints determine whether a generative application survives production scale:
                 </p>
-                <div class="space-y-1.5 pl-3 border-l-2 border-border-crisp font-mono text-[11px] text-obsidian">
+                <div class="space-y-1.5 pl-3 border-l-2 border-border-highlight font-mono text-[11px] text-text-secondary">
                   <p>1. Pretraining teaches world models; fine-tuning only adjusts the conversational format.</p>
                   <p>2. Reinforcement learning from human feedback introduces alignment tax and hallucinations.</p>
                   <p>3. Context window retrieval is not memory—it is working scratchpad space.</p>
                 </div>
-                <p class="text-muted">
+                <p class="text-text-secondary">
                   Optimize your pipeline for context precision rather than model parameter scale. The real edge is retrieval density.
                 </p>
               </div>
@@ -277,14 +279,13 @@
 
             <!-- Footer actions of preview -->
             <div class="pt-3 flex items-center justify-between border-t border-border-crisp text-xs">
-              <span class="text-[11px] font-mono text-muted">Click anywhere to edit draft in Studio</span>
-              <span class="inline-flex items-center gap-1 px-3 py-1 rounded border border-border-crisp bg-subtle font-semibold text-obsidian">
-                <svg class="w-3 h-3 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              <span class="text-[11px] font-mono text-text-muted">Draft Editor active</span>
+              <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-border-highlight bg-surface-elevated font-semibold text-text-primary text-xs hover:bg-surface-subtle transition-colors">
+                <span>Open in Studio</span>
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
-                <span>Copy Draft</span>
-              </span>
+              </a>
             </div>
           </div>
 
@@ -293,90 +294,90 @@
     </div>
   </section>
 
-  <!-- Asymmetrical Core Features Section -->
+  <!-- Core Features Bento Grid -->
   <section id="features" class="py-16 border-b border-border-crisp">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       
       <div class="max-w-2xl mb-12">
-        <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Engine Mechanics</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-obsidian tracking-tight mt-1">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-accent font-semibold">Engine Mechanics</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight mt-1">
           Designed for high-signal publishing across multiple channels.
         </h2>
-        <p class="text-sm text-muted mt-2">
+        <p class="text-sm text-text-secondary mt-2">
           Generic AI tools output surface-level summaries. Zyvrok isolates the underlying argument and reconstructs it using native platform psychology.
         </p>
       </div>
 
-      <!-- Asymmetrical Bento Grid -->
+      <!-- Bento Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Large Card 1 (Span 2) -->
-        <div class="md:col-span-2 p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4">
+        <div class="md:col-span-2 p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 hover:border-border-highlight transition-colors">
           <div class="flex items-center justify-between">
             <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">01 · Multi-Platform Atomization</span>
-            <span class="text-[11px] font-mono text-muted">Single Extraction Pipeline</span>
+            <span class="text-[11px] font-mono text-text-muted">Single Extraction Pipeline</span>
           </div>
-          <h3 class="text-lg font-bold text-obsidian">One URL yields three distinct, platform-native deliverables.</h3>
-          <p class="text-xs sm:text-sm text-muted leading-relaxed">
-            Paste a public YouTube link or blog article URL. Zyvrok bypasses paywalls and cookie walls, parses the core text or transcript, and generates:
+          <h3 class="text-lg font-bold text-text-primary">One URL yields three distinct, platform-native deliverables.</h3>
+          <p class="text-xs sm:text-sm text-text-secondary leading-relaxed">
+            Paste a public YouTube link or blog article URL. Zyvrok parses the core text or transcript and generates:
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
-            <div class="p-3 rounded-lg bg-base border border-border-crisp">
-              <span class="font-bold text-obsidian block mb-1">LinkedIn Post</span>
-              <span class="text-muted text-[11px]">2-line scroll-stopping hook, friction analysis, actionable bullets.</span>
+            <div class="p-3.5 rounded-lg bg-canvas border border-border-crisp space-y-1">
+              <span class="font-bold text-text-primary block">LinkedIn Post</span>
+              <span class="text-text-muted text-[11px]">2-line scroll-stopping hook, friction analysis, actionable bullets.</span>
             </div>
-            <div class="p-3 rounded-lg bg-base border border-border-crisp">
-              <span class="font-bold text-obsidian block mb-1">X / Twitter Thread</span>
-              <span class="text-muted text-[11px]">5 to 6 standalone tweets with narrative pacing and bookmark incentives.</span>
+            <div class="p-3.5 rounded-lg bg-canvas border border-border-crisp space-y-1">
+              <span class="font-bold text-text-primary block">X / Twitter Thread</span>
+              <span class="text-text-muted text-[11px]">5 to 6 standalone tweets with narrative pacing and bookmark incentives.</span>
             </div>
-            <div class="p-3 rounded-lg bg-base border border-border-crisp">
-              <span class="font-bold text-obsidian block mb-1">Newsletter Brief</span>
-              <span class="text-muted text-[11px]">Executive summary for Substack, Beehiiv, or internal team briefings.</span>
+            <div class="p-3.5 rounded-lg bg-canvas border border-border-crisp space-y-1">
+              <span class="font-bold text-text-primary block">Newsletter Brief</span>
+              <span class="text-text-muted text-[11px]">Executive summary for Substack, Beehiiv, or internal team briefings.</span>
             </div>
           </div>
         </div>
 
         <!-- Card 2 (Span 1) -->
-        <div class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 flex flex-col justify-between">
+        <div class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 flex flex-col justify-between hover:border-border-highlight transition-colors">
           <div class="space-y-3">
             <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">02 · Ghostwriting Frameworks</span>
-            <h3 class="text-lg font-bold text-obsidian">No robotic AI clichés.</h3>
-            <p class="text-xs sm:text-sm text-muted leading-relaxed">
+            <h3 class="text-lg font-bold text-text-primary">No robotic AI clichés.</h3>
+            <p class="text-xs sm:text-sm text-text-secondary leading-relaxed">
               Our prompt pipeline strictly bans generic language like "game changer", "delve into", or empty filler. Tone presets include Thought Leader, Contrarian, Technical, Casual, and Storytelling.
             </p>
           </div>
-          <div class="p-3 rounded-lg bg-base border border-border-crisp text-[11px] font-mono text-muted">
-            Strict formatting rules: 0 markdown asterisks in social text, clean spacing, and clear arguments.
+          <div class="p-3 rounded-lg bg-canvas border border-border-crisp text-[11px] font-mono text-text-muted">
+            0 markdown asterisks in social text, clean spacing, and clear arguments.
           </div>
         </div>
 
         <!-- Card 3 (Span 1) -->
-        <div class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 flex flex-col justify-between">
+        <div class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 flex flex-col justify-between hover:border-border-highlight transition-colors">
           <div class="space-y-3">
             <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">03 · In-App Draft Editor</span>
-            <h3 class="text-lg font-bold text-obsidian">Refine copy before copying.</h3>
-            <p class="text-xs sm:text-sm text-muted leading-relaxed">
+            <h3 class="text-lg font-bold text-text-primary">Refine copy before copying.</h3>
+            <p class="text-xs sm:text-sm text-text-secondary leading-relaxed">
               Edit text directly in the output pane. Use 1-click refinement buttons to shorten copy, strengthen the opening hook, or reframe the thesis with a contrarian perspective.
             </p>
           </div>
-          <div class="flex items-center gap-1.5 flex-wrap text-[10px] font-mono text-muted">
-            <span class="px-2 py-0.5 rounded bg-subtle border border-border-crisp">⚡ Shorten</span>
-            <span class="px-2 py-0.5 rounded bg-subtle border border-border-crisp">🔥 Stronger Hook</span>
-            <span class="px-2 py-0.5 rounded bg-subtle border border-border-crisp">🎯 Contrarian</span>
+          <div class="flex items-center gap-1.5 flex-wrap text-[10px] font-mono text-text-secondary">
+            <span class="px-2 py-0.5 rounded bg-surface-elevated border border-border-crisp">⚡ Shorten</span>
+            <span class="px-2 py-0.5 rounded bg-surface-elevated border border-border-crisp">🔥 Stronger Hook</span>
+            <span class="px-2 py-0.5 rounded bg-surface-elevated border border-border-crisp">🎯 Contrarian</span>
           </div>
         </div>
 
         <!-- Large Card 4 (Span 2) -->
-        <div class="md:col-span-2 p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4">
+        <div class="md:col-span-2 p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 hover:border-border-highlight transition-colors">
           <div class="flex items-center justify-between">
             <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">04 · Cloud History & Database</span>
-            <span class="text-[11px] font-mono text-muted">Supabase PostgreSQL Backing</span>
+            <span class="text-[11px] font-mono text-text-muted">Supabase PostgreSQL Backing</span>
           </div>
-          <h3 class="text-lg font-bold text-obsidian">Every generation is safely archived and searchable.</h3>
-          <p class="text-xs sm:text-sm text-muted leading-relaxed">
+          <h3 class="text-lg font-bold text-text-primary">Every generation is safely archived and searchable.</h3>
+          <p class="text-xs sm:text-sm text-text-secondary leading-relaxed">
             Never lose an idea. Every morphed draft is stored in your private history. Search previous outputs, re-copy snippets, and maintain a centralized library across desktop and mobile devices.
           </p>
-          <div class="pt-2 flex items-center gap-4 text-xs font-mono text-muted">
+          <div class="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-text-muted">
             <span>• Row Level Security (RLS) protected</span>
             <span>• 1-Click Clipboard snippet copy</span>
             <span>• Device cross-sync</span>
@@ -387,50 +388,14 @@
     </div>
   </section>
 
-  <!-- Simple 3-Step Process -->
-  <section id="workflow" class="py-16 bg-base border-b border-border-crisp">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="max-w-2xl mb-12">
-        <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Workflow</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-obsidian tracking-tight mt-1">From raw link to published post in three steps.</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-xl bg-surface border border-border-crisp space-y-3">
-          <div class="w-8 h-8 rounded-md bg-subtle border border-border-crisp font-mono text-xs font-bold flex items-center justify-center text-obsidian">01</div>
-          <h3 class="text-base font-bold text-obsidian">Paste Source URL or Draft</h3>
-          <p class="text-xs text-muted leading-relaxed">
-            Enter a YouTube link, public blog URL, or raw speaker notes directly into the input container.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-xl bg-surface border border-border-crisp space-y-3">
-          <div class="w-8 h-8 rounded-md bg-subtle border border-border-crisp font-mono text-xs font-bold flex items-center justify-center text-obsidian">02</div>
-          <h3 class="text-base font-bold text-obsidian">Select Voice Framework</h3>
-          <p class="text-xs text-muted leading-relaxed">
-            Pick from 5 tuned tones (Professional, Contrarian, Technical, Casual, Storytelling).
-          </p>
-        </div>
-
-        <div class="p-6 rounded-xl bg-surface border border-border-crisp space-y-3">
-          <div class="w-8 h-8 rounded-md bg-subtle border border-border-crisp font-mono text-xs font-bold flex items-center justify-center text-obsidian">03</div>
-          <h3 class="text-base font-bold text-obsidian">Review, Refine & Copy</h3>
-          <p class="text-xs text-muted leading-relaxed">
-            Edit text in the in-app editor, run quick 1-click AI adjustments, and copy ready-to-post copy.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section (Asymmetrical Hierarchy, Dropped checkmarks) -->
+  <!-- Pricing Section -->
   <section id="pricing" class="py-16 border-b border-border-crisp">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       
       <div class="text-center max-w-xl mx-auto mb-12">
-        <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Predictable Pricing</span>
-        <h2 class="text-2xl sm:text-4xl font-extrabold text-obsidian tracking-tight mt-1">Pay only for what you repurpose.</h2>
-        <p class="text-xs sm:text-sm text-muted mt-2">No recurring subscriptions or hidden cancellation terms. Credits never expire.</p>
+        <span class="text-[11px] font-mono uppercase tracking-wider text-accent font-semibold">Predictable Pricing</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-text-primary tracking-tight mt-1">Pay only for what you repurpose.</h2>
+        <p class="text-xs sm:text-sm text-text-secondary mt-2">No recurring subscriptions or hidden cancellation terms. Credits never expire.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
@@ -439,50 +404,50 @@
         <div class="p-6 sm:p-7 rounded-xl bg-surface border border-border-crisp flex flex-col justify-between space-y-6">
           <div class="space-y-4">
             <div>
-              <span class="text-xs font-mono font-semibold text-muted uppercase">Trial</span>
-              <h3 class="text-xl font-bold text-obsidian mt-0.5">Free Account</h3>
-              <p class="text-xs text-muted mt-1">Test the repurposing engine with zero payment.</p>
+              <span class="text-xs font-mono font-semibold text-text-muted uppercase">Trial</span>
+              <h3 class="text-xl font-bold text-text-primary mt-0.5">Free Account</h3>
+              <p class="text-xs text-text-secondary mt-1">Test the repurposing engine with zero payment.</p>
             </div>
             <div class="pt-4 border-t border-border-crisp">
-              <span class="text-3xl font-extrabold text-obsidian">₹0</span>
-              <span class="text-xs font-mono text-muted">/ forever</span>
+              <span class="text-3xl font-extrabold text-text-primary">₹0</span>
+              <span class="text-xs font-mono text-text-muted">/ on signup</span>
             </div>
-            <div class="space-y-2 text-xs text-muted font-mono pt-2">
+            <div class="space-y-2 text-xs text-text-secondary font-mono pt-2">
               <p>• 5 Generation credits on signup</p>
               <p>• All 3 format outputs included</p>
               <p>• In-app draft editor access</p>
             </div>
           </div>
-          <a href="repurpose_studio_responsive/code.html" class="w-full py-2.5 rounded-lg border border-border-crisp bg-subtle hover:bg-subtle-hover text-obsidian text-xs font-semibold text-center transition-colors">
+          <a href="repurpose_studio_responsive/code.html" class="w-full py-2.5 rounded-lg border border-border-crisp bg-surface-elevated hover:bg-surface-subtle text-text-primary text-xs font-semibold text-center transition-colors">
             Start Free
           </a>
         </div>
 
-        <!-- Tier 2: Starter Pack (FEATURED HERO CARD - Apple/Linear high contrast) -->
-        <div class="p-6 sm:p-7 rounded-xl bg-obsidian text-white border border-obsidian flex flex-col justify-between space-y-6 shadow-md relative">
+        <!-- Tier 2: Starter Pack (FEATURED HERO CARD) -->
+        <div class="p-6 sm:p-7 rounded-xl bg-surface-elevated text-text-primary border-2 border-accent flex flex-col justify-between space-y-6 shadow-xl relative">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <div>
                 <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">Most Popular</span>
-                <h3 class="text-xl font-bold text-white mt-0.5">Starter Pack</h3>
+                <h3 class="text-xl font-bold text-text-primary mt-0.5">Starter Pack</h3>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white uppercase">One-time</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-accent/20 text-accent uppercase">One-time</span>
             </div>
-            <p class="text-xs text-white/70">Ideal for weekly founders and content creators.</p>
-            <div class="pt-4 border-t border-white/15">
-              <span class="text-3xl font-extrabold text-white">₹199</span>
-              <span class="text-xs font-mono text-white/70">/ 50 Credits</span>
+            <p class="text-xs text-text-secondary">Ideal for weekly founders and content creators.</p>
+            <div class="pt-4 border-t border-border-crisp">
+              <span class="text-3xl font-extrabold text-text-primary">₹199</span>
+              <span class="text-xs font-mono text-text-secondary">/ 50 Credits</span>
               <p class="text-[11px] font-mono text-accent mt-0.5">₹3.98 per repurposed link</p>
             </div>
-            <div class="space-y-2 text-xs text-white/80 font-mono pt-2">
+            <div class="space-y-2 text-xs text-text-secondary font-mono pt-2">
               <p>• 50 AI Generation credits</p>
               <p>• YouTube transcript & blog URL parser</p>
               <p>• 1-Click AI draft refinements</p>
               <p>• Credits never expire</p>
-              <p>• Secure UPI & RuPay checkout via Razorpay</p>
+              <p>• Instant activation via Razorpay</p>
             </div>
           </div>
-          <a href="upgrade_to_pro_responsive/code.html" class="w-full py-2.5 rounded-lg bg-white text-obsidian hover:bg-white/90 text-xs font-semibold text-center transition-colors shadow-sm">
+          <a href="upgrade_to_pro_responsive/code.html" class="w-full py-2.5 rounded-lg bg-text-primary text-canvas hover:bg-zinc-200 text-xs font-bold text-center transition-colors shadow-sm">
             Get Starter Pack (₹199)
           </a>
         </div>
@@ -492,26 +457,26 @@
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-xs font-mono font-semibold text-muted uppercase">High Volume</span>
-                <h3 class="text-xl font-bold text-obsidian mt-0.5">Creator Pro</h3>
+                <span class="text-xs font-mono font-semibold text-text-muted uppercase">Volume Pack</span>
+                <h3 class="text-xl font-bold text-text-primary mt-0.5">Creator Pro</h3>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-subtle text-muted uppercase">Best Rate</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-surface-subtle text-text-secondary uppercase">Best Rate</span>
             </div>
-            <p class="text-xs text-muted">For ghostwriters, media agencies, and teams.</p>
+            <p class="text-xs text-text-secondary">For ghostwriters, media agencies, and teams.</p>
             <div class="pt-4 border-t border-border-crisp">
-              <span class="text-3xl font-extrabold text-obsidian">₹499</span>
-              <span class="text-xs font-mono text-muted">/ 150 Credits</span>
+              <span class="text-3xl font-extrabold text-text-primary">₹499</span>
+              <span class="text-xs font-mono text-text-muted">/ 150 Credits</span>
               <p class="text-[11px] font-mono text-accent mt-0.5">₹3.32 per repurposed link</p>
             </div>
-            <div class="space-y-2 text-xs text-muted font-mono pt-2">
+            <div class="space-y-2 text-xs text-text-secondary font-mono pt-2">
               <p>• 150 AI Generation credits</p>
-              <p>• Priority execution cluster</p>
+              <p>• Priority execution queue</p>
               <p>• Full commercial ghostwriting license</p>
               <p>• Credits never expire</p>
               <p>• Cloud history export & sync</p>
             </div>
           </div>
-          <a href="upgrade_to_pro_responsive/code.html" class="w-full py-2.5 rounded-lg border border-border-crisp bg-subtle hover:bg-subtle-hover text-obsidian text-xs font-semibold text-center transition-colors">
+          <a href="upgrade_to_pro_responsive/code.html" class="w-full py-2.5 rounded-lg border border-border-crisp bg-surface-elevated hover:bg-surface-subtle text-text-primary text-xs font-semibold text-center transition-colors">
             Get Creator Pro (₹499)
           </a>
         </div>
@@ -520,15 +485,15 @@
     </div>
   </section>
 
-  <!-- Restrained Bottom CTA (No neon gradient) -->
+  <!-- Restrained Bottom CTA -->
   <section class="py-16 bg-surface border-b border-border-crisp">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-5">
-      <h2 class="text-2xl sm:text-3xl font-bold text-obsidian tracking-tight">Ready to test the repurposing engine?</h2>
-      <p class="text-xs sm:text-sm text-muted max-w-lg mx-auto leading-relaxed">
+      <h2 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">Ready to test the repurposing engine?</h2>
+      <p class="text-xs sm:text-sm text-text-secondary max-w-lg mx-auto leading-relaxed">
         Start with 5 free credits. No credit card required. Paste any link to see how your drafts look.
       </p>
       <div>
-        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-sm">
+        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-text-primary text-canvas text-xs font-bold hover:bg-zinc-200 transition-colors shadow-sm">
           <span>Open Repurpose Studio</span>
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -538,21 +503,21 @@
     </div>
   </section>
 
-  <!-- Minimalist Clean Footer -->
-  <footer class="py-10 bg-base text-muted text-xs">
+  <!-- Clean Footer -->
+  <footer class="py-10 bg-canvas text-text-muted text-xs">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2">
-        <div class="w-5 h-5 rounded bg-obsidian text-white flex items-center justify-center font-bold text-[10px]">Z</div>
-        <span class="font-bold text-obsidian">Zyvrok</span>
-        <span class="text-muted text-[11px] font-mono ml-2">© 2026 Zyvrok. All rights reserved.</span>
+        <div class="w-5 h-5 rounded bg-surface-elevated text-white flex items-center justify-center font-bold text-[10px] border border-border-highlight">Z</div>
+        <span class="font-bold text-text-primary">Zyvrok</span>
+        <span class="text-text-muted text-[11px] font-mono ml-2">© 2026 Zyvrok. All rights reserved.</span>
       </div>
 
       <div class="flex items-center gap-5 text-[11px] font-semibold">
-        <a href="repurpose_studio_responsive/code.html" class="hover:text-obsidian transition-colors">Studio</a>
-        <a href="dashboard_history_responsive/code.html" class="hover:text-obsidian transition-colors">History</a>
-        <a href="upgrade_to_pro_responsive/code.html" class="hover:text-obsidian transition-colors">Pricing</a>
-        <a href="login_sign_up_responsive/code.html" class="hover:text-obsidian transition-colors">Sign In</a>
-        <a href="legal.html" class="hover:text-obsidian transition-colors">Legal & Refund Policy</a>
+        <a href="repurpose_studio_responsive/code.html" class="hover:text-text-primary transition-colors">Studio</a>
+        <a href="dashboard_history_responsive/code.html" class="hover:text-text-primary transition-colors">History</a>
+        <a href="upgrade_to_pro_responsive/code.html" class="hover:text-text-primary transition-colors">Pricing</a>
+        <a href="login_sign_up_responsive/code.html" class="hover:text-text-primary transition-colors">Sign In</a>
+        <a href="legal.html" class="hover:text-text-primary transition-colors">Legal & Refund Policy</a>
       </div>
     </div>
   </footer>
