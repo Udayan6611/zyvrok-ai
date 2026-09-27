@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full dark" lang="en">
+<html class="h-full" lang="en">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -22,28 +22,25 @@
       theme: {
         extend: {
           colors: {
-            "base": "#09090B",
-            "surface": "#121215",
-            "subtle": "#18181B",
-            "subtle-hover": "#27272A",
-            "border-crisp": "#27272A",
-            "border-highlight": "#3F3F46",
-            "obsidian": "#FAFAFA",
-            "obsidian-hover": "#E4E4E7",
-            "muted": "#A1A1AA",
-            "accent": "#10B981",
+            "base": "#F8F8F6",
+            "surface": "#FFFFFF",
+            "subtle": "#F0EFEB",
+            "border-crisp": "#E4E2DC",
+            "obsidian": "#141312",
+            "obsidian-hover": "#272523",
+            "muted": "#63615A",
+            "accent": "#0E6655",
             
-            /* Compatibility tokens */
-            "primary": "#FAFAFA",
-            "primary-container": "#E4E4E7",
-            "secondary": "#A1A1AA",
-            "background": "#09090B",
-            "on-background": "#FAFAFA",
-            "on-surface": "#FAFAFA",
-            "surface-container": "#18181B",
-            "surface-container-low": "#121215",
-            "surface-container-lowest": "#09090B",
-            "outline-variant": "#27272A"
+            /* Backward compatibility aliases */
+            "primary": "#141312",
+            "primary-container": "#272523",
+            "secondary": "#63615A",
+            "background": "#F8F8F6",
+            "on-background": "#141312",
+            "surface-container": "#F0EFEB",
+            "surface-container-low": "#F8F8F6",
+            "surface-container-lowest": "#FFFFFF",
+            "outline-variant": "#E4E2DC"
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
@@ -55,12 +52,12 @@
   </script>
   <style>
     a:focus-visible, button:focus-visible {
-      outline: 2px solid #FAFAFA;
+      outline: 2px solid #141312;
       outline-offset: 1px;
     }
   </style>
 </head>
-<body class="bg-base text-obsidian font-sans h-full flex flex-col md:flex-row overflow-hidden antialiased selection:bg-zinc-800 selection:text-white">
+<body class="bg-base text-obsidian font-sans h-full flex flex-col md:flex-row overflow-hidden antialiased selection:bg-obsidian selection:text-white">
 
   <!-- Desktop Side Navigation -->
   <aside class="hidden md:flex flex-col h-full w-[260px] bg-surface border-r border-border-crisp flex-shrink-0 p-4 justify-between z-20">
