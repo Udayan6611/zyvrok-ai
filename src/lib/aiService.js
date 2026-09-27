@@ -273,51 +273,18 @@ CRITICAL:
 - Do NOT rush the narrative.
 - Return ONLY valid JSON matching the schema.`;
 
-  // 4. Execute AI Generation (via n8n workflow backend OR direct Groq API)
+  // 4. Execute Groq API Call
   let parsedOutput = null;
-  const n8nWebhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL || '';
 
-  if (n8nWebhookUrl && n8nWebhookUrl.startsWith('http')) {
+  if (groqApiKey && groqApiKey.length > 10 && !groqApiKey.includes('YOUR_')) {
     try {
-      console.log('Dispatching request to n8n backend workflow...');
-      const n8nResponse = await fetch(n8nWebhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId,
-          content,
-          inputType,
-          tone,
-          topicTitle,
-          resolvedText
-        })
-      });
-
-      if (n8nResponse.ok) {
-        const n8nData = await n8nResponse.json();
-        if (n8nData && (n8nData.linkedin_post || n8nData.output?.linkedin_post)) {
-          parsedOutput = n8nData.linkedin_post ? n8nData : n8nData.output;
-        }
-      } else {
-        console.warn('n8n returned non-200, falling back to direct Groq API');
-      }
-    } catch (n8nErr) {
-      console.warn('n8n webhook connection note, falling back to Groq API:', n8nErr.message);
+      parsedOutput = await callGroqApi(systemPrompt, userPrompt, groqApiKey);
+    } catch (err) {
+      console.error('Groq API execution error:', err);
+      throw new Error(`Groq API Error: ${err.message}`);
     }
-  }
-
-  // Fallback to direct Groq API if n8n not configured or unavailable
-  if (!parsedOutput) {
-    if (groqApiKey && groqApiKey.length > 10 && !groqApiKey.includes('YOUR_')) {
-      try {
-        parsedOutput = await callGroqApi(systemPrompt, userPrompt, groqApiKey);
-      } catch (err) {
-        console.error('Groq API execution error:', err);
-        throw new Error(`Groq API Error: ${err.message}`);
-      }
-    } else {
-      throw new Error('Please configure your VITE_GROQ_API_KEY (or VITE_N8N_WEBHOOK_URL) in your .env file.');
-    }
+  } else {
+    throw new Error('Please configure your VITE_GROQ_API_KEY in your .env file.');
   }
 
   if (!parsedOutput || !parsedOutput.linkedin_post) {
@@ -368,60 +335,4 @@ CRITICAL:
     remainingCredits,
     id: savedPostId || `post-${Date.now()}`
   };
-}
-
-/**
- * 1-Click AI Refinement for Drafts (Shorten, Stronger Hook, Contrarian, Executive)
- */
-export async function refineDraft({ text, instruction, tone = 'professional' }) {
-  if (!text || !text.trim()) {
-    throw new Error('No draft text to refine.');
-  }
-
-  const cleanKey = groqApiKey.trim();
-  if (!cleanKey) {
-    throw new Error('Please configure your VITE_GROQ_API_KEY in the .env file.');
-  }
-
-  const prompt = `You are an elite viral tech ghostwriter.
-INSTRUCTION: ${instruction}
-TARGET TONE: ${tone}
-
-ORIGINAL DRAFT:
-"""
-${text}
-"""
-
-CRITICAL RULES:
-- Output ONLY the updated draft.
-- Do NOT include markdown bolding (**), asterisks (*), or hashtags inside the text body.
-- No conversational filler or commentary (no "Here is the refined draft:").
-- Preserve actual data points and insights while improving pacing, hook, or density.`;
-
-  try {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cleanKey}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.7,
-        max_tokens: 3000
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Refine HTTP Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const refined = data.choices?.[0]?.message?.content || text;
-    return cleanSocialText(refined);
-  } catch (e) {
-    console.error('refineDraft error:', e);
-    throw e;
-  }
 }

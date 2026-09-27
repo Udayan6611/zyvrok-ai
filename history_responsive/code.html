@@ -1,1 +1,319 @@
-<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=../dashboard_history_responsive/code.html"><title>Redirecting to Zyvrok History...</title></head><body><p>Redirecting to <a href="../dashboard_history_responsive/code.html">Zyvrok History</a>...</p></body></html>
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Zyvrok — Content Library & History</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "base": "#F8F8F6",
+            "surface": "#FFFFFF",
+            "subtle": "#F0EFEB",
+            "border-crisp": "#E4E2DC",
+            "obsidian": "#141312",
+            "obsidian-hover": "#272523",
+            "muted": "#63615A",
+            "accent": "#0E6655",
+            
+            /* Backward compatibility aliases */
+            "primary": "#141312",
+            "primary-container": "#272523",
+            "secondary": "#63615A",
+            "background": "#F8F8F6",
+            "on-background": "#141312",
+            "surface-container": "#F0EFEB",
+            "surface-container-low": "#F8F8F6",
+            "surface-container-lowest": "#FFFFFF",
+            "outline-variant": "#E4E2DC"
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #141312;
+      outline-offset: 1px;
+    }
+  </style>
+</head>
+<body class="bg-base text-obsidian font-sans h-full flex flex-col md:flex-row overflow-hidden antialiased selection:bg-obsidian selection:text-white">
+
+  <!-- Desktop Side Navigation -->
+  <aside class="hidden md:flex flex-col h-full w-[260px] bg-surface border-r border-border-crisp flex-shrink-0 p-4 justify-between z-20">
+    <div class="space-y-6">
+      
+      <!-- Brand & Tagline -->
+      <a href="../index.html" class="flex items-center gap-2.5 px-2 py-2 group">
+        <div class="w-8 h-8 rounded-lg bg-obsidian text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16L7 20h13"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-base tracking-tight leading-none text-obsidian">Zyvrok</span>
+          <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
+        </div>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="space-y-1">
+        <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Home</span>
+        </a>
+
+        <a href="../repurpose_studio_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span>Repurpose Studio</span>
+        </a>
+
+        <a href="code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold bg-subtle text-obsidian transition-colors">
+          <svg class="w-4 h-4 text-obsidian" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>Library & History</span>
+        </a>
+
+        <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+          <span>Upgrade & Credits</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- User Account Status Link -->
+    <div class="pt-4 border-t border-border-crisp">
+      <a id="history-nav-account" href="../login_sign_up_responsive/code.html" class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-subtle transition-colors text-xs font-semibold text-muted hover:text-obsidian">
+        <svg class="w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span id="history-account-name" class="truncate">Account / Sign In</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile Top Header -->
+  <header class="md:hidden flex items-center justify-between px-4 h-14 bg-surface border-b border-border-crisp flex-shrink-0 z-30">
+    <a href="../index.html" class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded bg-obsidian text-white flex items-center justify-center font-bold text-xs">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16L7 20h13"/>
+        </svg>
+      </div>
+      <span class="font-bold text-sm tracking-tight text-obsidian">Zyvrok</span>
+    </a>
+
+    <div class="flex items-center gap-2">
+      <a href="../repurpose_studio_responsive/code.html" class="px-2.5 py-1 rounded bg-obsidian text-white text-xs font-semibold">
+        Studio
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Scrollable History Container -->
+  <main class="flex-1 overflow-y-auto p-6 md:p-10 lg:p-12">
+    <div class="max-w-4xl mx-auto space-y-8">
+      
+      <!-- Top Header & Credits Strip -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-border-crisp gap-4">
+        <div>
+          <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Saved Library</span>
+          <h1 class="text-2xl font-bold tracking-tight text-obsidian mt-0.5">Repurposed Posts & History</h1>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface border border-border-crisp text-xs font-mono">
+            <span class="text-muted">Balance:</span>
+            <strong id="history-sidebar-credits" class="text-obsidian font-bold">--</strong>
+            <span class="text-muted">Credits</span>
+          </div>
+
+          <a href="../repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-2xs">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>New Morph</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- History List Container (Injected by Script) -->
+      <div id="history-container" class="space-y-4">
+        <div class="p-8 text-center border border-border-crisp rounded-xl bg-surface">
+          <p class="text-xs text-muted font-mono">Loading saved library...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module">
+    import { supabase, getCurrentUser, getEffectiveCredits } from '../src/lib/supabase.js';
+
+    const historyContainer = document.getElementById('history-container');
+    const creditsLabel = document.getElementById('history-sidebar-credits');
+    const accountName = document.getElementById('history-account-name');
+
+    window.copySnippet = function(text, label) {
+      navigator.clipboard.writeText(text);
+      alert(`Copied ${label} to clipboard!`);
+    };
+
+    window.addEventListener('pm_credits_updated', (e) => {
+      if (typeof e.detail?.credits === 'number' && creditsLabel) {
+        creditsLabel.textContent = e.detail.credits;
+      }
+    });
+
+    window.addEventListener('storage', async (e) => {
+      if (e.key && (e.key.startsWith('pm_credits') || e.key.includes('guest_credits') || e.key.includes('paid'))) {
+        const user = await getCurrentUser();
+        const credits = await getEffectiveCredits(user?.id);
+        if (creditsLabel) creditsLabel.textContent = credits;
+      }
+    });
+
+    window.addEventListener('focus', async () => {
+      const user = await getCurrentUser();
+      const credits = await getEffectiveCredits(user?.id);
+      if (creditsLabel) creditsLabel.textContent = credits;
+    });
+
+    async function loadHistory() {
+      try {
+        const user = await getCurrentUser();
+        const credits = await getEffectiveCredits(user?.id);
+        if (creditsLabel) creditsLabel.textContent = credits;
+
+        if (user && accountName) {
+          accountName.textContent = user.email.split('@')[0];
+        }
+
+        if (!user?.id) {
+          historyContainer.innerHTML = `
+            <div class="rounded-xl border border-border-crisp bg-surface p-8 text-center space-y-3">
+              <span class="w-10 h-10 text-muted mx-auto" style="font-variation-settings: 'FILL' 1;">cloud_off</span>
+              <h3 class="font-heading text-base font-bold text-on-background">Viewing in Guest Mode</h3>
+              <p class="text-xs text-secondary max-w-md mx-auto">
+                Sign in to save your history permanently to the cloud and access your generated posts from any device.
+              </p>
+              <a href="../login_sign_up_responsive/code.html" class="inline-block px-4 py-2 bg-obsidian text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-obsidian-hover transition-colors">
+                Sign In or Create Free Account
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        const { data: posts, error } = await supabase
+          .from('repurposed_posts')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
+
+        if (error || !posts || posts.length === 0) {
+          historyContainer.innerHTML = `
+            <div class="rounded-xl border border-border-crisp bg-surface p-8 text-center space-y-3">
+              <span class="w-10 h-10 text-muted mx-auto">history_toggle_off</span>
+              <h3 class="font-heading text-base font-bold text-on-background">No Saved Posts Yet</h3>
+              <p class="text-xs text-secondary">You haven't generated any posts yet. Head to the Studio to morph your first link or text!</p>
+              <a href="../repurpose_studio_responsive/code.html" class="inline-block px-4 py-2 bg-obsidian text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-obsidian-hover transition-colors">
+                Open Repurpose Studio
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        historyContainer.innerHTML = posts.map(post => {
+          const twitterContent = Array.isArray(post.twitter_thread) 
+            ? post.twitter_thread.join('\n\n') 
+            : (post.twitter_thread || '');
+          const escapedLinkedin = (post.linkedin_post || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+          const escapedTwitter = twitterContent.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+          const escapedNewsletter = (post.newsletter_blurb || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+          return `
+            <div class="rounded-xl border border-border-crisp bg-surface p-5 space-y-4 shadow-xs hover:border-obsidian transition-colors">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-lg bg-subtle text-obsidian border border-border-crisp font-mono text-[11px] font-semibold uppercase">${post.input_type || 'text'}</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-subtle text-muted border border-border-crisp font-mono text-[11px]">Tone: ${post.tone || 'professional'}</span>
+                </div>
+                <span class="text-xs font-mono text-secondary">${new Date(post.created_at || Date.now()).toLocaleDateString()}</span>
+              </div>
+
+              <div>
+                <h4 class="text-xs font-bold font-mono text-secondary uppercase mb-1">Source Excerpt</h4>
+                <p class="text-sm text-on-surface line-clamp-2 bg-base p-3 rounded-lg border border-border-crisp text-xs text-obsidian">
+                  "${post.original_snippet || 'Source content'}"
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                <button onclick="window.copySnippet('${escapedLinkedin}', 'LinkedIn Post')" class="p-3 bg-subtle hover:bg-surface border border-border-crisp rounded-lg p-3 text-left text-xs space-y-1 transition-colors">
+                  <div class="flex items-center justify-between font-semibold text-obsidian">
+                    <span>LinkedIn Post</span>
+                    <span class="material-symbols-outlined text-sm">content_copy</span>
+                  </div>
+                  <p class="text-secondary line-clamp-2">${post.linkedin_post || 'Empty'}</p>
+                </button>
+
+                <button onclick="window.copySnippet('${escapedTwitter}', 'Twitter Thread')" class="p-3 bg-subtle hover:bg-surface border border-border-crisp rounded-lg p-3 text-left text-xs space-y-1 transition-colors">
+                  <div class="flex items-center justify-between font-semibold text-obsidian">
+                    <span>Twitter Thread</span>
+                    <span class="material-symbols-outlined text-sm">content_copy</span>
+                  </div>
+                  <p class="text-secondary line-clamp-2">${twitterContent || 'Empty'}</p>
+                </button>
+
+                <button onclick="window.copySnippet('${escapedNewsletter}', 'Newsletter Snippet')" class="p-3 bg-subtle hover:bg-surface border border-border-crisp rounded-lg p-3 text-left text-xs space-y-1 transition-colors">
+                  <div class="flex items-center justify-between font-semibold text-obsidian">
+                    <span>Newsletter Snippet</span>
+                    <span class="material-symbols-outlined text-sm">content_copy</span>
+                  </div>
+                  <p class="text-secondary line-clamp-2">${post.newsletter_blurb || 'Empty'}</p>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.warn('History fetch error:', err);
+      }
+    }
+
+    loadHistory();
+  </script>
+</body>
+</html>

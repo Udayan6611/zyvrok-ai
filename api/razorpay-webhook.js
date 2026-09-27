@@ -9,7 +9,6 @@ export default async function handler(req, res) {
   const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
   const signature = req.headers['x-razorpay-signature'];
 
-  // 1. Verify webhook signature if secret is provided in environment variables
   if (webhookSecret) {
     if (!signature) {
       return res.status(400).json({ error: 'Missing x-razorpay-signature header' });
@@ -32,7 +31,6 @@ export default async function handler(req, res) {
     }
   }
 
-  // 2. Process captured payment event
   try {
     const event = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     const eventType = event?.event;
@@ -49,7 +47,6 @@ export default async function handler(req, res) {
         const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
         const supabase = createClient(supabaseUrl, supabaseKey);
 
-        // Fetch current credits from Supabase
         const { data: profile } = await supabase
           .from('profiles')
           .select('credits')
@@ -59,7 +56,6 @@ export default async function handler(req, res) {
         const currentCredits = profile && typeof profile.credits === 'number' ? profile.credits : 0;
         const newTotal = currentCredits + creditsToAdd;
 
-        // Persist new total to Supabase
         const { error: updateError } = await supabase
           .from('profiles')
           .update({ credits: newTotal })

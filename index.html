@@ -3,84 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Primary SEO Meta Tags -->
-  <title>Zyvrok — Turn Links into Signal | AI Content Repurposing Studio</title>
-  <meta name="title" content="Zyvrok — Turn Links into Signal | AI Content Repurposing Studio" />
-  <meta name="description" content="Transform YouTube videos, blog articles, and draft notes into high-converting LinkedIn posts, Twitter/X threads, and news summaries in seconds with an interactive draft editor and 1-click AI refinements." />
-  <meta name="keywords" content="Zyvrok, content repurposing, AI social media, YouTube to LinkedIn, article to twitter thread, LinkedIn ghostwriting AI, viral social media posts, AI copywriting, content repurposing studio" />
-  <meta name="author" content="Zyvrok" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="theme-color" content="#6b38d4" />
-  <link rel="canonical" href="https://zyvrok-ai.vercel.app/" />
-
-  <!-- ========================================================================= -->
-  <!-- GOOGLE SEARCH CONSOLE VERIFICATION TAG                                    -->
-  <!-- When Google gives you your tag, replace the content below with your code: -->
-  <!-- ========================================================================= -->
-  <meta name="google-site-verification" content="PASTE_YOUR_GOOGLE_SEARCH_CONSOLE_CODE_HERE" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b38d4' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='24' height='24' rx='6' fill='%236b38d4' stroke='none'/%3E%3Cpath d='M6 6h12L8 18h10' stroke='white'/%3E%3Ccircle cx='17' cy='7' r='1.5' fill='%2334d399' stroke='none'/%3E%3C/svg%3E">
-
-  <!-- Open Graph / Facebook / LinkedIn / WhatsApp / Slack -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://zyvrok-ai.vercel.app/" />
-  <meta property="og:site_name" content="Zyvrok" />
-  <meta property="og:title" content="Zyvrok — Turn Links into Signal" />
-  <meta property="og:description" content="Turn any YouTube video, article link, or draft notes into viral LinkedIn posts, Twitter threads, and news summaries in seconds with an in-app draft editor." />
-  <meta property="og:image" content="https://zyvrok-ai.vercel.app/og-image.png" />
-  <meta property="og:image:secure_url" content="https://zyvrok-ai.vercel.app/og-image.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Zyvrok — Turn Links into Signal Content Repurposing Studio" />
-
-  <!-- Twitter / X Cards -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://zyvrok-ai.vercel.app/" />
-  <meta name="twitter:title" content="Zyvrok — Turn Links into Signal" />
-  <meta name="twitter:description" content="Turn any YouTube video, article link, or draft notes into viral LinkedIn posts, Twitter threads, and news summaries in seconds." />
-  <meta name="twitter:image" content="https://zyvrok-ai.vercel.app/og-image.png" />
-  <meta name="twitter:image:alt" content="Zyvrok — Multi-Output AI Content Repurposing Studio" />
-
-  <!-- Structured Data JSON-LD for Google Rich Snippets -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Zyvrok",
-    "url": "https://zyvrok-ai.vercel.app/",
-    "description": "Turn any YouTube video, article link, or draft notes into viral LinkedIn posts, Twitter threads, and news summaries in seconds.",
-    "applicationCategory": "BusinessApplication, SocialNetworkingApplication",
-    "operatingSystem": "All",
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Free Trial",
-        "price": "0",
-        "priceCurrency": "INR"
-      },
-      {
-        "@type": "Offer",
-        "name": "Starter Pack",
-        "price": "199",
-        "priceCurrency": "INR"
-      },
-      {
-        "@type": "Offer",
-        "name": "Creator Pro",
-        "price": "499",
-        "priceCurrency": "INR"
-      }
-    ]
-  }
-  </script>
+  <title>Zyvrok — High-Density Content Repurposing Studio</title>
+  <meta name="description" content="Turn YouTube videos, long-form articles, and draft notes into platform-native LinkedIn posts, Twitter/X threads, and newsletter summaries." />
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <!-- Google Fonts & Material Symbols -->
+  
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono (Deliberate alternative to Inter / Space Grotesk) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <script id="tailwind-config">
     tailwind.config = {
@@ -88,363 +20,542 @@
       theme: {
         extend: {
           colors: {
-            "background": "#f8f9ff",
-            "on-background": "#0b1c30",
-            "surface": "#f8f9ff",
-            "surface-container": "#e5eeff",
-            "surface-container-low": "#eff4ff",
-            "surface-container-high": "#dce9ff",
-            "surface-container-lowest": "#ffffff",
-            "primary": "#6b38d4",
-            "primary-container": "#8455ef",
-            "on-primary": "#ffffff",
-            "on-primary-container": "#fffbff",
-            "secondary": "#565e74",
-            "secondary-container": "#dae2fd",
-            "on-surface-variant": "#494454",
-            "outline-variant": "#cbc3d7"
+            "base": "#F8F8F6",
+            "surface": "#FFFFFF",
+            "subtle": "#F0EFEB",
+            "subtle-hover": "#E9E8E3",
+            "border-crisp": "#E4E2DC",
+            "obsidian": "#141312",
+            "obsidian-hover": "#272523",
+            "muted": "#63615A",
+            "accent": "#0E6655",
+            "accent-subtle": "#EBF4F1",
+            
+            /* Backward compatibility aliases */
+            "primary": "#141312",
+            "primary-container": "#272523",
+            "secondary": "#63615A",
+            "background": "#F8F8F6",
+            "on-background": "#141312",
+            "surface-container": "#F0EFEB",
+            "surface-container-low": "#F8F8F6",
+            "surface-container-lowest": "#FFFFFF",
+            "outline-variant": "#E4E2DC"
           },
           fontFamily: {
-            sans: ["Inter", "sans-serif"],
-            heading: ["Space Grotesk", "sans-serif"],
-            mono: ["JetBrains Mono", "monospace"]
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
           }
         }
       }
     }
   </script>
   <style>
-    .gradient-text {
-      background: linear-gradient(135deg, #6b38d4 0%, #a855f7 50%, #ec4899 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-glow {
-      background: radial-gradient(circle at 50% 30%, rgba(132, 85, 239, 0.12) 0%, rgba(248, 249, 255, 0) 70%);
-    }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(203, 195, 215, 0.4);
-      box-shadow: 0 10px 30px -10px rgba(107, 56, 212, 0.08);
+    /* Focus rings for keyboard accessibility */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #141312;
+      outline-offset: 2px;
     }
   </style>
 </head>
-<body class="bg-background text-on-background font-sans antialiased selection:bg-primary-container/20 selection:text-primary">
-  
-  <!-- Navigation Header -->
-  <header class="sticky top-0 z-50 bg-surface/85 backdrop-blur-md border-b border-outline-variant/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-primary/25 transition-transform group-hover:scale-105 flex-shrink-0">
-          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+<body class="bg-base text-obsidian font-sans antialiased selection:bg-obsidian selection:text-white min-h-screen flex flex-col">
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 bg-base/90 backdrop-blur-md border-b border-border-crisp">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand Monogram & Name -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg bg-obsidian text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16L7 20h13"/>
-            <circle cx="19" cy="5" r="1.5" fill="#34d399" stroke="none"/>
           </svg>
         </div>
-        <div class="flex flex-col text-left">
-          <span class="font-heading text-2xl font-extrabold tracking-tight text-on-background leading-none">Zyvrok</span>
-          <span class="text-[11px] font-mono lowercase text-secondary tracking-tight mt-1">turn links into signal</span>
+        <div class="flex flex-col">
+          <span class="font-bold text-base tracking-tight leading-none text-obsidian">Zyvrok</span>
+          <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-secondary">
-        <a href="#features" class="hover:text-primary transition-colors">Features</a>
-        <a href="#how-it-works" class="hover:text-primary transition-colors">How It Works</a>
-        <a href="#demo" class="hover:text-primary transition-colors">Live Preview</a>
-        <a href="#pricing" class="hover:text-primary transition-colors">Pricing</a>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-muted">
+        <a href="#workflow" class="hover:text-obsidian transition-colors">Workflow</a>
+        <a href="#features" class="hover:text-obsidian transition-colors">Engine</a>
+        <a href="#preview" class="hover:text-obsidian transition-colors">Live Studio Frame</a>
+        <a href="#pricing" class="hover:text-obsidian transition-colors">Pricing</a>
       </nav>
 
+      <!-- Action Buttons -->
       <div class="flex items-center gap-3">
-        <a href="login_sign_up_responsive/code.html" class="text-xs font-semibold text-secondary hover:text-primary px-3 py-2">Sign In</a>
-        <a href="repurpose_studio_responsive/code.html" class="px-5 py-2.5 rounded-xl bg-primary text-white font-semibold text-sm shadow-md hover:bg-primary-container transition-all active:scale-95 flex items-center gap-2">
+        <a href="login_sign_up_responsive/code.html" class="text-xs font-semibold text-muted hover:text-obsidian px-2.5 py-1.5 transition-colors">
+          Sign In
+        </a>
+        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-sm">
           <span>Open Studio</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </a>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="relative pt-16 pb-24 overflow-hidden hero-glow">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-container/10 border border-primary/20 text-xs font-semibold text-primary mb-8">
-        <span class="material-symbols-outlined text-sm">auto_awesome</span>
-        <span>Multi-Output Content Repurposing Engine</span>
+  <section class="pt-16 pb-14 border-b border-border-crisp">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      
+      <!-- Restrained Spec Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-subtle border border-border-crisp text-[11px] font-mono font-medium text-muted mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+        <span>Groq Llama 3.3 Engine · 1.8s Generation</span>
       </div>
 
-      <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-on-background max-w-4xl mx-auto leading-tight">
-        Turn Any Link Into <span class="gradient-text">High-Converting Content Bundles</span>
+      <!-- Solid High-Contrast Headline (Zero gradient) -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-obsidian leading-[1.12]">
+        Turn raw video and text into ready-to-publish social copy.
       </h1>
 
-      <p class="mt-6 text-lg sm:text-xl text-secondary max-w-2xl mx-auto leading-relaxed">
-        Paste any YouTube video, article link, or draft notes. Zyvrok turns your content into ready-to-post LinkedIn posts, Twitter threads, and newsletter summaries in seconds.
+      <!-- Specific, Plainspoken Subtitle -->
+      <p class="mt-5 text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed">
+        Extract transcripts from YouTube or blog URLs. Zyvrok formats them into a 3-part distribution bundle: LinkedIn post, X thread, and newsletter summary.
       </p>
 
-      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="repurpose_studio_responsive/code.html" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-primary text-white font-semibold text-base shadow-xl shadow-primary/25 hover:bg-primary-container transition-all active:scale-95 flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined text-xl">bolt</span>
-          <span>Try Zyvrok Free</span>
+      <!-- Primary Action Buttons -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="repurpose_studio_responsive/code.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-sm">
+          <span>Start in Studio</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </a>
-        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 text-on-background font-semibold text-base hover:bg-surface-container-low transition-all flex items-center justify-center gap-2">
-          <span>Explore Credit Packs (from ₹199)</span>
+        <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface border border-border-crisp text-obsidian text-xs font-semibold hover:bg-subtle transition-colors">
+          View Pricing (from ₹199)
         </a>
       </div>
 
-      <!-- Trust Badges -->
-      <div class="mt-14 flex flex-wrap items-center justify-center gap-8 text-xs font-mono text-secondary">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-emerald-600 text-sm">verified</span>
-          <span>50 FREE CREDITS ON SIGNUP</span>
+      <!-- Accurate Capability Metrics -->
+      <div class="mt-10 pt-8 border-t border-border-crisp/60 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] font-mono text-muted">
+        <div class="flex items-center gap-1.5">
+          <span class="text-obsidian font-bold">5</span>
+          <span>Free trial credits</span>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-sm">speed</span>
-          <span>SUB-3 SECOND PROCESSING</span>
+        <span class="text-border-crisp hidden sm:inline">|</span>
+        <div class="flex items-center gap-1.5">
+          <span class="text-obsidian font-bold">3</span>
+          <span>Platform outputs in 1 click</span>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-emerald-600 text-sm">lock</span>
-          <span>RAZORPAY SECURED</span>
+        <span class="text-border-crisp hidden sm:inline">|</span>
+        <div class="flex items-center gap-1.5">
+          <span class="text-obsidian font-bold">₹0</span>
+          <span>Recurring subscription fees</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Live Preview Section -->
-  <section id="demo" class="py-20 bg-surface-container-low/60 border-y border-outline-variant/30">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-primary">Interactive Preview</span>
-        <h2 class="font-heading text-3xl sm:text-4xl font-bold mt-2 text-on-background">Experience Instant Content Morphing</h2>
-        <p class="text-secondary text-sm mt-2">See how 1 input turns into 3 tailored viral formats automatically.</p>
+  <!-- Product Hero Mockup (Real Studio Window Showcase) -->
+  <section id="preview" class="py-14 bg-base border-b border-border-crisp">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="mb-5 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Repurpose Studio Interface</span>
+          <h2 class="text-lg font-bold text-obsidian tracking-tight">One input. Three publication-ready drafts.</h2>
+        </div>
+        <a href="repurpose_studio_responsive/code.html" class="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">
+          <span>Open live app</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        <!-- Source Input Card -->
-        <div class="lg:col-span-5 glass-card rounded-2xl p-6 flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between border-b border-outline-variant/20 pb-3 mb-4">
-              <span class="text-xs font-bold font-mono uppercase text-secondary">1. Raw Content Input</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600">Sample Loaded</span>
-            </div>
-            <p class="text-xs text-secondary mb-2">Source Blog / Note:</p>
-            <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-xs leading-relaxed text-on-surface-variant max-h-48 overflow-y-auto">
-              "We noticed that creating distinct content for LinkedIn, Twitter, and email newsletters takes 4+ hours every week. By breaking long-form ideas into atomized hooks, core lessons, and actionable summaries, engagement went up 300% while production time dropped to 15 minutes."
-            </div>
+      <!-- Studio Window Container Frame -->
+      <div class="rounded-xl border border-border-crisp bg-surface overflow-hidden shadow-sm">
+        
+        <!-- Application Window Chrome -->
+        <div class="bg-subtle px-4 py-2.5 border-b border-border-crisp flex items-center justify-between text-xs text-muted">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#E0DED9] border border-border-crisp"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#E0DED9] border border-border-crisp"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#E0DED9] border border-border-crisp"></span>
+            <span class="ml-2 font-mono text-[11px] text-muted">zyvrok.app/studio</span>
           </div>
-
-          <div class="pt-4 border-t border-outline-variant/20 flex items-center justify-between">
-            <span class="text-xs font-mono text-secondary">Tone: <strong>Thought Leader</strong></span>
-            <a href="repurpose_studio_responsive/code.html" class="px-4 py-2 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors flex items-center gap-1">
-              <span>Try with your text</span>
-              <span class="material-symbols-outlined text-xs">arrow_forward</span>
-            </a>
+          <div class="flex items-center gap-3 font-mono text-[11px]">
+            <span class="flex items-center gap-1 text-accent">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+              <span>Llama-3.3-70B Ready</span>
+            </span>
           </div>
         </div>
 
-        <!-- 3 Output Formats Showcase -->
-        <div class="lg:col-span-7 space-y-4">
-          <!-- LinkedIn Format -->
-          <div class="glass-card rounded-xl p-5 border-l-4 border-l-primary">
-            <div class="flex items-center justify-between mb-2">
-              <span class="flex items-center gap-1.5 text-xs font-bold text-primary font-mono uppercase">
-                <span class="material-symbols-outlined text-sm">work</span>
-                <span>LinkedIn Format</span>
-              </span>
-              <span class="text-[11px] font-mono text-secondary">Strong Hook + Bullets + CTA</span>
+        <!-- Studio Internal Grid Mockup -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border-crisp text-left">
+          
+          <!-- Left Configuration & Input Panel -->
+          <div class="lg:col-span-5 p-5 space-y-4 bg-surface">
+            <div>
+              <label class="block text-[11px] font-mono uppercase font-semibold text-muted mb-2">Input Source</label>
+              <div class="grid grid-cols-3 gap-1 p-1 bg-subtle rounded-lg border border-border-crisp text-center text-xs font-medium">
+                <span class="py-1 text-muted">Text</span>
+                <span class="py-1 text-muted">Article</span>
+                <span class="py-1 bg-surface text-obsidian font-semibold rounded shadow-xs">YouTube</span>
+              </div>
             </div>
-            <p class="text-xs text-on-background leading-relaxed">
-              <strong>90% of content creators are doing distribution completely backwards.</strong><br/><br/>
-              They write 1 long article, hit publish, and pray for algorithms to do the work.<br/>
-              Here's how top founders extract 10x leverage from 1 source piece:<br/><br/>
-              • Atomize the core thesis into punchy hooks<br/>
-              • Turn stats into visual Twitter takeaways<br/>
-              • Convert raw findings into an email newsletter key insight<br/><br/>
-              <em>Work smart on distribution, not just production. Thoughts? 🚀</em>
+
+            <div>
+              <label class="block text-[11px] font-mono uppercase font-semibold text-muted mb-2">Source URL</label>
+              <div class="p-2.5 rounded-lg bg-subtle border border-border-crisp text-xs font-mono text-obsidian break-all">
+                https://youtube.com/watch?v=kCc8FmEb1nY
+              </div>
+              <p class="text-[10px] text-muted font-mono mt-1">Andrej Karpathy: State of GPT & LLM Pipelines (42m 18s transcript extracted)</p>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono uppercase font-semibold text-muted mb-2">Framework & Tone</label>
+              <div class="grid grid-cols-2 gap-1.5 text-xs font-medium">
+                <span class="p-2 rounded border border-obsidian bg-subtle text-obsidian font-semibold flex items-center justify-between">
+                  <span>Professional</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                </span>
+                <span class="p-2 rounded border border-border-crisp text-muted">Contrarian</span>
+                <span class="p-2 rounded border border-border-crisp text-muted">Technical</span>
+                <span class="p-2 rounded border border-border-crisp text-muted">Storytelling</span>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-border-crisp flex items-center justify-between">
+              <span class="text-[11px] font-mono text-muted">Cost: 1 Credit</span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-obsidian text-white text-xs font-semibold">
+                <span>Morph Content</span>
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Right Studio Output Draft Editor -->
+          <div class="lg:col-span-7 p-5 space-y-4 bg-surface flex flex-col justify-between">
+            <div>
+              <!-- Output Tabs -->
+              <div class="flex items-center justify-between border-b border-border-crisp pb-3 mb-3">
+                <div class="flex items-center gap-1.5 text-xs font-semibold">
+                  <span class="px-2.5 py-1 rounded bg-obsidian text-white">LinkedIn Post</span>
+                  <span class="px-2.5 py-1 text-muted hover:text-obsidian">X Thread (5)</span>
+                  <span class="px-2.5 py-1 text-muted hover:text-obsidian">Newsletter</span>
+                </div>
+                <span class="text-[11px] font-mono text-muted">184 words · 1,142 chars</span>
+              </div>
+
+              <!-- Refine Action Bar -->
+              <div class="flex items-center gap-1.5 text-[11px] font-mono text-muted pb-3 mb-3 border-b border-border-crisp/60 overflow-x-auto">
+                <span class="text-obsidian font-semibold">Refine:</span>
+                <span class="px-2 py-0.5 rounded border border-border-crisp bg-subtle text-obsidian">Shorten</span>
+                <span class="px-2 py-0.5 rounded border border-border-crisp bg-subtle text-obsidian">Stronger Hook</span>
+                <span class="px-2 py-0.5 rounded border border-border-crisp bg-subtle text-obsidian">Contrarian Take</span>
+              </div>
+
+              <!-- Real Un-emojified Formatted Output -->
+              <div class="text-xs text-obsidian font-sans leading-relaxed space-y-3 bg-base p-4 rounded-lg border border-border-crisp">
+                <p class="font-semibold text-obsidian">
+                  Most teams build LLM wrappers without understanding where inference economics break down.
+                </p>
+                <p class="text-muted">
+                  In Karpathy's architecture review, three operational constraints determine whether a generative application survives production scale:
+                </p>
+                <div class="space-y-1.5 pl-3 border-l-2 border-border-crisp font-mono text-[11px] text-obsidian">
+                  <p>1. Pretraining teaches world models; fine-tuning only adjusts the conversational format.</p>
+                  <p>2. Reinforcement learning from human feedback introduces alignment tax and hallucinations.</p>
+                  <p>3. Context window retrieval is not memory—it is working scratchpad space.</p>
+                </div>
+                <p class="text-muted">
+                  Optimize your pipeline for context precision rather than model parameter scale. The real edge is retrieval density.
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer actions of preview -->
+            <div class="pt-3 flex items-center justify-between border-t border-border-crisp text-xs">
+              <span class="text-[11px] font-mono text-muted">Click anywhere to edit draft in Studio</span>
+              <span class="inline-flex items-center gap-1 px-3 py-1 rounded border border-border-crisp bg-subtle font-semibold text-obsidian">
+                <svg class="w-3 h-3 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                <span>Copy Draft</span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Asymmetrical Core Features Section -->
+  <section id="features" class="py-16 border-b border-border-crisp">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="max-w-2xl mb-12">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Engine Mechanics</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-obsidian tracking-tight mt-1">
+          Designed for high-signal publishing across multiple channels.
+        </h2>
+        <p class="text-sm text-muted mt-2">
+          Generic AI tools output surface-level summaries. Zyvrok isolates the underlying argument and reconstructs it using native platform psychology.
+        </p>
+      </div>
+
+      <!-- Asymmetrical Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Large Card 1 (Span 2) -->
+        <div class="md:col-span-2 p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">01 · Multi-Platform Atomization</span>
+            <span class="text-[11px] font-mono text-muted">Single Extraction Pipeline</span>
+          </div>
+          <h3 class="text-lg font-bold text-obsidian">One URL yields three distinct, platform-native deliverables.</h3>
+          <p class="text-xs sm:text-sm text-muted leading-relaxed">
+            Paste a public YouTube link or blog article URL. Zyvrok bypasses paywalls and cookie walls, parses the core text or transcript, and generates:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
+            <div class="p-3 rounded-lg bg-base border border-border-crisp">
+              <span class="font-bold text-obsidian block mb-1">LinkedIn Post</span>
+              <span class="text-muted text-[11px]">2-line scroll-stopping hook, friction analysis, actionable bullets.</span>
+            </div>
+            <div class="p-3 rounded-lg bg-base border border-border-crisp">
+              <span class="font-bold text-obsidian block mb-1">X / Twitter Thread</span>
+              <span class="text-muted text-[11px]">5 to 6 standalone tweets with narrative pacing and bookmark incentives.</span>
+            </div>
+            <div class="p-3 rounded-lg bg-base border border-border-crisp">
+              <span class="font-bold text-obsidian block mb-1">Newsletter Brief</span>
+              <span class="text-muted text-[11px]">Executive summary for Substack, Beehiiv, or internal team briefings.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 (Span 1) -->
+        <div class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">02 · Ghostwriting Frameworks</span>
+            <h3 class="text-lg font-bold text-obsidian">No robotic AI clichés.</h3>
+            <p class="text-xs sm:text-sm text-muted leading-relaxed">
+              Our prompt pipeline strictly bans generic language like "game changer", "delve into", or empty filler. Tone presets include Thought Leader, Contrarian, Technical, Casual, and Storytelling.
             </p>
           </div>
-
-          <!-- Twitter Format -->
-          <div class="glass-card rounded-xl p-5 border-l-4 border-l-purple-500">
-            <div class="flex items-center justify-between mb-2">
-              <span class="flex items-center gap-1.5 text-xs font-bold text-purple-600 font-mono uppercase">
-                <span class="material-symbols-outlined text-sm">tag</span>
-                <span>Twitter / X Thread (4 Tweets)</span>
-              </span>
-              <span class="text-[11px] font-mono text-secondary">Thread Splitter</span>
-            </div>
-            <div class="text-xs text-on-background space-y-2">
-              <p class="p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/30"><strong>1/4:</strong> If you spend more than 15 mins repurposing content, you're losing leverage. Here is the 3-step framework: 🧵👇</p>
-              <p class="p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/30"><strong>2/4:</strong> The secret isn't rewriting—it's structural re-framing for the platform's native psychology.</p>
-            </div>
+          <div class="p-3 rounded-lg bg-base border border-border-crisp text-[11px] font-mono text-muted">
+            Strict formatting rules: 0 markdown asterisks in social text, clean spacing, and clear arguments.
           </div>
         </div>
+
+        <!-- Card 3 (Span 1) -->
+        <div class="p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">03 · In-App Draft Editor</span>
+            <h3 class="text-lg font-bold text-obsidian">Refine copy before copying.</h3>
+            <p class="text-xs sm:text-sm text-muted leading-relaxed">
+              Edit text directly in the output pane. Use 1-click refinement buttons to shorten copy, strengthen the opening hook, or reframe the thesis with a contrarian perspective.
+            </p>
+          </div>
+          <div class="flex items-center gap-1.5 flex-wrap text-[10px] font-mono text-muted">
+            <span class="px-2 py-0.5 rounded bg-subtle border border-border-crisp">⚡ Shorten</span>
+            <span class="px-2 py-0.5 rounded bg-subtle border border-border-crisp">🔥 Stronger Hook</span>
+            <span class="px-2 py-0.5 rounded bg-subtle border border-border-crisp">🎯 Contrarian</span>
+          </div>
+        </div>
+
+        <!-- Large Card 4 (Span 2) -->
+        <div class="md:col-span-2 p-6 sm:p-8 rounded-xl bg-surface border border-border-crisp space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">04 · Cloud History & Database</span>
+            <span class="text-[11px] font-mono text-muted">Supabase PostgreSQL Backing</span>
+          </div>
+          <h3 class="text-lg font-bold text-obsidian">Every generation is safely archived and searchable.</h3>
+          <p class="text-xs sm:text-sm text-muted leading-relaxed">
+            Never lose an idea. Every morphed draft is stored in your private history. Search previous outputs, re-copy snippets, and maintain a centralized library across desktop and mobile devices.
+          </p>
+          <div class="pt-2 flex items-center gap-4 text-xs font-mono text-muted">
+            <span>• Row Level Security (RLS) protected</span>
+            <span>• 1-Click Clipboard snippet copy</span>
+            <span>• Device cross-sync</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Features Grid -->
-  <section id="features" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-mono font-semibold uppercase tracking-wider text-primary">Core Advantages</span>
-      <h2 class="font-heading text-3xl sm:text-5xl font-bold mt-2 text-on-background">Engineered for Maximum Organic Reach</h2>
-      <p class="text-secondary text-base mt-3">Built specifically for founders, creators, marketers, and agencies who want compound growth without the grind.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="glass-card rounded-2xl p-8 space-y-4 hover:border-primary/50 transition-all">
-        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-          <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
-        </div>
-        <h3 class="font-heading text-xl font-bold text-on-background">Context-Aware Tones</h3>
-        <p class="text-sm text-secondary leading-relaxed">Switch seamlessly between Thought Leader, Contrarian, Punchy, Storytelling, and Professional voices matching your unique brand persona.</p>
+  <!-- Simple 3-Step Process -->
+  <section id="workflow" class="py-16 bg-base border-b border-border-crisp">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl mb-12">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Workflow</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-obsidian tracking-tight mt-1">From raw link to published post in three steps.</h2>
       </div>
 
-      <div class="glass-card rounded-2xl p-8 space-y-4 hover:border-primary/50 transition-all">
-        <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600">
-          <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">dynamic_feed</span>
-        </div>
-        <h3 class="font-heading text-xl font-bold text-on-background">Multi-Source Extraction</h3>
-        <p class="text-sm text-secondary leading-relaxed">Paste raw text, feed blog post URLs, or process video links directly into actionable copy in real time.</p>
-      </div>
-
-      <div class="glass-card rounded-2xl p-8 space-y-4 hover:border-primary/50 transition-all">
-        <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-600">
-          <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">history</span>
-        </div>
-        <h3 class="font-heading text-xl font-bold text-on-background">Cloud Library & History</h3>
-        <p class="text-sm text-secondary leading-relaxed">Every repurposed post is instantly saved to your history for quick re-use, archiving, and one-click clipboard copying.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="py-20 bg-surface-container-low/40">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-primary">Simple 3-Step Workflow</span>
-        <h2 class="font-heading text-3xl sm:text-4xl font-bold mt-2 text-on-background">From Raw Idea to Published Post</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        <div class="space-y-4">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-primary text-white font-mono font-bold text-xl flex items-center justify-center shadow-lg shadow-primary/20">1</div>
-          <h4 class="font-heading text-lg font-bold text-on-background">Paste Your Source</h4>
-          <p class="text-xs text-secondary leading-relaxed">Drop in rough notes, transcripts, or article links into the Repurpose Studio.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-xl bg-surface border border-border-crisp space-y-3">
+          <div class="w-8 h-8 rounded-md bg-subtle border border-border-crisp font-mono text-xs font-bold flex items-center justify-center text-obsidian">01</div>
+          <h3 class="text-base font-bold text-obsidian">Paste Source URL or Draft</h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Enter a YouTube link, public blog URL, or raw speaker notes directly into the input container.
+          </p>
         </div>
 
-        <div class="space-y-4">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-primary text-white font-mono font-bold text-xl flex items-center justify-center shadow-lg shadow-primary/20">2</div>
-          <h4 class="font-heading text-lg font-bold text-on-background">Select Target Tone</h4>
-          <p class="text-xs text-secondary leading-relaxed">Choose from 6 tuned voice styles and trigger the morphing engine.</p>
+        <div class="p-6 rounded-xl bg-surface border border-border-crisp space-y-3">
+          <div class="w-8 h-8 rounded-md bg-subtle border border-border-crisp font-mono text-xs font-bold flex items-center justify-center text-obsidian">02</div>
+          <h3 class="text-base font-bold text-obsidian">Select Voice Framework</h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Pick from 5 tuned tones (Professional, Contrarian, Technical, Casual, Storytelling).
+          </p>
         </div>
 
-        <div class="space-y-4">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-primary text-white font-mono font-bold text-xl flex items-center justify-center shadow-lg shadow-primary/20">3</div>
-          <h4 class="font-heading text-lg font-bold text-on-background">Copy & Scale Reach</h4>
-          <p class="text-xs text-secondary leading-relaxed">Copy ready-to-post LinkedIn articles, Twitter threads, or email highlights with one tap.</p>
+        <div class="p-6 rounded-xl bg-surface border border-border-crisp space-y-3">
+          <div class="w-8 h-8 rounded-md bg-subtle border border-border-crisp font-mono text-xs font-bold flex items-center justify-center text-obsidian">03</div>
+          <h3 class="text-base font-bold text-obsidian">Review, Refine & Copy</h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Edit text in the in-app editor, run quick 1-click AI adjustments, and copy ready-to-post copy.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing Preview Section -->
-  <section id="pricing" class="py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <span class="text-xs font-mono font-semibold uppercase tracking-wider text-primary">Transparent Pricing</span>
-      <h2 class="font-heading text-3xl sm:text-5xl font-bold mt-2 text-on-background">Simple Pay-As-You-Go Credits</h2>
-      <p class="text-secondary text-sm mt-3">No hidden subscriptions. Upgrade whenever your content demands expand.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-      <!-- Free Trial -->
-      <div class="glass-card rounded-2xl p-7 flex flex-col justify-between space-y-6 bg-white/70">
-        <div>
-          <h3 class="font-heading text-lg font-bold text-on-background">Free Tier</h3>
-          <p class="text-xs text-secondary mt-1">Test the engine with zero risk.</p>
-          <div class="mt-5 text-3xl font-extrabold text-on-background">₹0 <span class="text-xs font-normal text-secondary">/ on signup</span></div>
-          <ul class="mt-6 space-y-3 text-xs text-secondary border-t border-outline-variant/20 pt-5">
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> 5 Free Signup Credits</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> All 3 Output Formats</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Interactive In-App Editor</li>
-          </ul>
-        </div>
-        <a href="repurpose_studio_responsive/code.html" class="w-full py-3 rounded-xl border border-outline-variant/60 text-on-background text-xs font-semibold text-center hover:bg-surface-container-low transition-colors">Start Free</a>
+  <!-- Pricing Section (Asymmetrical Hierarchy, Dropped checkmarks) -->
+  <section id="pricing" class="py-16 border-b border-border-crisp">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">Predictable Pricing</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-obsidian tracking-tight mt-1">Pay only for what you repurpose.</h2>
+        <p class="text-xs sm:text-sm text-muted mt-2">No recurring subscriptions or hidden cancellation terms. Credits never expire.</p>
       </div>
 
-      <!-- Starter Pack -->
-      <div class="glass-card rounded-2xl p-7 flex flex-col justify-between space-y-6 border border-outline-variant/60 bg-white">
-        <div>
-          <h3 class="font-heading text-lg font-bold text-on-background">Starter Pack</h3>
-          <p class="text-xs text-secondary mt-1">For weekly writers & creators.</p>
-          <div class="mt-5 text-3xl font-extrabold text-on-background">₹199 <span class="text-xs font-normal text-secondary">/ 50 Credits</span></div>
-          <ul class="mt-6 space-y-3 text-xs text-secondary border-t border-outline-variant/20 pt-5">
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> <strong>50 AI Generation Credits</strong></li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> YouTube & Article Readers</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Credits Never Expire</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Pay via UPI / Razorpay</li>
-          </ul>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        
+        <!-- Tier 1: Free Trial -->
+        <div class="p-6 sm:p-7 rounded-xl bg-surface border border-border-crisp flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div>
+              <span class="text-xs font-mono font-semibold text-muted uppercase">Trial</span>
+              <h3 class="text-xl font-bold text-obsidian mt-0.5">Free Account</h3>
+              <p class="text-xs text-muted mt-1">Test the repurposing engine with zero payment.</p>
+            </div>
+            <div class="pt-4 border-t border-border-crisp">
+              <span class="text-3xl font-extrabold text-obsidian">₹0</span>
+              <span class="text-xs font-mono text-muted">/ forever</span>
+            </div>
+            <div class="space-y-2 text-xs text-muted font-mono pt-2">
+              <p>• 5 Generation credits on signup</p>
+              <p>• All 3 format outputs included</p>
+              <p>• In-app draft editor access</p>
+            </div>
+          </div>
+          <a href="repurpose_studio_responsive/code.html" class="w-full py-2.5 rounded-lg border border-border-crisp bg-subtle hover:bg-subtle-hover text-obsidian text-xs font-semibold text-center transition-colors">
+            Start Free
+          </a>
         </div>
-        <a href="upgrade_to_pro_responsive/code.html" class="w-full py-3 rounded-xl border border-primary/30 text-primary hover:bg-primary/5 text-xs font-semibold text-center transition-colors">Get Starter Pack</a>
-      </div>
 
-      <!-- Creator Pro -->
-      <div class="glass-card rounded-2xl p-7 border-2 border-primary relative flex flex-col justify-between space-y-6 shadow-xl shadow-primary/10 bg-white">
-        <div class="absolute -top-3 right-5 px-3 py-0.5 rounded-full text-[10px] font-bold bg-primary text-white uppercase tracking-wider">Best Value</div>
-        <div>
-          <h3 class="font-heading text-lg font-bold text-on-background">Creator Pro</h3>
-          <p class="text-xs text-secondary mt-1">For founders, ghostwriters & teams.</p>
-          <div class="mt-5 text-3xl font-extrabold text-on-background">₹499 <span class="text-xs font-normal text-secondary">/ 150 Credits</span></div>
-          <ul class="mt-6 space-y-3 text-xs text-on-background border-t border-outline-variant/20 pt-5">
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> <strong>150 Credits</strong> (~₹3.3/post)</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> 1-Click AI Refinement Actions</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Priority GPU Execution Queue</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Commercial Ghostwriting Rights</li>
-          </ul>
+        <!-- Tier 2: Starter Pack (FEATURED HERO CARD - Apple/Linear high contrast) -->
+        <div class="p-6 sm:p-7 rounded-xl bg-obsidian text-white border border-obsidian flex flex-col justify-between space-y-6 shadow-md relative">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">Most Popular</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">Starter Pack</h3>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white uppercase">One-time</span>
+            </div>
+            <p class="text-xs text-white/70">Ideal for weekly founders and content creators.</p>
+            <div class="pt-4 border-t border-white/15">
+              <span class="text-3xl font-extrabold text-white">₹199</span>
+              <span class="text-xs font-mono text-white/70">/ 50 Credits</span>
+              <p class="text-[11px] font-mono text-accent mt-0.5">₹3.98 per repurposed link</p>
+            </div>
+            <div class="space-y-2 text-xs text-white/80 font-mono pt-2">
+              <p>• 50 AI Generation credits</p>
+              <p>• YouTube transcript & blog URL parser</p>
+              <p>• 1-Click AI draft refinements</p>
+              <p>• Credits never expire</p>
+              <p>• Secure UPI & RuPay checkout via Razorpay</p>
+            </div>
+          </div>
+          <a href="upgrade_to_pro_responsive/code.html" class="w-full py-2.5 rounded-lg bg-white text-obsidian hover:bg-white/90 text-xs font-semibold text-center transition-colors shadow-sm">
+            Get Starter Pack (₹199)
+          </a>
         </div>
-        <a href="upgrade_to_pro_responsive/code.html" class="w-full py-3 rounded-xl bg-primary text-white font-semibold text-xs text-center shadow-md shadow-primary/25 hover:bg-primary-container transition-colors">Upgrade to Pro</a>
+
+        <!-- Tier 3: Creator Pro -->
+        <div class="p-6 sm:p-7 rounded-xl bg-surface border border-border-crisp flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-muted uppercase">High Volume</span>
+                <h3 class="text-xl font-bold text-obsidian mt-0.5">Creator Pro</h3>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-subtle text-muted uppercase">Best Rate</span>
+            </div>
+            <p class="text-xs text-muted">For ghostwriters, media agencies, and teams.</p>
+            <div class="pt-4 border-t border-border-crisp">
+              <span class="text-3xl font-extrabold text-obsidian">₹499</span>
+              <span class="text-xs font-mono text-muted">/ 150 Credits</span>
+              <p class="text-[11px] font-mono text-accent mt-0.5">₹3.32 per repurposed link</p>
+            </div>
+            <div class="space-y-2 text-xs text-muted font-mono pt-2">
+              <p>• 150 AI Generation credits</p>
+              <p>• Priority execution cluster</p>
+              <p>• Full commercial ghostwriting license</p>
+              <p>• Credits never expire</p>
+              <p>• Cloud history export & sync</p>
+            </div>
+          </div>
+          <a href="upgrade_to_pro_responsive/code.html" class="w-full py-2.5 rounded-lg border border-border-crisp bg-subtle hover:bg-subtle-hover text-obsidian text-xs font-semibold text-center transition-colors">
+            Get Creator Pro (₹499)
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- CTA Banner -->
-  <section class="py-16 bg-gradient-to-r from-primary to-primary-container text-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      <h2 class="font-heading text-3xl sm:text-4xl font-bold">Ready to 10x your content output?</h2>
-      <p class="text-white/80 text-sm max-w-xl mx-auto">Join smart creators turning long-form drafts into viral distribution machines.</p>
+  <!-- Restrained Bottom CTA (No neon gradient) -->
+  <section class="py-16 bg-surface border-b border-border-crisp">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-5">
+      <h2 class="text-2xl sm:text-3xl font-bold text-obsidian tracking-tight">Ready to test the repurposing engine?</h2>
+      <p class="text-xs sm:text-sm text-muted max-w-lg mx-auto leading-relaxed">
+        Start with 5 free credits. No credit card required. Paste any link to see how your drafts look.
+      </p>
       <div>
-        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white text-primary font-bold text-sm shadow-xl hover:bg-slate-50 transition-all active:scale-95">
-          <span>Get Started with Free Credits</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        <a href="repurpose_studio_responsive/code.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-obsidian text-white text-xs font-semibold hover:bg-obsidian-hover transition-colors shadow-sm">
+          <span>Open Repurpose Studio</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-outline-variant/30 py-12 bg-surface">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <div class="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-sm">
-          <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
-        </div>
-        <span class="font-heading font-bold text-on-background">Zyvrok</span>
-        <span class="text-xs text-secondary ml-2 font-mono">© 2026 Zyvrok. All rights reserved.</span>
+  <!-- Minimalist Clean Footer -->
+  <footer class="py-10 bg-base text-muted text-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded bg-obsidian text-white flex items-center justify-center font-bold text-[10px]">Z</div>
+        <span class="font-bold text-obsidian">Zyvrok</span>
+        <span class="text-muted text-[11px] font-mono ml-2">© 2026 Zyvrok. All rights reserved.</span>
       </div>
 
-      <div class="flex flex-wrap items-center gap-6 text-xs text-secondary">
-        <a href="repurpose_studio_responsive/code.html" class="hover:text-primary transition-colors">Studio</a>
-        <a href="dashboard_history_responsive/code.html" class="hover:text-primary transition-colors">History</a>
-        <a href="upgrade_to_pro_responsive/code.html" class="hover:text-primary transition-colors">Pricing</a>
-        <a href="login_sign_up_responsive/code.html" class="hover:text-primary transition-colors">Sign In</a>
-        <a href="legal.html" class="text-primary font-medium hover:underline">Terms & Refund Policy</a>
+      <div class="flex items-center gap-5 text-[11px] font-semibold">
+        <a href="repurpose_studio_responsive/code.html" class="hover:text-obsidian transition-colors">Studio</a>
+        <a href="dashboard_history_responsive/code.html" class="hover:text-obsidian transition-colors">History</a>
+        <a href="upgrade_to_pro_responsive/code.html" class="hover:text-obsidian transition-colors">Pricing</a>
+        <a href="login_sign_up_responsive/code.html" class="hover:text-obsidian transition-colors">Sign In</a>
+        <a href="legal.html" class="hover:text-obsidian transition-colors">Legal & Refund Policy</a>
       </div>
     </div>
   </footer>
 
-  <script>
-    if (window.lucide) {
-      lucide.createIcons();
-    }
-  </script>
 </body>
 </html>

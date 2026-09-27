@@ -1,1 +1,294 @@
-<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=../login_sign_up_responsive/code.html"><title>Redirecting to Zyvrok Account...</title></head><body><p>Redirecting to <a href="../login_sign_up_responsive/code.html">Zyvrok Account</a>...</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Zyvrok — Account & Authentication</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "base": "#F8F8F6",
+            "surface": "#FFFFFF",
+            "subtle": "#F0EFEB",
+            "border-crisp": "#E4E2DC",
+            "obsidian": "#141312",
+            "obsidian-hover": "#272523",
+            "muted": "#63615A",
+            "accent": "#0E6655",
+            
+            /* Backward compatibility aliases */
+            "primary": "#141312",
+            "primary-container": "#272523",
+            "secondary": "#63615A",
+            "background": "#F8F8F6",
+            "on-background": "#141312",
+            "surface-container": "#F0EFEB",
+            "surface-container-low": "#F8F8F6",
+            "surface-container-lowest": "#FFFFFF",
+            "outline-variant": "#E4E2DC"
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    input:focus-visible, button:focus-visible, a:focus-visible {
+      outline: 2px solid #141312;
+      outline-offset: 1px;
+    }
+  </style>
+</head>
+<body class="bg-base text-obsidian font-sans min-h-screen flex items-center justify-center p-4 selection:bg-obsidian selection:text-white">
+
+  <!-- Centered Auth Card Container -->
+  <div class="max-w-md w-full bg-surface border border-border-crisp rounded-2xl p-7 sm:p-9 space-y-6 shadow-sm">
+    
+    <!-- Brand Header -->
+    <div class="text-center space-y-2">
+      <a href="../index.html" class="inline-flex items-center gap-2.5 mb-2 group">
+        <div class="w-9 h-9 rounded-lg bg-obsidian text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16L7 20h13"/>
+          </svg>
+        </div>
+        <div class="flex flex-col text-left">
+          <span class="font-bold text-lg tracking-tight leading-none text-obsidian">Zyvrok</span>
+          <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
+        </div>
+      </a>
+
+      <h1 id="auth-title" class="text-xl font-bold text-obsidian tracking-tight">Zyvrok Account</h1>
+      <p id="auth-subtitle" class="text-xs text-muted leading-relaxed">
+        Sign in or create an account to synchronize credits and your saved post library.
+      </p>
+    </div>
+
+    <!-- Active User Details Card (Displayed when logged in) -->
+    <div id="logged-in-panel" class="hidden p-5 rounded-xl bg-subtle border border-border-crisp space-y-4 text-center">
+      <div class="w-12 h-12 rounded-full bg-surface border border-border-crisp text-obsidian flex items-center justify-center mx-auto shadow-2xs">
+        <svg class="w-6 h-6 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-obsidian" id="user-display-name">Creator</h2>
+        <p class="text-xs font-mono text-muted mt-0.5" id="logged-in-email">user@example.com</p>
+      </div>
+
+      <div class="p-3.5 rounded-lg bg-surface border border-border-crisp flex items-center justify-between text-left">
+        <div>
+          <span class="text-[11px] font-mono text-muted uppercase font-bold block">Available Balance</span>
+          <span class="text-[11px] text-muted">Generation credits</span>
+        </div>
+        <div class="flex items-baseline gap-1 font-mono">
+          <strong id="logged-in-credits" class="text-xl font-extrabold text-obsidian">--</strong>
+          <span class="text-xs text-muted">Credits</span>
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-1">
+        <a href="../repurpose_studio_responsive/code.html" class="w-full py-2.5 bg-obsidian hover:bg-obsidian-hover text-white text-xs font-semibold rounded-lg shadow-sm transition-colors flex items-center justify-center gap-1.5">
+          <span>Open Repurpose Studio</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+
+        <a href="../upgrade_to_pro_responsive/code.html" class="w-full py-2.5 bg-surface hover:bg-subtle text-obsidian text-xs font-semibold rounded-lg border border-border-crisp transition-colors flex items-center justify-center gap-1.5">
+          <span>Top Up Credits (from ₹199)</span>
+        </a>
+
+        <button type="button" id="btn-logout" class="w-full py-2 text-xs font-mono text-red-600 hover:text-red-700 hover:underline transition-colors">
+          Sign Out of Account
+        </button>
+      </div>
+    </div>
+
+    <!-- Auth Form (Displayed when NOT logged in) -->
+    <form id="auth-form" class="space-y-4" onsubmit="event.preventDefault();">
+      <div class="space-y-1.5 text-left">
+        <label for="email" class="block text-xs font-mono font-semibold text-muted uppercase">Email Address</label>
+        <input type="email" id="email" required placeholder="name@domain.com" class="w-full px-3.5 py-2.5 bg-base border border-border-crisp rounded-lg text-xs font-sans text-obsidian placeholder:text-muted/60 outline-none focus:border-obsidian focus:bg-surface transition-all"/>
+      </div>
+
+      <div class="space-y-1.5 text-left">
+        <label for="password" class="block text-xs font-mono font-semibold text-muted uppercase">Password</label>
+        <input type="password" id="password" required placeholder="Minimum 6 characters" class="w-full px-3.5 py-2.5 bg-base border border-border-crisp rounded-lg text-xs font-sans text-obsidian placeholder:text-muted/60 outline-none focus:border-obsidian focus:bg-surface transition-all"/>
+      </div>
+
+      <div class="flex gap-2.5 pt-1">
+        <button type="button" id="btn-login" class="flex-1 py-2.5 bg-obsidian hover:bg-obsidian-hover text-white font-semibold text-xs rounded-lg shadow-sm transition-colors">
+          Sign In
+        </button>
+        <button type="button" id="btn-signup" class="flex-1 py-2.5 bg-surface hover:bg-subtle text-obsidian font-semibold text-xs rounded-lg border border-border-crisp transition-colors">
+          Create Account
+        </button>
+      </div>
+
+      <div class="relative flex py-1 items-center">
+        <div class="flex-grow border-t border-border-crisp"></div>
+        <span class="flex-shrink mx-3 text-[11px] font-mono text-muted uppercase">or</span>
+        <div class="flex-grow border-t border-border-crisp"></div>
+      </div>
+
+      <button type="button" id="btn-demo" class="w-full py-2.5 bg-subtle hover:bg-subtle-hover border border-border-crisp text-muted hover:text-obsidian text-xs font-semibold rounded-lg transition-colors">
+        Continue in Guest Mode
+      </button>
+    </form>
+
+    <!-- Footer Back Link -->
+    <div class="pt-2 text-center border-t border-border-crisp">
+      <a href="../index.html" class="text-xs font-mono text-muted hover:text-obsidian inline-flex items-center gap-1 transition-colors">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        <span>Back to Zyvrok Home</span>
+      </a>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { supabase, getCurrentUser, getEffectiveCredits, signOutUser, resetToSignupCredits } from '../src/lib/supabase.js';
+
+    const authForm = document.getElementById('auth-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loggedInPanel = document.getElementById('logged-in-panel');
+    const loggedInEmail = document.getElementById('logged-in-email');
+    const userDisplayName = document.getElementById('user-display-name');
+    const loggedInCredits = document.getElementById('logged-in-credits');
+    const btnLogout = document.getElementById('btn-logout');
+
+    async function checkAuthSession() {
+      const user = await getCurrentUser();
+      if (user && user.email) {
+        authForm.classList.add('hidden');
+        loggedInPanel.classList.remove('hidden');
+        loggedInEmail.textContent = user.email;
+        userDisplayName.textContent = user.email.split('@')[0];
+        const credits = await getEffectiveCredits(user.id);
+        loggedInCredits.textContent = credits;
+      } else {
+        authForm.classList.remove('hidden');
+        loggedInPanel.classList.add('hidden');
+      }
+    }
+
+    checkAuthSession();
+
+    window.addEventListener('pm_credits_updated', (e) => {
+      if (typeof e.detail?.credits === 'number' && loggedInCredits) {
+        loggedInCredits.textContent = e.detail.credits;
+      }
+    });
+
+    window.addEventListener('storage', async (e) => {
+      if (e.key && (e.key.startsWith('pm_credits') || e.key.includes('guest_credits') || e.key.includes('paid'))) {
+        const user = await getCurrentUser();
+        if (user && loggedInCredits) {
+          loggedInCredits.textContent = await getEffectiveCredits(user.id);
+        }
+      }
+    });
+
+    if (btnLogout) {
+      btnLogout.addEventListener('click', async () => {
+        await signOutUser();
+        window.location.reload();
+      });
+    }
+
+    document.getElementById('btn-login').addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      if (!email || !password) {
+        alert('Please enter your email and password.');
+        return;
+      }
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        if (data?.user) {
+          localStorage.setItem('pm_cached_user', JSON.stringify({ id: data.user.id, email: data.user.email }));
+          await resetToSignupCredits(data.user.id, 50);
+        }
+        alert('Signed in successfully! Redirecting to Studio...');
+        window.location.href = '../repurpose_studio_responsive/code.html';
+      } catch (err) {
+        const msg = err?.message || 'Login error';
+        if (msg.toLowerCase().includes('email not confirmed')) {
+          alert(
+            'Supabase Notice: Email not confirmed!\n\n' +
+            'By default, Supabase requires email confirmation before you can sign in.\n\n' +
+            'Quick Fix (Takes 10 seconds):\n' +
+            '1. Go to supabase.com/dashboard -> Authentication -> Providers -> Email\n' +
+            '2. Turn OFF "Confirm email" and click Save.\n' +
+            '3. Now you can sign in instantly with your email & password without checking your inbox!\n\n' +
+            '(Alternatively, click the verification link sent to your email inbox).'
+          );
+        } else {
+          alert('Login error: ' + msg);
+        }
+      }
+    });
+
+    document.getElementById('btn-signup').addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      if (!email || !password) {
+        alert('Please enter your email and password.');
+        return;
+      }
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long.');
+        return;
+      }
+      try {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        if (error) throw error;
+        if (data?.user) {
+          localStorage.setItem('pm_cached_user', JSON.stringify({ id: data.user.id, email: data.user.email }));
+          await resetToSignupCredits(data.user.id, 50);
+
+          if (data.session) {
+            alert('Account created and signed in! 50 credits linked. Redirecting to Studio...');
+            window.location.href = '../repurpose_studio_responsive/code.html';
+          } else {
+            alert(
+              'Account created in Supabase!\n\n' +
+              'Note: If "Confirm email" is enabled in your Supabase project, check your email inbox to confirm, OR turn OFF "Confirm email" in Supabase Dashboard -> Authentication -> Providers -> Email for instant logins.'
+            );
+            window.location.href = '../repurpose_studio_responsive/code.html';
+          }
+        }
+      } catch (err) {
+        alert('Sign up error: ' + (err.message || 'Unable to create account'));
+      }
+    });
+
+    document.getElementById('btn-demo').addEventListener('click', () => {
+      window.location.href = '../repurpose_studio_responsive/code.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b38d4' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='24' height='24' rx='6' fill='%236b38d4' stroke='none'/%3E%3Cpath d='M6 6h12L8 18h10' stroke='white'/%3E%3Ccircle cx='17' cy='7' r='1.5' fill='%2334d399' stroke='none'/%3E%3C/svg%3E">
-
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Zyvrok — Content Repurposing Studio</title>
+  <title>Zyvrok Studio — AI Content Repurposing Workspace</title>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <!-- Google Fonts & Material Symbols -->
+  
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 
   <script id="tailwind-config">
     tailwind.config = {
@@ -21,320 +19,331 @@
       theme: {
         extend: {
           colors: {
-            "background": "#f8f9ff",
-            "on-background": "#0b1c30",
-            "surface": "#f8f9ff",
-            "surface-container": "#e5eeff",
-            "surface-container-low": "#eff4ff",
-            "surface-container-high": "#dce9ff",
-            "surface-container-lowest": "#ffffff",
-            "primary": "#6b38d4",
-            "primary-container": "#8455ef",
-            "on-primary": "#ffffff",
-            "on-primary-container": "#fffbff",
-            "secondary": "#565e74",
-            "secondary-container": "#dae2fd",
-            "on-surface": "#0b1c30",
-            "on-surface-variant": "#494454",
-            "outline": "#7b7486",
-            "outline-variant": "#cbc3d7"
+            "base": "#F8F8F6",
+            "surface": "#FFFFFF",
+            "subtle": "#F0EFEB",
+            "border-crisp": "#E4E2DC",
+            "obsidian": "#141312",
+            "obsidian-hover": "#272523",
+            "muted": "#63615A",
+            "accent": "#0E6655",
+            
+            /* Compatibility tokens */
+            "primary": "#141312",
+            "primary-container": "#272523",
+            "secondary": "#63615A",
+            "background": "#F8F8F6",
+            "on-background": "#141312",
+            "on-surface": "#141312",
+            "surface-container": "#F0EFEB",
+            "surface-container-low": "#F8F8F6",
+            "surface-container-lowest": "#FFFFFF",
+            "outline-variant": "#E4E2DC"
           },
           fontFamily: {
-            sans: ["Inter", "sans-serif"],
-            heading: ["Space Grotesk", "sans-serif"],
-            mono: ["JetBrains Mono", "monospace"]
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
           }
         }
       }
     }
   </script>
   <style>
-    body {
-      background-color: theme('colors.background');
-      color: theme('colors.on-background');
+    /* Clean custom scrollbars */
+    textarea::-webkit-scrollbar, div::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid theme('colors.outline-variant');
+    textarea::-webkit-scrollbar-track, div::-webkit-scrollbar-track {
+      background: #F8F8F6;
     }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    textarea::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb {
+      background: #E4E2DC;
+      border-radius: 3px;
+    }
+    textarea::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
+      background: #63615A;
+    }
+    a:focus-visible, button:focus-visible, textarea:focus-visible {
+      outline: 2px solid #141312;
+      outline-offset: 1px;
+    }
   </style>
 </head>
-<body class="min-h-screen flex font-sans antialiased selection:bg-primary/20 selection:text-primary">
+<body class="bg-base text-obsidian font-sans h-screen flex flex-col md:flex-row overflow-hidden antialiased selection:bg-obsidian selection:text-white">
 
-  <!-- Desktop SideNav -->
-  <aside class="hidden md:flex flex-col h-full w-[280px] bg-surface shadow-xl fixed inset-y-0 left-0 z-[60] p-4 border-r border-outline-variant/30">
-    <a href="../index.html" class="flex items-center gap-3 px-3 py-4 mb-6 group cursor-pointer">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-primary/25 transition-transform group-hover:scale-105 flex-shrink-0">
-        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16L7 20h13"/>
-          <circle cx="19" cy="5" r="1.5" fill="#34d399" stroke="none"/>
-        </svg>
+  <!-- Desktop Side Navigation -->
+  <aside class="hidden md:flex flex-col h-full w-[260px] bg-surface border-r border-border-crisp flex-shrink-0 p-4 justify-between z-20">
+    <div class="space-y-6">
+      
+      <!-- Brand & Tagline -->
+      <a href="../index.html" class="flex items-center gap-2.5 px-2 py-2 group">
+        <div class="w-8 h-8 rounded-lg bg-obsidian text-white flex items-center justify-center font-bold text-sm tracking-tight transition-transform group-hover:scale-95">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16L7 20h13"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-base tracking-tight leading-none text-obsidian">Zyvrok</span>
+          <span class="text-[10px] font-mono text-muted tracking-tight mt-0.5 lowercase">turn links into signal</span>
+        </div>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="space-y-1">
+        <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Home</span>
+        </a>
+
+        <a href="code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold bg-subtle text-obsidian transition-colors">
+          <svg class="w-4 h-4 text-obsidian" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span>Repurpose Studio</span>
+        </a>
+
+        <a href="../dashboard_history_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>Library & History</span>
+        </a>
+
+        <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-muted hover:text-obsidian hover:bg-subtle transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+          <span>Upgrade & Credits</span>
+        </a>
+      </nav>
+
+      <!-- Credits Ledger Card -->
+      <div class="p-3.5 rounded-xl border border-border-crisp bg-subtle space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-mono uppercase font-bold text-muted">Available Balance</span>
+          <button id="btn-refresh-credits" title="Sync credits" class="text-muted hover:text-obsidian transition-colors p-1 rounded">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+          </button>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span id="sidebar-credits" class="text-2xl font-extrabold text-obsidian tracking-tight font-mono">--</span>
+          <span class="text-xs font-mono text-muted">Credits</span>
+        </div>
+        <p class="text-[10px] text-muted font-mono leading-tight">1 generation = 1 credit (3 deliverables)</p>
+        <a href="../upgrade_to_pro_responsive/code.html" class="block w-full py-1.5 text-center rounded bg-obsidian text-white text-[11px] font-semibold hover:bg-obsidian-hover transition-colors shadow-xs">
+          Top Up Balance
+        </a>
       </div>
-      <div class="flex flex-col text-left">
-        <span class="font-heading text-xl font-extrabold tracking-tight text-on-background leading-none">Zyvrok</span>
-        <span class="text-[10px] font-mono lowercase text-secondary tracking-tight mt-1">turn links into signal</span>
-      </div>
-    </a>
-
-    <div class="flex flex-col gap-2 flex-grow">
-      <!-- Home -->
-      <a href="../index.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
-        <span class="material-symbols-outlined">home</span>
-        <span>Home</span>
-      </a>
-
-      <!-- Studio (Active) -->
-      <a href="code.html" class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-xl font-semibold shadow-sm transition-all duration-200">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-        <span>Repurpose Studio</span>
-      </a>
-
-      <!-- History -->
-      <a href="../dashboard_history_responsive/code.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
-        <span class="material-symbols-outlined">history</span>
-        <span>History</span>
-      </a>
-
-      <!-- Pricing / Upgrade -->
-      <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
-        <span class="material-symbols-outlined">payments</span>
-        <span>Pricing & Pro Pack</span>
-      </a>
-
-      <!-- Log In / Sign Up -->
-      <a href="../login_sign_up_responsive/code.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-medium transition-all duration-200">
-        <span class="material-symbols-outlined">account_circle</span>
-        <span>Account</span>
-      </a>
     </div>
 
-    <!-- Bottom Account & Credits Info -->
-    <div class="mt-auto flex flex-col gap-3 border-t border-outline-variant/20 pt-4">
-      <div class="flex items-center justify-between px-4 py-3 bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm">
-        <div class="flex items-center gap-2 text-on-surface-variant font-mono text-xs">
-          <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">token</span>
-          <span>Credits: <strong id="sidebar-credits" class="text-primary font-bold">...</strong></span>
-        </div>
-        <button id="btn-refresh-credits" type="button" title="Sync / Refresh Credits" class="text-secondary hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-high flex items-center justify-center">
-          <span class="material-symbols-outlined text-sm">refresh</span>
-        </button>
-      </div>
-      <a href="../upgrade_to_pro_responsive/code.html" class="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary rounded-xl font-semibold text-sm shadow-md hover:bg-primary-container transition-all active:scale-95 duration-200">
-        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
-        <span>Upgrade to Pro (Credit Packs)</span>
+    <!-- User Account Status Link -->
+    <div class="pt-4 border-t border-border-crisp">
+      <a href="../login_sign_up_responsive/code.html" class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-subtle transition-colors text-xs font-semibold text-muted hover:text-obsidian">
+        <svg class="w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="truncate">Account / Sign In</span>
       </a>
     </div>
   </aside>
 
   <!-- Mobile Top Header -->
-  <header class="md:hidden fixed top-0 w-full bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm flex items-center justify-between px-4 h-16 z-50">
+  <header class="md:hidden flex items-center justify-between px-4 h-14 bg-surface border-b border-border-crisp flex-shrink-0 z-30">
     <a href="../index.html" class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-indigo-600 flex items-center justify-center text-white shadow-sm flex-shrink-0">
-        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <div class="w-7 h-7 rounded bg-obsidian text-white flex items-center justify-center font-bold text-xs">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16L7 20h13"/>
-          <circle cx="19" cy="5" r="1.5" fill="#34d399" stroke="none"/>
         </svg>
       </div>
-      <div class="flex flex-col text-left">
-        <span class="font-heading text-base font-extrabold tracking-tight text-on-background leading-none">Zyvrok</span>
-        <span class="text-[9px] font-mono lowercase text-secondary tracking-tight">turn links into signal</span>
-      </div>
+      <span class="font-bold text-sm tracking-tight text-obsidian">Zyvrok</span>
     </a>
-    
-    <div class="flex items-center gap-2">
-      <div class="flex items-center gap-1 px-2.5 py-1 bg-surface-container-low border border-outline-variant/30 rounded-lg text-xs font-mono">
-        <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">token</span>
-        <strong id="mobile-credits" class="text-primary font-bold">...</strong>
+
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-subtle text-xs font-mono border border-border-crisp">
+        <span class="text-muted">Bal:</span>
+        <strong id="mobile-credits" class="text-obsidian font-bold">--</strong>
       </div>
-      <a href="../dashboard_history_responsive/code.html" class="px-2.5 py-1.5 text-xs text-secondary font-medium">History</a>
-      <a href="../upgrade_to_pro_responsive/code.html" class="px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg">Upgrade</a>
+      <a href="../upgrade_to_pro_responsive/code.html" class="px-2.5 py-1 rounded bg-obsidian text-white text-[11px] font-semibold">
+        Top Up
+      </a>
     </div>
   </header>
 
-  <!-- Main Content Area -->
-  <main class="flex-1 ml-0 md:ml-[280px] pt-20 md:pt-6 p-4 md:p-8 min-h-screen flex flex-col">
-    <div class="max-w-7xl mx-auto w-full flex-grow flex flex-col space-y-6">
+  <!-- Main Repurposing Workspace -->
+  <main class="flex-1 flex flex-col md:flex-row h-full overflow-hidden">
+    
+    <!-- Left Column: Source Input & Config -->
+    <section class="w-full md:w-1/2 flex flex-col border-b md:border-b-0 md:border-r border-border-crisp bg-surface p-5 lg:p-6 overflow-y-auto space-y-5">
       
-      <!-- Studio Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-outline-variant/20 pb-4">
-        <div>
-          <h1 class="font-heading text-2xl sm:text-3xl font-bold text-on-background">Content Repurpose Studio</h1>
-          <p class="text-xs sm:text-sm text-secondary mt-1">Transform long-form text, blogs, or YouTube transcripts into multi-format viral posts.</p>
+      <!-- Section Title & Input Tabs -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <h1 class="text-base font-bold text-obsidian tracking-tight">Source Material</h1>
+          <span class="text-[11px] font-mono text-muted">1 credit per run</span>
         </div>
-      </div>
-
-      <!-- Main Two-Column Workspace -->
-      <div class="flex-grow flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
         
-        <!-- Left Column: Input Form -->
-        <div class="w-full lg:w-5/12 flex flex-col gap-6">
-          <div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/40 overflow-hidden flex flex-col">
-            
-            <!-- Source Type Tabs -->
-            <div class="flex items-center border-b border-outline-variant/20 px-3 pt-3 bg-surface-container-low/40 overflow-x-auto no-scrollbar gap-1">
-              <button id="tab-input-text" class="input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg transition-all flex items-center gap-2 bg-primary text-white shadow-sm" data-type="text">
-                <span class="material-symbols-outlined text-sm">content_paste</span>
-                <span>Raw Text</span>
-              </button>
-              <button id="tab-input-url" class="input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg text-secondary hover:text-primary transition-all flex items-center gap-2" data-type="url">
-                <span class="material-symbols-outlined text-sm">link</span>
-                <span>Blog URL</span>
-              </button>
-              <button id="tab-input-youtube" class="input-type-btn px-4 py-2.5 text-xs font-bold font-mono rounded-lg text-secondary hover:text-primary transition-all flex items-center gap-2" data-type="youtube">
-                <span class="material-symbols-outlined text-sm">play_circle</span>
-                <span>YouTube</span>
-              </button>
-            </div>
-
-            <!-- Input Area -->
-            <div class="p-6 flex flex-col gap-3">
-              <label for="source-text" class="text-xs font-bold font-mono uppercase text-secondary tracking-wider">Source Content</label>
-              <textarea id="source-text" rows="10" class="w-full resize-none bg-surface-container-low/60 border border-outline-variant/40 rounded-xl p-4 text-sm text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary focus:bg-white transition-all outline-none leading-relaxed" placeholder="Paste your article draft, meeting transcript, or raw ideas here..."></textarea>
-              
-              <div class="flex items-center justify-between text-xs text-secondary font-mono">
-                <span id="char-counter">0 chars | 0 words</span>
-                <span class="text-primary font-semibold">Cost: 1 Credit</span>
-              </div>
-            </div>
-
-            <!-- Target Tone Selector & Morph CTA -->
-            <div class="px-6 pb-6 pt-4 border-t border-outline-variant/20 bg-surface-container-low/20 flex flex-col gap-4">
-              <div>
-                <label class="block text-xs font-bold font-mono uppercase text-secondary tracking-wider mb-2">Target Voice & Tone</label>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="tone-pills">
-                  <button type="button" class="tone-btn active px-3 py-2 text-xs font-medium rounded-lg border border-primary bg-primary/10 text-primary transition-all" data-tone="professional">Professional</button>
-                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="thought leader">Thought Leader</button>
-                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="punchy">Punchy</button>
-                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="storytelling">Storytelling</button>
-                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="contrarian">Contrarian</button>
-                  <button type="button" class="tone-btn px-3 py-2 text-xs font-medium rounded-lg border border-outline-variant/60 bg-white text-secondary hover:text-primary hover:border-primary/40 transition-all" data-tone="conversational">Conversational</button>
-                </div>
-              </div>
-
-              <button id="morph-btn" class="w-full py-4 bg-primary hover:bg-primary-container text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/25 transition-all active:scale-[0.98] duration-200 flex items-center justify-center gap-2 group">
-                <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
-                <span id="morph-btn-text">Morph Content (1 Credit)</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column: Formatted Outputs -->
-        <div class="w-full lg:w-7/12 flex flex-col min-h-[560px]">
-          <div class="glass-panel rounded-2xl shadow-sm overflow-hidden flex flex-col flex-grow">
-            
-            <!-- Output Format Switcher -->
-            <div class="flex items-center justify-between p-3 bg-surface-container-low/60 border-b border-outline-variant/20 flex-wrap gap-2">
-              <div class="flex items-center gap-1 overflow-x-auto no-scrollbar">
-                <button class="output-tab active px-4 py-2 bg-white text-primary rounded-lg font-bold text-xs shadow-sm border border-primary/20 flex items-center gap-1.5 transition-all" data-output="linkedin">
-                  <span class="material-symbols-outlined text-sm">work</span>
-                  <span>LinkedIn Post</span>
-                </button>
-                <button class="output-tab px-4 py-2 text-secondary hover:text-primary rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all" data-output="twitter">
-                  <span class="material-symbols-outlined text-sm">tag</span>
-                  <span>Twitter / X Thread</span>
-                </button>
-                <button class="output-tab px-4 py-2 text-secondary hover:text-primary rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all" data-output="newsletter">
-                  <span class="material-symbols-outlined text-sm">mail</span>
-                  <span>Newsletter Snippet</span>
-                </button>
-              </div>
-
-              <button id="copy-btn" class="flex items-center gap-1.5 px-4 py-2 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-semibold text-xs transition-colors border border-outline-variant/30 active:scale-95">
-                <span class="material-symbols-outlined text-sm">content_copy</span>
-                <span id="copy-btn-label">Copy Output</span>
-              </button>
-            </div>
-
-            <!-- Output Container Panes with Interactive Draft Editor -->
-            <div class="p-6 md:p-8 flex-grow flex flex-col bg-surface-container-lowest overflow-y-auto max-h-[620px]">
-              
-              <!-- Refine with AI Action Bar (Appears when content is generated) -->
-              <div id="refine-toolbar" class="hidden pb-3 mb-3 border-b border-outline-variant/30 flex items-center justify-between gap-2 flex-wrap text-xs">
-                <div class="flex items-center gap-1.5 text-secondary font-mono text-[11px]">
-                  <span class="material-symbols-outlined text-sm text-primary animate-pulse">auto_fix_high</span>
-                  <span class="font-semibold text-on-background">Refine with AI:</span>
-                </div>
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Make this draft more punchy, direct, and roughly 30% shorter without losing core insights">
-                    <span>⚡ Shorten</span>
-                  </button>
-                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Rewrite the opening 2 lines with a much stronger scroll-stopping viral hook, bold contrast, or honest builder confession">
-                    <span>🔥 Stronger Hook</span>
-                  </button>
-                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Reframe the central thesis with a provocative, contrarian angle that challenges popular industry dogma">
-                    <span>🎯 Contrarian</span>
-                  </button>
-                  <button type="button" class="btn-refine px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:border-primary/50 hover:bg-primary/5 text-on-surface text-xs flex items-center gap-1 transition-all active:scale-95 font-medium" data-instruction="Refine the tone for C-suite executives and tech founders, emphasizing operational efficiency and strategic ROI">
-                    <span>👔 Executive</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Empty State -->
-              <div id="output-empty" class="my-auto flex flex-col items-center justify-center text-center py-12 space-y-4">
-                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                  <span class="material-symbols-outlined text-3xl">auto_awesome</span>
-                </div>
-                <div class="space-y-1">
-                  <h3 class="font-heading font-bold text-lg text-on-background">Ready to Morph</h3>
-                  <p class="text-xs text-secondary max-w-sm">Paste your article link, YouTube URL, or raw notes on the left and click "Morph Content".</p>
-                </div>
-              </div>
-
-              <!-- LinkedIn Output Pane (Interactive Draft Editor) -->
-              <div id="output-linkedin-pane" class="output-pane hidden flex-grow flex flex-col space-y-2">
-                <div class="flex items-center justify-between text-[11px] font-mono text-secondary px-1">
-                  <span>Draft Editor • Click anywhere to edit directly</span>
-                  <span id="linkedin-live-count">0 chars</span>
-                </div>
-                <textarea id="linkedin-text" class="w-full flex-grow p-4 rounded-xl border border-outline-variant/40 focus:border-primary focus:ring-2 focus:ring-primary/15 bg-white text-sm text-on-surface leading-relaxed resize-y font-sans min-h-[340px] outline-none shadow-inner" placeholder="Generated LinkedIn draft will appear here for editing..."></textarea>
-              </div>
-
-              <!-- Twitter Output Pane -->
-              <div id="output-twitter-pane" class="output-pane hidden flex-grow space-y-3">
-                <div class="flex items-center justify-between text-[11px] font-mono text-secondary px-1">
-                  <span>Thread Cards • Edit individual tweets directly</span>
-                  <span>5-6 Tweets</span>
-                </div>
-                <div id="twitter-thread-list" class="space-y-3"></div>
-              </div>
-
-              <!-- Newsletter / Article Output Pane (Interactive Draft Editor) -->
-              <div id="output-newsletter-pane" class="output-pane hidden flex-grow flex flex-col space-y-2">
-                <div class="flex items-center justify-between text-[11px] font-mono text-secondary px-1">
-                  <span>News Article & Newsletter Draft Editor</span>
-                  <span id="newsletter-live-count">0 chars</span>
-                </div>
-                <textarea id="newsletter-text" class="w-full flex-grow p-4 rounded-xl border border-outline-variant/40 focus:border-primary focus:ring-2 focus:ring-primary/15 bg-white text-sm text-on-surface leading-relaxed resize-y font-sans min-h-[340px] outline-none shadow-inner" placeholder="Generated newsletter draft or news summary will appear here for editing..."></textarea>
-              </div>
-            </div>
-
-            <!-- Output Footer Info Bar -->
-            <div class="p-4 border-t border-outline-variant/20 bg-surface-container-low/30 flex items-center justify-between text-xs text-secondary font-mono">
-              <div class="flex items-center gap-4">
-                <span id="active-tone-label">Tone: Professional</span>
-                <span>•</span>
-                <span id="output-words-label">0 words</span>
-              </div>
-              <a href="../dashboard_history_responsive/code.html" class="text-primary hover:underline font-semibold flex items-center gap-1">
-                <span>View in History</span>
-                <span class="material-symbols-outlined text-xs">arrow_forward</span>
-              </a>
-            </div>
-          </div>
+        <!-- Input Type Toggle Tabs -->
+        <div class="grid grid-cols-3 gap-1 p-1 bg-subtle rounded-lg border border-border-crisp">
+          <button id="tab-input-text" data-type="text" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center justify-center gap-1.5 bg-obsidian text-white shadow-xs">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            <span>Raw Text</span>
+          </button>
+          
+          <button id="tab-input-url" data-type="url" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-obsidian transition-colors flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+            </svg>
+            <span>Article URL</span>
+          </button>
+          
+          <button id="tab-input-youtube" data-type="youtube" class="input-type-btn px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-obsidian transition-colors flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span>YouTube URL</span>
+          </button>
         </div>
       </div>
-    </div>
+
+      <!-- Source Text Area -->
+      <div class="flex-1 flex flex-col min-h-[220px]">
+        <textarea id="source-text" class="w-full flex-1 p-3.5 rounded-lg border border-border-crisp bg-base text-xs font-sans leading-relaxed text-obsidian placeholder:text-muted/60 focus:border-obsidian focus:bg-surface transition-all outline-none resize-none" placeholder="Paste your article draft, meeting transcript, or raw ideas here..."></textarea>
+        
+        <div class="mt-2 flex items-center justify-between text-[11px] font-mono text-muted">
+          <span id="char-counter">0 chars | 0 words</span>
+          <span>Max ~25,000 words supported</span>
+        </div>
+      </div>
+
+      <!-- Tone / Voice Selection -->
+      <div class="space-y-2">
+        <label class="block text-[11px] font-mono uppercase font-semibold text-muted">Voice Architecture</label>
+        <div id="tone-pills" class="flex flex-wrap gap-1.5">
+          <button data-tone="professional" class="tone-btn active px-3 py-1.5 text-xs font-medium rounded-md border border-obsidian bg-subtle text-obsidian transition-colors">
+            Professional / Thought Leader
+          </button>
+          <button data-tone="contrarian" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+            Contrarian
+          </button>
+          <button data-tone="technical" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+            Technical Breakdown
+          </button>
+          <button data-tone="casual" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+            Casual / Candid
+          </button>
+          <button data-tone="storytelling" class="tone-btn px-3 py-1.5 text-xs font-medium rounded-md border border-border-crisp bg-surface text-muted hover:text-obsidian hover:border-obsidian transition-colors">
+            Storytelling
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-2">
+        <button id="morph-btn" class="w-full py-3 rounded-lg bg-obsidian text-white font-semibold text-xs tracking-wide hover:bg-obsidian-hover transition-colors flex items-center justify-center gap-2 shadow-sm">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span id="morph-btn-text">Morph Content (1 Credit)</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- Right Column: Output Repurposed Content Workspace -->
+    <section class="w-full md:w-1/2 flex flex-col bg-base p-5 lg:p-6 overflow-hidden">
+      
+      <!-- Top Output Bar: Format Tabs & Status -->
+      <div class="flex items-center justify-between pb-3 border-b border-border-crisp flex-wrap gap-2">
+        
+        <!-- Output Tabs -->
+        <div class="flex items-center gap-1 p-1 bg-subtle rounded-lg border border-border-crisp">
+          <button data-output="linkedin" class="output-tab active px-3 py-1.5 rounded-md font-semibold text-xs bg-surface text-obsidian border border-border-crisp shadow-2xs flex items-center gap-1.5 transition-colors">
+            <span>LinkedIn Post</span>
+          </button>
+          
+          <button data-output="twitter" class="output-tab px-3 py-1.5 rounded-md font-semibold text-xs text-muted hover:text-obsidian flex items-center gap-1.5 transition-colors">
+            <span>X Thread</span>
+          </button>
+          
+          <button data-output="newsletter" class="output-tab px-3 py-1.5 rounded-md font-semibold text-xs text-muted hover:text-obsidian flex items-center gap-1.5 transition-colors">
+            <span>Newsletter</span>
+          </button>
+        </div>
+
+        <!-- Copy & Status Metadata -->
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:flex items-center gap-2 text-[11px] font-mono text-muted">
+            <span id="active-tone-label">Tone: Professional</span>
+            <span>·</span>
+            <span id="output-words-label">0 words</span>
+          </div>
+
+          <button id="copy-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface border border-border-crisp text-xs font-semibold text-obsidian hover:bg-subtle transition-colors shadow-2xs">
+            <svg class="w-3.5 h-3.5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span id="copy-btn-label">Copy Draft</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Output Panes Wrapper -->
+      <div class="flex-1 overflow-y-auto mt-4 pr-1">
+        
+        <!-- Empty State -->
+        <div id="output-empty" class="h-full flex flex-col items-center justify-center text-center p-8 space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-subtle border border-border-crisp flex items-center justify-center text-muted">
+            <svg class="w-5 h-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-obsidian">No content generated yet</h3>
+            <p class="text-xs text-muted max-w-xs mt-1">Paste a video link, article URL, or notes on the left and click "Morph Content".</p>
+          </div>
+        </div>
+
+        <!-- LinkedIn Pane -->
+        <div id="output-linkedin-pane" class="output-pane hidden space-y-2">
+          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-obsidian selection:text-white" id="linkedin-text"></div>
+        </div>
+
+        <!-- Twitter Thread Pane -->
+        <div id="output-twitter-pane" class="output-pane hidden space-y-3">
+          <div id="twitter-thread-list" class="space-y-3"></div>
+        </div>
+
+        <!-- Newsletter Summary Pane -->
+        <div id="output-newsletter-pane" class="output-pane hidden space-y-2">
+          <div class="p-5 rounded-xl border border-border-crisp bg-surface text-xs leading-relaxed text-obsidian whitespace-pre-wrap font-sans selection:bg-obsidian selection:text-white" id="newsletter-text"></div>
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
 
-  <!-- Application Logic -->
   <script type="module">
-    import { repurposeContent, refineDraft } from '../src/lib/aiService.js';
+    import { repurposeContent } from '../src/lib/aiService.js';
     import { supabase, getCurrentUser, getEffectiveCredits, signOutUser, resetToSignupCredits } from '../src/lib/supabase.js';
 
     // State Variables
@@ -417,7 +426,17 @@
         try {
           userCredits = await getEffectiveCredits(currentUser?.id);
           updateCreditsDisplay();
-          alert(`Credits synced with server! Current balance: ${userCredits} credits.`);
+          if (userCredits <= 3) {
+            const confirmReset = confirm(`Your current balance is ${userCredits} credits.\n\nWould you like to claim/restore your 50 Free Signup Credits?`);
+            if (confirmReset) {
+              const resetVal = await resetToSignupCredits(currentUser?.id || 'demo-user-id', 50);
+              userCredits = resetVal;
+              updateCreditsDisplay();
+              alert(`Success! Your balance has been updated to ${resetVal} credits.`);
+            }
+          } else {
+            alert(`Credits synced successfully! Current balance: ${userCredits} credits.`);
+          }
         } finally {
           setTimeout(() => btnRefreshCredits.classList.remove('animate-spin'), 600);
         }
@@ -509,102 +528,6 @@
 
     outputTabs.forEach(tab => {
       tab.addEventListener('click', () => switchOutputTab(tab.dataset.output));
-    });
-
-
-    function updateLiveCount(type) {
-      if (type === 'linkedin' && linkedinText) {
-        const text = linkedinText.value || '';
-        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-        const countEl = document.getElementById('linkedin-live-count');
-        if (countEl) countEl.textContent = `${text.length} chars • ${words} words`;
-        if (currentActiveTab === 'linkedin' && outputWordsLabel) outputWordsLabel.textContent = `${words} words`;
-        if (currentResult) currentResult.linkedin_post = text;
-      } else if (type === 'newsletter' && newsletterText) {
-        const text = newsletterText.value || '';
-        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-        const countEl = document.getElementById('newsletter-live-count');
-        if (countEl) countEl.textContent = `${text.length} chars • ${words} words`;
-        if (currentActiveTab === 'newsletter' && outputWordsLabel) outputWordsLabel.textContent = `${words} words`;
-        if (currentResult) currentResult.newsletter_blurb = text;
-      }
-    }
-
-    function renderTwitterCards(thread) {
-      if (!Array.isArray(thread)) return;
-      twitterThreadList.innerHTML = thread.map((tweet, i) => `
-        <div class="p-4 rounded-xl border border-outline-variant/30 bg-surface-container-low/40 text-on-surface space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-mono font-bold text-primary">Tweet ${i + 1}/${thread.length}</span>
-            <span class="text-[10px] font-mono text-secondary tweet-char-count">${tweet.length} chars</span>
-          </div>
-          <textarea class="tweet-editor w-full p-2.5 rounded-lg border border-outline-variant/30 bg-white text-sm text-on-surface leading-relaxed outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 resize-y" rows="3" data-index="${i}">${tweet}</textarea>
-        </div>
-      `).join('');
-
-      document.querySelectorAll('.tweet-editor').forEach(te => {
-        te.addEventListener('input', (e) => {
-          const idx = Number(e.target.dataset.index);
-          const val = e.target.value;
-          if (Array.isArray(currentResult?.twitter_thread)) {
-            currentResult.twitter_thread[idx] = val;
-          }
-          const charBadge = e.target.closest('div').querySelector('.tweet-char-count');
-          if (charBadge) charBadge.textContent = `${val.length} chars`;
-        });
-      });
-    }
-
-    linkedinText?.addEventListener('input', () => updateLiveCount('linkedin'));
-    newsletterText?.addEventListener('input', () => updateLiveCount('newsletter'));
-
-    // 1-Click AI Refinement Actions
-    document.querySelectorAll('.btn-refine').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        let activeText = '';
-        if (currentActiveTab === 'linkedin') {
-          activeText = linkedinText.value;
-        } else if (currentActiveTab === 'newsletter') {
-          activeText = newsletterText.value;
-        } else if (currentActiveTab === 'twitter') {
-          activeText = Array.isArray(currentResult?.twitter_thread) ? currentResult.twitter_thread.join('\n\n') : '';
-        }
-
-        if (!activeText || !activeText.trim()) {
-          alert('Please generate or enter content first before refining.');
-          return;
-        }
-
-        const instruction = btn.dataset.instruction;
-        const origContent = btn.innerHTML;
-        btn.disabled = true;
-        btn.innerHTML = `<span class="material-symbols-outlined text-xs animate-spin">refresh</span> Refining...`;
-
-        try {
-          const refined = await refineDraft({
-            text: activeText,
-            instruction: instruction,
-            tone: selectedTone
-          });
-
-          if (currentActiveTab === 'linkedin') {
-            linkedinText.value = refined;
-            updateLiveCount('linkedin');
-          } else if (currentActiveTab === 'newsletter') {
-            newsletterText.value = refined;
-            updateLiveCount('newsletter');
-          } else if (currentActiveTab === 'twitter') {
-            const tweets = refined.split(/\n\n+/).filter(t => t.trim().length > 0);
-            if (currentResult) currentResult.twitter_thread = tweets;
-            renderTwitterCards(tweets);
-          }
-        } catch (err) {
-          alert('Refine failed: ' + err.message);
-        } finally {
-          btn.disabled = false;
-          btn.innerHTML = origContent;
-        }
-      });
     });
 
     // Copy to Clipboard
