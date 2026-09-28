@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Calendar } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Calendar, Sparkles } from 'lucide-react';
 import SpotlightCard from '../components/SpotlightCard';
+import { supabase, getCurrentUser } from '../lib/supabase';
 
 export function HistoryPage() {
-  const dummyHistory = [
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  const fallbackHistory = [
     {
-      id: 1,
+      id: 'demo-1',
       title: "State of GPT & LLM Pipelines (Andrej Karpathy)",
       type: "YouTube",
       date: "Sep 26, 2026",
@@ -14,7 +19,7 @@ export function HistoryPage() {
       formats: ["LinkedIn", "X Thread", "Newsletter"]
     },
     {
-      id: 2,
+      id: 'demo-2',
       title: "How Stripe Scales Database Shards",
       type: "Article",
       date: "Sep 22, 2026",
@@ -22,6 +27,47 @@ export function HistoryPage() {
       formats: ["LinkedIn", "X Thread"]
     }
   ];
+
+  useEffect(() => {
+    async function loadHistory() {
+      try {
+        const u = await getCurrentUser();
+        setUser(u);
+
+        if (u) {
+          const { data, error } = await supabase
+            .from('repurposed_posts')
+            .select('*')
+            .eq('user_id', u.id)
+            .order('created_at', { ascending: false });
+
+          if (!error && data && data.length > 0) {
+            const formatted = data.map((item) => ({
+              id: item.id,
+              title: item.title || item.original_url || "Repurposed Content",
+              type: item.source_type ? item.source_type.toUpperCase() : "Content",
+              date: item.created_at ? new Date(item.created_at).toLocaleDateString() : "Recent",
+              snippet: (item.linkedin_post || item.twitter_thread || item.newsletter_content || "").slice(0, 140) + "...",
+              formats: [
+                item.linkedin_post ? "LinkedIn" : null,
+                item.twitter_thread ? "X Thread" : null,
+                item.newsletter_content ? "Newsletter" : null
+              ].filter(Boolean)
+            }));
+            setHistory(formatted);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('History load note:', err);
+      }
+      setHistory(fallbackHistory);
+      setLoading(false);
+    }
+
+    loadHistory();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#09090b] text-[#fafafa] flex flex-col justify-between selection:bg-white/10 selection:text-white">
@@ -35,10 +81,15 @@ export function HistoryPage() {
             </div>
             <span className="font-extrabold text-base tracking-tight text-white">Zyvrok History</span>
           </Link>
-          <Link to="/" className="text-xs font-mono text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors">
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Home</span>
-          </Link>
+          <div className="flex items-center gap-3 text-xs font-mono">
+            <Link to="/studio" className="text-zinc-400 hover:text-white transition-colors">
+              Studio
+            </Link>
+            <Link to="/" className="text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors">
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Home</span>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -50,19 +101,20 @@ export function HistoryPage() {
               Repurposed Content Archives
             </h1>
             <p className="text-xs font-mono text-zinc-400 mt-1">
-              Protected by Supabase PostgreSQL Row Level Security (RLS)
+              {user ? `Archived generations for ${user.email}` : 'Protected by Supabase PostgreSQL Row Level Security (RLS)'}
             </p>
           </div>
           <Link
             to="/studio"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-zinc-950 font-bold text-xs hover:bg-zinc-200 transition-colors shadow-sm"
           >
+            <Sparkles className="w-3.5 h-3.5" />
             <span>New Repurpose</span>
           </Link>
         </div>
 
         <div className="space-y-4">
-          {dummyHistory.map((item) => (
+          {history.map((item) => (
             <SpotlightCard key={item.id} className="p-6">
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-xs font-mono">

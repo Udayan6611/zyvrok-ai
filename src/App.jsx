@@ -7,8 +7,8 @@ import LegalPage from './pages/LegalPage';
 import StudioPage from './pages/StudioPage';
 import PricingPage from './pages/PricingPage';
 import HistoryPage from './pages/HistoryPage';
-import AuthPage from './pages/AuthPage';
-import AccountPage from './pages/AccountPage';
+import { AuthPage } from './pages/AuthPage';
+import { AccountPage } from './pages/AccountPage';
 
 function Layout() {
   const location = useLocation();

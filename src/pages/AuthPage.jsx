@@ -42,16 +42,21 @@ export function AuthPage() {
 
     try {
       if (isSignUp) {
+        // Sign Up with Supabase
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password: password.trim()
         });
 
-        if (error) throw error;
+        if (error) {
+          throw error;
+        }
 
         if (data?.user) {
+          // Grant initial 50 credits to new user
           await resetToSignupCredits(data.user.id, 50);
 
+          // Check for any unclaimed payments on this device and link them to the new user!
           try {
             const unclaimed = localStorage.getItem('pm_last_unclaimed_payment');
             if (unclaimed) {
@@ -71,14 +76,18 @@ export function AuthPage() {
           setSuccessMsg('Please check your email to confirm your account, then sign in.');
         }
       } else {
+        // Sign In with Supabase
         const { data, error } = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password.trim()
         });
 
-        if (error) throw error;
+        if (error) {
+          throw error;
+        }
 
         if (data?.user) {
+          // Check for any unclaimed payments on this device and link them to the user!
           try {
             const unclaimed = localStorage.getItem('pm_last_unclaimed_payment');
             if (unclaimed) {

@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Copy, Check, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Copy, Check, Sparkles, AlertCircle, LogOut, User, RefreshCw } from 'lucide-react';
 import SpotlightCard from '../components/SpotlightCard';
 import MagneticButton from '../components/MagneticButton';
+import { getCurrentUser, getEffectiveCredits, deductCredit, signOutUser } from '../lib/supabase';
+import { repurposeContent } from '../lib/aiService';
 
 export function StudioPage() {
+  const [user, setUser] = useState(null);
+  const [credits, setCredits] = useState(null);
   const [sourceType, setSourceType] = useState('youtube');
   const [url, setUrl] = useState('https://youtube.com/watch?v=kCc8FmEb1nY');
   const [rawText, setRawText] = useState('');
@@ -12,12 +16,41 @@ export function StudioPage() {
   const [activeTab, setActiveTab] = useState('linkedin');
   const [copied, setCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [genError, setGenError] = useState(null);
+
+  const navigate = useNavigate();
 
   const [output, setOutput] = useState({
     linkedin: "Most teams build AI wrappers without understanding where inference economics break down.\n\nIn Karpathy's architecture review, three operational constraints determine whether a generative application survives production scale:\n\n1. Pretraining teaches world models; fine-tuning only adjusts the conversational format.\n2. Reinforcement learning from human feedback introduces alignment tax and hallucinations.\n3. Context window retrieval is not memory—it is working scratchpad space.\n\nOptimize your pipeline for context precision rather than model parameter scale. The real edge is retrieval density.",
     twitter: "1/5 Most teams build AI wrappers without understanding where inference economics break down.\n\n2/5 Rule 1: Pretraining teaches world models; fine-tuning only adjusts conversational format.\n\n3/5 Rule 2: Context window retrieval is not memory—it is scratchpad memory. Keep retrieval dense.\n\n4/5 Rule 3: High-latency loops kill retention. Decouple extraction from real-time generation.\n\n5/5 The competitive moat in 2026 isn't which base foundation model you call. It's how cleanly you synthesize context.",
     newsletter: "Executive Brief: The Real Economics of Edge vs Cloud Inference\n\nKey Takeaway:\nKarpathy highlights that teams prioritizing raw model size over contextual density end up with unsustainable operational expenditure. Decoupling the retrieval pipeline from generation yields 3x faster response times with negligible hallucination drift.\n\nActionable Implementation:\nAudit your retrieval latency before upgrading model parameter classes."
   });
+
+  useEffect(() => {
+    let mounted = true;
+    async function loadData() {
+      try {
+        const u = await getCurrentUser();
+        if (mounted) setUser(u);
+        const creds = await getEffectiveCredits(u?.id);
+        if (mounted) setCredits(creds);
+      } catch (e) {
+        console.warn('Studio load error:', e);
+      }
+    }
+    loadData();
+
+    const handleCreditUpdate = (e) => {
+      if (e.detail?.credits !== undefined && mounted) {
+        setCredits(e.detail.credits);
+      }
+    };
+    window.addEventListener('pm_credits_updated', handleCreditUpdate);
+    return () => {
+      mounted = false;
+      window.removeEventListener('pm_credits_updated', handleCreditUpdate);
+    };
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(output[activeTab]);
@@ -44,6 +77,56 @@ export function StudioPage() {
     }
   };
 
+  const handleGenerate = async () => {
+    const contentToProcess = sourceType === 'text' ? rawText : url;
+    if (!contentToProcess || !contentToProcess.trim()) {
+      alert(sourceType === 'text' ? 'Please paste raw text or notes first.' : 'Please enter a valid URL.');
+      return;
+    }
+
+    if (credits !== null && credits <= 0) {
+      alert('You have 0 credits remaining. Please top up credits on the Pricing page to continue.');
+      navigate('/pricing');
+      return;
+    }
+
+    setIsGenerating(true);
+    setGenError(null);
+
+    try {
+      const result = await repurposeContent({
+        userId: user?.id,
+        content: contentToProcess,
+        inputType: sourceType,
+        tone: selectedTone
+      });
+
+      if (result) {
+        setOutput({
+          linkedin: result.linkedin || output.linkedin,
+          twitter: result.twitter || output.twitter,
+          newsletter: result.newsletter || output.newsletter
+        });
+
+        // Deduct 1 credit
+        const newCreds = await deductCredit(user?.id);
+        setCredits(newCreds);
+      }
+    } catch (err) {
+      console.error('Generation error:', err);
+      setGenError(err.message || 'Generation failed. Please try again.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await signOutUser();
+    setUser(null);
+    const guestCreds = await getEffectiveCredits();
+    setCredits(guestCreds);
+  };
+
   return (
     <div className="min-h-screen bg-[#09090b] text-[#fafafa] flex flex-col justify-between selection:bg-white/10 selection:text-white">
       
@@ -56,15 +139,46 @@ export function StudioPage() {
             </Link>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-base tracking-tight text-white">Zyvrok Studio</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                5 Credits
+              <span className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border font-semibold flex items-center gap-1 ${
+                credits !== null && credits > 0 
+                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
+                  : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+              }`}>
+                <Sparkles className="w-2.5 h-2.5" />
+                <span>{credits !== null ? credits : '...'} Credits</span>
               </span>
             </div>
           </div>
+
           <div className="flex items-center gap-3 text-xs font-mono">
-            <Link to="/pricing" className="text-zinc-400 hover:text-white transition-colors">
-              Upgrade (₹199)
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-2.5">
+                <Link to="/account" className="text-zinc-300 hover:text-white flex items-center gap-1.5 px-2 py-1 rounded hover:bg-white/5 transition-colors">
+                  <User className="w-3.5 h-3.5 text-zinc-400" />
+                  <span className="hidden md:inline truncate max-w-[140px]">{user.email}</span>
+                </Link>
+                <Link to="/pricing" className="text-emerald-400 hover:text-emerald-300 font-semibold px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 transition-all">
+                  + Add Credits
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  title="Sign Out"
+                  className="text-zinc-500 hover:text-zinc-300 p-1 transition-colors"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link to="/login?redirect=/studio" className="text-zinc-400 hover:text-white px-2 py-1 rounded border border-white/10 hover:border-white/20 transition-all">
+                  Sign In
+                </Link>
+                <Link to="/pricing" className="text-emerald-400 hover:text-emerald-300 font-semibold px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 transition-all">
+                  + Get Credits
+                </Link>
+              </div>
+            )}
             <Link to="/" className="text-zinc-400 hover:text-white flex items-center gap-1 transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back</span>
@@ -75,6 +189,16 @@ export function StudioPage() {
 
       {/* Main Studio Grid */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full">
+        {genError && (
+          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{genError}</span>
+            </div>
+            <button type="button" onClick={() => setGenError(null)} className="hover:underline">Dismiss</button>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* Left Configuration Panel */}
@@ -175,14 +299,21 @@ export function StudioPage() {
                 <MagneticButton>
                   <button
                     type="button"
-                    onClick={() => {
-                      setIsGenerating(true);
-                      setTimeout(() => setIsGenerating(false), 1000);
-                    }}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-zinc-950 text-xs font-bold hover:bg-zinc-200 transition-colors shadow-sm"
+                    disabled={isGenerating}
+                    onClick={handleGenerate}
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-zinc-950 text-xs font-bold hover:bg-zinc-200 transition-colors shadow-sm disabled:opacity-50"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>{isGenerating ? 'Morphing...' : 'Morph Content'}</span>
+                    {isGenerating ? (
+                      <>
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                        <span>Morphing Content...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Morph Content</span>
+                      </>
+                    )}
                   </button>
                 </MagneticButton>
               </div>
@@ -243,7 +374,7 @@ export function StudioPage() {
                 </div>
               </div>
 
-              {/* Refinement Actions (Clean tags, NO tacky emojis) */}
+              {/* Refinement Actions */}
               <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-400 pb-3 border-b border-white/10 overflow-x-auto">
                 <span className="text-zinc-400 font-medium">Refine Draft:</span>
                 <button

@@ -46,7 +46,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         
-        {/* Brand */}
+        {/* Brand Monogram & Name */}
         <Link to="/" className="flex items-center gap-3 group">
           <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-bold text-xs tracking-tight transition-transform group-hover:scale-95 shadow-sm shadow-white/20">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -59,7 +59,7 @@ export function Navbar() {
           </div>
         </Link>
 
-        {/* Links */}
+        {/* Navigation Links */}
         <nav className="hidden md:flex items-center gap-7 text-xs font-medium text-zinc-400">
           <a href="/#features" className="hover:text-white transition-colors">Features</a>
           <a href="/#preview" className="hover:text-white transition-colors">Studio Interface</a>
@@ -72,7 +72,7 @@ export function Navbar() {
           )}
         </nav>
 
-        {/* Actions */}
+        {/* Action Buttons */}
         <div className="flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-2.5">
