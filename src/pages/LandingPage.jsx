@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
@@ -21,6 +21,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
 import ShimmerBadge from '../components/ShimmerBadge';
+// Real 3D hero scene (React Three Fiber) — lazy so it never blocks first paint.
+const HeroScene = lazy(() => import('../three/HeroScene'));
 
 // Curated high-signal sample datasets for instant 3D interactive preview
 const DEMO_SAMPLES = {
@@ -89,7 +91,17 @@ export function LandingPage() {
 
       {/* Hero Section */}
       <section className="pt-24 pb-20 border-b border-white/10 relative z-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        {/* Real 3D background — morphing distortion core + orbiting fragments + particles */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <Suspense fallback={<div className="absolute inset-0" />}>
+            <HeroScene />
+          </Suspense>
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 45%, rgba(9,9,11,0.15), rgba(9,9,11,0.78) 70%, rgba(9,9,11,0.95))' }}
+          />
+        </div>
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
           
           {/* Shimmer Status Badge */}
           <div className="mb-6 flex justify-center">
