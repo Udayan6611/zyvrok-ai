@@ -1,5 +1,15 @@
 {
   "framework": "vite",
+  "redirects": [
+    { "source": "/repurpose_studio_responsive/:match*", "destination": "/studio", "permanent": true },
+    { "source": "/upgrade_to_pro_responsive/:match*", "destination": "/pricing", "permanent": true },
+    { "source": "/dashboard_history_responsive/:match*", "destination": "/history", "permanent": true },
+    { "source": "/history_responsive/:match*", "destination": "/history", "permanent": true },
+    { "source": "/login_sign_up_responsive/:match*", "destination": "/login", "permanent": true },
+    { "source": "/auth_responsive/:match*", "destination": "/login", "permanent": true },
+    { "source": "/code", "destination": "/studio", "permanent": true },
+    { "source": "/code.html", "destination": "/studio", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
