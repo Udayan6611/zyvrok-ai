@@ -270,18 +270,37 @@ OUTPUT FORMAT (STRICT JSON):
   "newsletter_blurb": "A crisp, high-signal 200-300 word newsletter section with an editorial headline, key technical synthesis, and bulleted takeaways."
 }`;
 
-  // 5. Execute Groq API Call with calibrated parameters
+  // 5. Execute Groq Generation via Serverless /api/repurpose (Keeps GROQ_API_KEY 100% secret on server)
   let parsedOutput = null;
 
-  if (groqApiKey && groqApiKey.length > 10 && !groqApiKey.includes('YOUR_')) {
-    try {
-      parsedOutput = await callGroqApi(systemPrompt, userPrompt, groqApiKey, toneConfig.temperature);
-    } catch (err) {
-      console.error('Groq API execution error:', err);
-      throw new Error(`Groq API Error: ${err.message}`);
+  try {
+    const apiRes = await fetch('/api/repurpose', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        resolvedText,
+        topicTitle,
+        tone
+      })
+    });
+
+    if (apiRes.ok) {
+      parsedOutput = await apiRes.json();
+    } else {
+      const errJson = await apiRes.json().catch(() => ({}));
+      throw new Error(errJson.error || `HTTP ${apiRes.status}: Generation failed.`);
     }
-  } else {
-    throw new Error('Please configure your VITE_GROQ_API_KEY in your .env file or Vercel environment settings.');
+  } catch (apiErr) {
+    // If serverless is unreachable (e.g. offline dev) and local VITE_GROQ_API_KEY is present
+    if (groqApiKey && groqApiKey.length > 10 && !groqApiKey.includes('YOUR_')) {
+      try {
+        parsedOutput = await callGroqApi(systemPrompt, userPrompt, groqApiKey, toneConfig.temperature);
+      } catch (clientErr) {
+        throw new Error(`Groq API Error: ${clientErr.message}`);
+      }
+    } else {
+      throw apiErr;
+    }
   }
 
   if (!parsedOutput || !parsedOutput.linkedin_post) {

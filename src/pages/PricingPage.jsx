@@ -104,7 +104,7 @@ export function PricingPage() {
         console.warn('Backend order creation note (falling back to direct client checkout):', apiErr);
       }
 
-      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || (orderData && orderData.key) || "rzp_live_test";
+      const razorpayKey = (orderData && (orderData.keyId || orderData.key)) || import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_live_TZSKiYI4f4GyW8";
 
       const options = {
         key: razorpayKey,
