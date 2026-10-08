@@ -92,6 +92,13 @@ export function StudioPage() {
       return;
     }
 
+    // Require sign-in for the free trial credits
+    if (!user) {
+      alert('Please sign in or create an account to use your 5 free trial credits.');
+      navigate('/login?redirect=/studio');
+      return;
+    }
+
     if (credits !== null && credits <= 0) {
       alert('You have 0 credits remaining. Please top up credits on the Pricing page to continue.');
       navigate('/pricing');

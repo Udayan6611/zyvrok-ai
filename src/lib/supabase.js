@@ -8,120 +8,88 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    storage: window.localStorage
-  }
+  },
 });
 
 /**
- * Retrieves the currently active authenticated user with multi-layer persistence
+ * Storage key helpers
  */
-export async function getCurrentUser() {
-  try {
-    // 1. Check active session (instant read from localStorage)
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.user) {
-      localStorage.setItem('pm_cached_user', JSON.stringify({
-        id: session.user.id,
-        email: session.user.email
-      }));
-      return session.user;
-    }
-
-    // 2. Check user from server
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      localStorage.setItem('pm_cached_user', JSON.stringify({
-        id: user.id,
-        email: user.email
-      }));
-      return user;
-    }
-  } catch (err) {
-    console.warn('Supabase auth session read note:', err);
+export function getCreditsStorageKey(userId) {
+  if (!userId || userId === 'demo-user-id' || userId === 'guest') {
+    return 'pm_guest_credits';
   }
+  return `pm_credits_${userId}`;
+}
 
-  // 3. Fallback to cached authenticated user profile
-  try {
-    const cached = localStorage.getItem('pm_cached_user');
-    if (cached) {
-      return JSON.parse(cached);
-    }
-  } catch (e) {}
-
-  return null;
+export function getPaidCreditsStorageKey(userId) {
+  if (!userId || userId === 'demo-user-id' || userId === 'guest') {
+    return 'pm_guest_paid_credits';
+  }
+  return `pm_paid_credits_${userId}`;
 }
 
 /**
- * Signs out user and clears cached session
+ * Gets currently logged in user safely
+ */
+export async function getCurrentUser() {
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error || !user) return null;
+    return user;
+  } catch (err) {
+    console.warn('Error fetching current user:', err);
+    return null;
+  }
+}
+
+/**
+ * Signs user out and clears local caches
  */
 export async function signOutUser() {
   try {
     await supabase.auth.signOut();
-  } catch (e) {}
-  localStorage.removeItem('pm_cached_user');
+  } catch (e) {
+    console.warn('Sign out warning:', e);
+  }
+  window.dispatchEvent(new CustomEvent('pm_credits_updated', {
+    detail: { credits: 0, userId: null }
+  }));
 }
 
 /**
- * Helper to get the localStorage key for credits
- */
-export function getCreditsStorageKey(userId) {
-  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
-  return isRegistered ? `pm_credits_${userId}` : 'pm_guest_credits';
-}
-
-/**
- * Helper to get the localStorage key for paid credits
- */
-export function getPaidCreditsStorageKey(userId) {
-  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
-  return isRegistered ? `pm_paid_credits_${userId}` : 'pm_guest_paid_credits';
-}
-
-/**
- * Tries every method to persist credits to Supabase profiles table
+ * Syncs credits to Supabase profiles table
  */
 export async function syncCreditsToSupabase(userId, credits) {
-  if (!userId || userId === 'demo-user-id') return false;
+  const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
+  if (!isRegistered) return false;
 
+  const userKey = getCreditsStorageKey(userId);
   let success = false;
 
-  // 1. Try direct UPDATE (safest for RLS when row already exists)
   try {
-    const { data, error } = await supabase
+    const { error: updateError } = await supabase
       .from('profiles')
-      .update({ credits: credits })
-      .eq('id', userId)
-      .select();
+      .update({ credits })
+      .eq('id', userId);
 
-    if (!error && data && data.length > 0) {
-      success = true;
-    } else if (error) {
-      console.warn('Supabase profile UPDATE note:', error.message);
-    }
-  } catch (e) {
-    console.warn('Supabase profile UPDATE exception:', e);
+    if (!updateError) success = true;
+  } catch (err) {
+    console.warn('Direct update error, trying upsert:', err);
   }
 
-  // 2. If update didn't touch any row (e.g. profile row doesn't exist yet), try UPSERT/INSERT
   if (!success) {
     try {
-      const { data, error } = await supabase
+      const { error: upsertError } = await supabase
         .from('profiles')
-        .upsert({ id: userId, credits: credits }, { onConflict: 'id' })
-        .select();
+        .upsert({ id: userId, credits }, { onConflict: 'id' });
 
-      if (!error && data && data.length > 0) {
-        success = true;
-      } else if (error) {
-        console.warn('Supabase profile UPSERT note:', error.message);
-      }
+      if (!upsertError) success = true;
     } catch (e) {
-      console.warn('Supabase profile UPSERT exception:', e);
+      console.warn('Upsert warning:', e);
     }
   }
 
   if (success) {
-    const userKey = getCreditsStorageKey(userId);
     localStorage.setItem(`pm_sync_ts_${userKey}`, Date.now().toString());
   }
 
@@ -129,9 +97,9 @@ export async function syncCreditsToSupabase(userId, credits) {
 }
 
 /**
- * Resets or claims the 50 Free Signup credits for user or guest
+ * Resets or claims the 5 Free Signup credits for user
  */
-export async function resetToSignupCredits(userId, target = 50) {
+export async function resetToSignupCredits(userId, target = 5) {
   const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   const userKey = getCreditsStorageKey(userId);
   const paidKey = getPaidCreditsStorageKey(userId);
@@ -156,8 +124,12 @@ export async function resetToSignupCredits(userId, target = 50) {
 
 /**
  * Gets real persistent credits for user or guest.
- * Robustly synchronizes with Supabase profiles table AND preserves local transactions.
- * Guaranteed to reflect top-ups and never silently revert to stale database values!
+ * 
+ * Rules:
+ * 1. Guests have 0 free credits (must sign in to claim 5 free trial credits).
+ * 2. New users get 5 free signup credits.
+ * 3. Never auto-reset users back to 5 or 50 on refresh if they have used credits down to 0.
+ * 4. Paid credits (₹199 = 50, ₹499 = 150) are never lost.
  */
 export async function getEffectiveCredits(userId, options = {}) {
   const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
@@ -175,10 +147,8 @@ export async function getEffectiveCredits(userId, options = {}) {
 
   if (isRegistered) {
     let dbCredits = null;
-    let postCount = null;
 
     try {
-      // 1. Fetch credits from Supabase profiles table
       const { data: profile, error: profileErr } = await supabase
         .from('profiles')
         .select('credits')
@@ -188,53 +158,22 @@ export async function getEffectiveCredits(userId, options = {}) {
       if (!profileErr && profile && typeof profile.credits === 'number') {
         dbCredits = profile.credits;
       }
-
-      // 2. Also check how many posts the user has actually generated
-      // This is crucial to detect the "stuck at 3 credits" bug where a user with 0 or few posts was given 3 credits by mistake instead of 50.
-      try {
-        const { count, error: countErr } = await supabase
-          .from('repurposed_posts')
-          .select('*', { count: 'exact', head: true })
-          .eq('user_id', userId);
-        if (!countErr && typeof count === 'number') {
-          postCount = count;
-        }
-      } catch (e) {}
     } catch (e) {
       console.warn('Supabase profile check note:', e);
     }
 
-    // RESOLUTION LOGIC:
-    // Case A: The user was stuck at 3 credits (or <= 3) despite having 0 or few generated posts!
-    // A new user is guaranteed 50 free signup credits. If postCount is low (e.g. < 5) and credits are <= 3 with no paid credits,
-    // this was caused by an initial table default of 3 in Supabase. We automatically correct it to 50 - postCount + paidCredits!
-    const isStuckAtDefaultThree = (dbCredits !== null && dbCredits <= 3) && (localVal === null || localVal <= 3) && ((postCount !== null && postCount < 5) || paidCredits > 0);
-
     let effective;
 
-    if (isStuckAtDefaultThree) {
-      const used = postCount !== null ? postCount : 0;
-      effective = Math.max(0, 50 - used) + paidCredits;
-      console.log(`Auto-correcting stale default 3 credits: restoring to ${effective} credits.`);
-      localStorage.setItem(userKey, effective.toString());
-      localStorage.setItem(`pm_mutation_ts_${userKey}`, Date.now().toString());
-      syncCreditsToSupabase(userId, effective).catch(() => {});
-      return effective;
-    }
-
-    // Case B: User has local paid credits or local pending mutation that hasn't synced to DB yet.
-    // E.g. localVal is 503 (user paid 500), but DB still returns 3 because RLS prevented update.
+    // Case A: User has pending local mutation (e.g. just deducted or added credits)
     if (localVal !== null && (hasPendingMutation || localVal > (dbCredits ?? 0))) {
-      // Keep the higher/local value so paid credits are NEVER lost!
       effective = localVal;
       syncCreditsToSupabase(userId, effective).catch(() => {});
       return effective;
     }
 
-    // Case C: DB returned valid credits and there is no pending un-synced local mutation.
+    // Case B: DB returned valid credits from Supabase
     if (dbCredits !== null) {
       effective = dbCredits;
-      // If user had local paid credits recorded that aren't yet in dbCredits:
       if (paidCredits > 0 && dbCredits < paidCredits) {
         effective = dbCredits + paidCredits;
         syncCreditsToSupabase(userId, effective).catch(() => {});
@@ -244,22 +183,22 @@ export async function getEffectiveCredits(userId, options = {}) {
       return effective;
     }
 
-    // Case D: DB returned an error or record not found, fallback to local storage
+    // Case C: DB returned an error or record not found, fallback to local storage
     if (localVal !== null) {
       return localVal;
     }
 
-    // Case E: First time user with no DB record and no local record: 50 free signup credits
-    effective = 50;
-    localStorage.setItem(userKey, '50');
-    syncCreditsToSupabase(userId, 50).catch(() => {});
+    // Case D: First time user with no DB record and no local record: 5 free signup credits
+    effective = 5;
+    localStorage.setItem(userKey, '5');
+    syncCreditsToSupabase(userId, 5).catch(() => {});
     return effective;
   }
 
-  // Guest mode
+  // Guest mode: Guests have 0 credits. Must sign in to claim 5 free trial credits.
   if (localVal === null) {
-    localVal = 50;
-    localStorage.setItem('pm_guest_credits', '50');
+    localVal = 0;
+    localStorage.setItem('pm_guest_credits', '0');
   }
   return Math.max(0, localVal);
 }
@@ -290,36 +229,31 @@ export async function deductCredit(userId) {
 }
 
 /**
- * Adds credits upon VERIFIED Razorpay payment or Sandbox Simulation.
- * Supports BOTH registered users and guest testers so no one is blocked!
+ * Adds credits upon VERIFIED Razorpay payment or recovery.
+ * Starter: ₹199 -> 50 Credits
+ * Pro:     ₹499 -> 150 Credits
  */
 export async function addPaidCredits(userId, amount, paymentId) {
   const isRegistered = Boolean(userId && userId !== 'demo-user-id' && userId !== 'guest');
   const userKey = getCreditsStorageKey(userId);
   const paidKey = getPaidCreditsStorageKey(userId);
 
-  // 1. Get current accurate effective credits
   const current = await getEffectiveCredits(userId);
   const newTotal = current + amount;
 
-  // 2. Persist to localStorage immediately
   localStorage.setItem(userKey, newTotal.toString());
   localStorage.setItem(`pm_mutation_ts_${userKey}`, Date.now().toString());
 
-  // 3. Track cumulative paid credits so paid credits can never be wiped out
   const prevPaid = parseInt(localStorage.getItem(paidKey) || '0', 10) || 0;
   localStorage.setItem(paidKey, (prevPaid + amount).toString());
 
-  // 4. Sync to Supabase
   if (isRegistered) {
     await syncCreditsToSupabase(userId, newTotal);
   }
 
-  // 5. Notify all listeners/tabs of credit update
   window.dispatchEvent(new CustomEvent('pm_credits_updated', {
     detail: { credits: newTotal, userId }
   }));
 
-  console.log(`Payment verified [${paymentId}]: Added ${amount} credits. New total: ${newTotal}`);
   return newTotal;
 }

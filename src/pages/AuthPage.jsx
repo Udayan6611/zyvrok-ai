@@ -42,21 +42,17 @@ export function AuthPage() {
 
     try {
       if (isSignUp) {
-        // Sign Up with Supabase
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password: password.trim()
         });
 
-        if (error) {
-          throw error;
-        }
+        if (error) throw error;
 
         if (data?.user) {
-          // Grant initial 50 credits to new user
-          await resetToSignupCredits(data.user.id, 50);
+          // Grant 5 free trial credits on signup
+          await resetToSignupCredits(data.user.id, 5);
 
-          // Check for any unclaimed payments on this device and link them to the new user!
           try {
             const unclaimed = localStorage.getItem('pm_last_unclaimed_payment');
             if (unclaimed) {
@@ -68,7 +64,7 @@ export function AuthPage() {
             }
           } catch (e) {}
 
-          setSuccessMsg('Account created successfully! Redirecting...');
+          setSuccessMsg('Account created successfully! 5 free trial credits loaded.');
           setTimeout(() => {
             navigate(redirectTarget);
           }, 800);
@@ -76,18 +72,14 @@ export function AuthPage() {
           setSuccessMsg('Please check your email to confirm your account, then sign in.');
         }
       } else {
-        // Sign In with Supabase
         const { data, error } = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password.trim()
         });
 
-        if (error) {
-          throw error;
-        }
+        if (error) throw error;
 
         if (data?.user) {
-          // Check for any unclaimed payments on this device and link them to the user!
           try {
             const unclaimed = localStorage.getItem('pm_last_unclaimed_payment');
             if (unclaimed) {
@@ -122,8 +114,6 @@ export function AuthPage() {
 
   return (
     <div className="min-h-screen bg-[#09090b] text-[#fafafa] flex flex-col justify-between selection:bg-white/10 selection:text-white">
-      
-      {/* Header */}
       <header className="border-b border-white/10 bg-[#09090b]/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5">
@@ -139,10 +129,8 @@ export function AuthPage() {
         </div>
       </header>
 
-      {/* Main Form */}
       <main className="max-w-md mx-auto px-4 py-16 flex-1 w-full flex flex-col justify-center">
         <SpotlightCard className="p-8 space-y-6">
-          
           {currentUser ? (
             <div className="text-center space-y-5">
               <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
@@ -173,7 +161,6 @@ export function AuthPage() {
                 >
                   Open Studio
                 </button>
-
                 <button
                   type="button"
                   onClick={handleSignOut}
@@ -191,7 +178,7 @@ export function AuthPage() {
                   {isSignUp ? 'Create your account' : 'Welcome back'}
                 </h1>
                 <p className="text-xs text-zinc-400 font-mono">
-                  {isSignUp ? '50 free credits loaded upon signup' : 'Sign in to access your saved generations and credits'}
+                  {isSignUp ? '5 free trial credits loaded upon signup' : 'Sign in to access your saved generations and credits'}
                 </p>
                 {pendingTier && (
                   <div className="pt-1">
@@ -260,7 +247,7 @@ export function AuthPage() {
                         <span>Processing...</span>
                       </>
                     ) : (
-                      <span>{isSignUp ? 'Create Free Account (50 Credits)' : 'Sign In'}</span>
+                      <span>{isSignUp ? 'Create Free Account (5 Free Credits)' : 'Sign In'}</span>
                     )}
                   </button>
                 </MagneticButton>
@@ -281,15 +268,12 @@ export function AuthPage() {
               </div>
             </>
           )}
-
         </SpotlightCard>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-white/10 py-6 text-center text-xs text-zinc-500 font-mono">
         <Link to="/legal" className="text-zinc-400 hover:text-white">Legal & Compliance</Link>
       </footer>
-
     </div>
   );
 }

@@ -143,7 +143,7 @@ export function LandingPage() {
                 to="/studio"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-zinc-950 font-bold text-sm hover:bg-zinc-200 transition-all shadow-lg shadow-white/10"
               >
-                <span>Launch Studio Free (50 Credits)</span>
+                <span>Launch Studio Free (5 Free Credits)</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </MagneticButton>
@@ -379,7 +379,7 @@ export function LandingPage() {
             Transparent Pricing
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            50 Free Credits on Signup. Top up anytime.
+            5 Free Trial Credits on Signup. Top up anytime.
           </h2>
           <p className="text-sm text-zinc-400 max-w-xl mx-auto font-mono">
             Starter Pack: ₹199 for 50 credits (₹3.98/generation). Creator Pro: ₹499 for 150 credits. No recurring subscriptions required.
