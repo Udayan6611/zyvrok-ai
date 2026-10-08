@@ -18,7 +18,8 @@ function cleanSocialText(text) {
 }
 
 /**
- * Resolves source content from raw text, article URLs, or YouTube links
+ * Resolves source content via Serverless Proxy (/api/extract-content)
+ * Handles YouTube transcript extraction and Article reader mode without CORS or IP block issues.
  */
 async function resolveSourceContent(content, inputType) {
   const trimmed = content.trim();
@@ -37,102 +38,124 @@ async function resolveSourceContent(content, inputType) {
     };
   }
 
-  const ytMatch = trimmed.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i);
-  if (ytMatch) {
-    const videoId = ytMatch[1];
-    let ytTitle = '';
-    let author = '';
-
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3500);
-      const oembedUrl = `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`;
-      const res = await fetch(oembedUrl, { signal: controller.signal });
-      clearTimeout(timeoutId);
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data.title) {
-          ytTitle = data.title;
-          author = data.author_name || '';
-        }
-      }
-    } catch (e) {
-      console.warn('YouTube lookup note:', e.message);
-    }
-
-    const title = ytTitle || `YouTube Video (${videoId})`;
-
-    return {
-      resolvedText: `Source YouTube Video Title: "${title}"\nChannel / Creator: ${author || 'Video Creator'}\nURL: https://www.youtube.com/watch?v=${videoId}`,
-      topicTitle: title,
-      isUrl: true
-    };
-  }
-
-  let cleanTitle = 'Article Summary';
-  let fetchedBody = '';
-
+  // Route URL through our serverless extractor to avoid browser CORS and extract spoken YouTube transcripts
   try {
-    const parsed = new URL(trimmed);
-    const segments = parsed.pathname.split('/').filter(Boolean);
-    if (segments.length > 0) {
-      const last = segments[segments.length - 1];
-      const stripped = last.replace(/-[0-9a-f]{6,}$/i, '');
-      const words = stripped.split(/[-_]/).filter(Boolean);
-      cleanTitle = words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    }
-  } catch (e) {
-    console.warn('URL parsing note:', e);
-  }
-
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5500);
-    const readerUrl = `https://r.jina.ai/${trimmed}`;
-    const res = await fetch(readerUrl, { signal: controller.signal });
-    clearTimeout(timeoutId);
-
+    const endpoint = `/api/extract-content?url=${encodeURIComponent(trimmed)}`;
+    const res = await fetch(endpoint);
+    
     if (res.ok) {
-      const text = await res.text();
-      if (text && text.length > 100) {
-        const cleanLines = text.split('\n').filter(line => {
-          const l = line.trim();
-          return !(
-            l.startsWith('Title:') ||
-            l.startsWith('URL Source:') ||
-            l.startsWith('Published Time:') ||
-            l.startsWith('Markdown Content:') ||
-            l.startsWith('Author:') ||
-            l.startsWith('Article Title:')
-          );
-        });
-
-        const h1Match = text.match(/^#\s+(.+)$/m);
-        if (h1Match && h1Match[1]) {
-          cleanTitle = h1Match[1].trim();
-        }
-
-        fetchedBody = cleanLines.join('\n').trim().slice(0, 12000);
+      const data = await res.json();
+      if (data.success && data.text && data.text.length > 30) {
+        return {
+          resolvedText: data.text,
+          topicTitle: data.title || 'Source Material',
+          isUrl: true
+        };
+      } else if (data.error === 'no_captions') {
+        throw new Error(data.message || 'Captions are disabled on this video. Please switch to "Raw Text" mode and paste the transcript or notes directly.');
+      } else if (data.message) {
+        throw new Error(data.message);
       }
     }
-  } catch (e) {
-    console.warn('Article reader fetch note:', e.message);
+  } catch (err) {
+    // If it's our explicit user error, re-throw it so UI can display it
+    if (err.message && (err.message.includes('Captions') || err.message.includes('Raw Text'))) {
+      throw err;
+    }
+    console.warn('Serverless extraction warning, falling back:', err.message);
   }
+
+  // Graceful fallback if serverless proxy is unavailable
+  const parsed = new URL(trimmed);
+  const segments = parsed.pathname.split('/').filter(Boolean);
+  const cleanTitle = segments.length > 0 
+    ? segments[segments.length - 1].replace(/-[0-9a-f]{6,}$/i, '').split(/[-_]/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    : 'Online Source';
 
   return {
-    resolvedText: fetchedBody ? `Topic / Title: ${cleanTitle}\n\nArticle Content:\n${fetchedBody}` : `Article Title: ${cleanTitle}\nSource URL: ${trimmed}`,
+    resolvedText: `Source URL: ${trimmed}\nTopic: ${cleanTitle}`,
     topicTitle: cleanTitle,
     isUrl: true
   };
 }
 
 /**
- * Universal Groq Chat Completion caller
+ * 4 Rotating Hook Archetypes (Pillar 2: Eliminating "Same Output Every Time")
+ * Prevents repetitive, formulaic "I spent the last 2 years..." openings.
  */
-async function callGroqApi(systemPrompt, userPrompt, key) {
+const HOOK_ARCHETYPES = [
+  {
+    id: 'contrarian',
+    instruction: 'THE CONTRARIAN OPENER: Start by challenging a widely accepted industry consensus with an uncomfortable reality directly derived from the source facts. No personal melodrama. Make the reader pause.'
+  },
+  {
+    id: 'architectural_metric',
+    instruction: 'THE METRIC / ARCHITECTURE OPENER: Lead with a high-stakes benchmark, production trade-off, dollar figure, or concrete technical comparison extracted from the material. Establish immediate practitioner credibility.'
+  },
+  {
+    id: 'field_observation',
+    instruction: 'THE FIELD NOTE OPENER: Open with an authentic, grounded observation from the engineering or product trenches. Cut through hype and focus on what actually breaks or works in production.'
+  },
+  {
+    id: 'direct_thesis',
+    instruction: 'THE DIRECT THESIS OPENER: Jump straight into the core operational principle without preamble. State the single most valuable mental model or takeaway in 1-2 punchy sentences.'
+  }
+];
+
+/**
+ * Modular Tone Prompts (Pillar 3: Real Tone Differentiation)
+ * Each tone receives its own distinct persona and structural constraints.
+ */
+const TONE_ENGINES = {
+  'contrarian': {
+    temperature: 0.85,
+    systemAddon: `TONE DIRECTIVE: CONTRARIAN & UNCONVENTIONAL
+- Constraint: ZERO personal vulnerability or storytelling.
+- Mechanics: Expose a flawed industry consensus $\\rightarrow$ Present the real-world counter-evidence from the source $\\rightarrow$ Deliver the counter-intuitive mental model.
+- Pacing: Sharp, critical, and authoritative.`
+  },
+  'punchy': {
+    temperature: 0.85,
+    systemAddon: `TONE DIRECTIVE: PUNCHY & HIGH-DENSITY
+- Constraint: Maximum 15 words per paragraph. One distinct insight per line.
+- Mechanics: Staccato rhythm, zero transition fluff ("In conclusion", "Ultimately", "At the end of the day"). Bullet points only.
+- Pacing: Rapid-fire, dense signal, zero filler words.`
+  },
+  'storytelling': {
+    temperature: 0.85,
+    systemAddon: `TONE DIRECTIVE: HUMAN TRANSFORMATION & NARRATIVE
+- Constraint: Authentic, grounded journey without corporate clichés.
+- Mechanics: Real production friction $\\rightarrow$ The turning point testing $\\rightarrow$ Concrete mechanics learned.
+- Pacing: Natural narrative flow with whitespace and pacing.`
+  },
+  'technical': {
+    temperature: 0.70,
+    systemAddon: `TONE DIRECTIVE: DEEP TECHNICAL & ANALYTICAL
+- Constraint: Focus on architecture, latency, memory bottlenecks, stack trade-offs, code/system mechanics, and concrete benchmarks.
+- Mechanics: System diagram in text $\\rightarrow$ Core trade-offs $\\rightarrow$ Production recommendation.
+- Pacing: Practitioner-to-practitioner engineering rigor.`
+  },
+  'thought-leader': {
+    temperature: 0.70,
+    systemAddon: `TONE DIRECTIVE: MACRO THOUGHT LEADERSHIP
+- Constraint: Synthesizes the macro architectural and market trends of the next 2-3 years.
+- Mechanics: Strategic clarity, industry shift analysis, high-leverage frameworks.
+- Pacing: Executive briefing style without buzzword soup.`
+  }
+};
+
+/**
+ * Universal Groq Chat Completion caller
+ * Target active, verified free-tier models on Groq: openai/gpt-oss-120b, qwen/qwen3.8-27b, openai/gpt-oss-20b
+ */
+async function callGroqApi(systemPrompt, userPrompt, key, temperature = 0.80) {
   const cleanKey = key.trim();
-  const models = ['openai/gpt-oss-120b', 'llama-3.3-70b-versatile'];
+  const models = [
+    'openai/gpt-oss-120b',
+    'qwen/qwen3.8-27b',
+    'openai/gpt-oss-20b'
+  ];
+
   let lastError = null;
 
   for (const model of models) {
@@ -150,7 +173,9 @@ async function callGroqApi(systemPrompt, userPrompt, key) {
             { role: 'user', content: userPrompt }
           ],
           response_format: { type: 'json_object' },
-          temperature: 0.85,
+          temperature: temperature,
+          top_p: 0.9,
+          frequency_penalty: 0.2,
           max_tokens: 4096
         })
       });
@@ -169,7 +194,7 @@ async function callGroqApi(systemPrompt, userPrompt, key) {
       } else {
         const errData = await response.json().catch(() => ({}));
         const errMsg = errData?.error?.message || `HTTP ${response.status}: ${response.statusText}`;
-        console.warn(`Groq [${model}] failed (${response.status}):`, errMsg);
+        console.warn(`Groq [${model}] note (${response.status}):`, errMsg);
         lastError = new Error(`[${model}] ${errMsg}`);
         if (response.status === 429 || response.status === 404 || response.status >= 500) {
           continue;
@@ -187,12 +212,12 @@ async function callGroqApi(systemPrompt, userPrompt, key) {
 /**
  * Main Content Repurposing function using Groq
  */
-export async function repurposeContent({ userId, content, inputType, tone }) {
+export async function repurposeContent({ userId, content, inputType, tone = 'thought-leader' }) {
   if (!content || !content.trim()) {
     throw new Error('Please provide source content or a link to repurpose.');
   }
 
-  // 1. Resolve source content
+  // 1. Resolve source content via serverless proxy
   const { resolvedText, topicTitle } = await resolveSourceContent(content, inputType);
 
   // 2. Check user credits (from Supabase profile or persistent guest storage)
@@ -201,18 +226,23 @@ export async function repurposeContent({ userId, content, inputType, tone }) {
     throw new Error('Insufficient credits. You have 0 credits remaining. Please upgrade to Pro to continue morphing.');
   }
 
-  // 3. Master Viral Copywriting Engine (Grounded in top viral creator frameworks: Justin Welsh, Jasmin Alić, Shaan Puri)
-  const systemPrompt = `You are a master viral tech ghostwriter for elite founders, developers, and tech executives.
-Your posts routinely get hundreds of reposts and thousands of comments because you write like a genuine human practitioner, NOT a generic AI.
+  // 3. Select Hook Archetype randomly to avoid repetitive output patterns
+  const chosenArchetype = HOOK_ARCHETYPES[Math.floor(Math.random() * HOOK_ARCHETYPES.length)];
+  const toneConfig = TONE_ENGINES[tone] || TONE_ENGINES['thought-leader'];
 
-You understand the psychological mechanics of viral LinkedIn posts:
-1. THE HOOK: The first 1-2 lines must create an intense curiosity gap, admit an honest vulnerability/struggle, or present a sharp contrast BEFORE the reader clicks "...see more".
-2. THE PACING: Never rush through ideas. Never write a generic summary or datasheet. Use short 1-2 sentence paragraphs with whitespace. Rhythmic, punchy reading flow.
-3. AUTHENTIC FRICTION: Real builders talk about real trade-offs—cloud bills eating margins, latency killing UX, GPU memory bottlenecks, architecture mistakes.
-4. ZERO AI CLICHÉS: Never use "Picture this", "The room fell silent", "A sleepless night of tinkering", "Coffee-stained notes", "In a world where", "Game-changer", "Paradigm shift", "Democratized", "At warp speed", "Delve", "Testament", "Beacon", "Look no further".
-5. ZERO MARKDOWN: LinkedIn and Twitter DO NOT support Markdown. Never use **bold**, *italics*, or # headers in social posts.
+  // 4. Construct Master Viral Copywriting Engine Prompt
+  const systemPrompt = `You are a master viral ghostwriter for elite tech founders, practitioners, and executives.
+Your posts stand out because you write like an authentic practitioner with deep domain knowledge, NOT a generic AI.
 
-You MUST output strictly valid JSON adhering to the requested schema.`;
+NEGATIVE CONSTRAINTS (STRICTLY BANNED):
+- NEVER use: "Picture this", "The room fell silent", "A sleepless night of tinkering", "Coffee-stained notes", "In a world where", "Game-changer", "Paradigm shift", "Democratized", "At warp speed", "Delve", "Testament", "Beacon", "Look no further".
+- NEVER open with a generic rhetorical question ("Have you ever wondered...?").
+- NEVER use markdown bold (**word**), italics (*word*), or headers (#) in social outputs. Use plain text only.
+- NEVER use rocket or fire emojis. Maximum 1-2 subtle emojis or zero.
+
+${toneConfig.systemAddon}
+
+You MUST return strictly valid JSON matching the requested schema.`;
 
   const userPrompt = `TOPIC: "${topicTitle}"
 
@@ -221,77 +251,44 @@ SOURCE MATERIAL:
 ${resolvedText}
 """
 
-TARGET TONE: "${tone}"
+STRUCTURAL INSTRUCTIONS:
+- Apply this hook style: ${chosenArchetype.instruction}
+- Do NOT use the exact phrase "I spent the last 2 years". Create a unique, topic-native hook.
+- Ground every claim in the actual facts, figures, and technical points from the source material.
 
-=======================================================
-PROVEN VIRAL POST BLUEPRINT (FOLLOW STEP-BY-STEP):
-=======================================================
-
-FOR LINKEDIN POST (160 - 240 words):
-- ACT 1 (THE HOOK - Lines 1-2, under 180 chars): Open with an honest admission, bold contrast, or surprising realization. (e.g. "I spent the last 2 years convinced that X was a hobbyist trap.", "Everyone tells developers to do X. In production, it almost broke our stack.")
-- ACT 2 (THE FRICTION): 2-3 short lines explaining the struggle or the status quo problem (costs, latency, broken tooling, developer friction).
-- ACT 3 (THE SHIFT): The moment of testing or discovery from the source content. Make the realization feel earned, not rushed.
-- ACT 4 (THE CORE MECHANICS): 2-3 clean bullet points (using • symbol only) detailing the actual technical breakdown or tactical insights from "${topicTitle}".
-- ACT 5 (THE PUNCHLINE): A sharp, memorable 1-2 sentence realization about where the industry is heading.
-- ACT 6 (THE CONVERSATION STARTER): An open-ended question that makes practitioners want to leave a comment.
-- HASHTAGS: 3 to 4 hyper-relevant tech tags at the very bottom.
-
-TONE SPECIFICATIONS:
-- "storytelling": Follow the 5-part transformation arc (Old belief -> Real friction -> The test/discovery -> Concrete mechanics -> Memorable punchline). Grounded, paced, human, engaging.
-- "conversational": Casual, candid, peer-to-peer reflection. Like a founder or senior engineer sharing an honest discovery with smart friends over coffee.
-- "contrarian": Unpopular opinion that challenges conventional wisdom using real technical facts from the source.
-- "punchy": High-velocity, staccato, 1-idea per line. Maximum signal density, zero fluff.
-- "thought leader": Synthesizes the macro architectural trend of the next 2-3 years.
-- "professional": Polished, executive briefing on operational impact without corporate buzzwords.
-
-FOR TWITTER / X THREAD:
-- 5 to 6 modular tweets.
-- Tweet 1: Pure viral hook with curiosity gap, ending in .
-- Tweets 2-5: Sharp, high-signal observations with line breaks. NO asterisks (**).
-- Tweet 6: Punchline, bookmark/repost prompt, and open question.
-
-FOR NEWSLETTER SNIPPET:
-- 200-300 words with a witty/editorial headline.
-- Deep-dive context and a formatted " Key Takeaways" section.
-
-OUTPUT JSON SCHEMA:
+OUTPUT FORMAT (STRICT JSON):
 {
-  "linkedin_post": "A clean, humanized, viral LinkedIn post (strictly plain text, NO asterisks or markdown bolding) with natural line breaks, visual pacing, 2-3 bullet insights (•), and relevant hashtags.",
+  "linkedin_post": "A clean, high-signal, human-sounding LinkedIn post (strictly plain text, NO asterisks or markdown bolding) with natural whitespace pacing, 2-3 bullet insights (•), and 3-4 relevant hashtags.",
   "twitter_thread": [
-    "Tweet 1 (Viral scroll-stopping hook with )",
+    "Tweet 1 (Viral scroll-stopping hook with curiosity gap)",
     "Tweet 2 (The friction / context)",
     "Tweet 3 (Deep-dive insight #1)",
     "Tweet 4 (Deep-dive insight #2)",
     "Tweet 5 (Actionable takeaway)",
     "Tweet 6 (Wrap-up & bookmark CTA)"
   ],
-  "newsletter_blurb": "A crisp, witty 200-300 word newsletter section with a sharp editorial headline, deep-dive synthesis, and a formatted ' Key Takeaways' section."
-}
+  "newsletter_blurb": "A crisp, high-signal 200-300 word newsletter section with an editorial headline, key technical synthesis, and bulleted takeaways."
+}`;
 
-CRITICAL:
-- Extract and use the real facts, numbers, and architecture from "${topicTitle}".
-- Do NOT rush the narrative.
-- Return ONLY valid JSON matching the schema.`;
-
-  // 4. Execute Groq API Call
+  // 5. Execute Groq API Call with calibrated parameters
   let parsedOutput = null;
 
   if (groqApiKey && groqApiKey.length > 10 && !groqApiKey.includes('YOUR_')) {
     try {
-      parsedOutput = await callGroqApi(systemPrompt, userPrompt, groqApiKey);
+      parsedOutput = await callGroqApi(systemPrompt, userPrompt, groqApiKey, toneConfig.temperature);
     } catch (err) {
       console.error('Groq API execution error:', err);
       throw new Error(`Groq API Error: ${err.message}`);
     }
   } else {
-    throw new Error('Please configure your VITE_GROQ_API_KEY in your .env file.');
+    throw new Error('Please configure your VITE_GROQ_API_KEY in your .env file or Vercel environment settings.');
   }
 
   if (!parsedOutput || !parsedOutput.linkedin_post) {
     throw new Error('Content generation did not return the expected format from Groq.');
   }
 
-  // 5. Sanitize any accidental markdown formatting in social outputs
+  // 6. Clean any residual markdown formatting
   if (parsedOutput.linkedin_post) {
     parsedOutput.linkedin_post = cleanSocialText(parsedOutput.linkedin_post);
   }
@@ -299,7 +296,7 @@ CRITICAL:
     parsedOutput.twitter_thread = parsedOutput.twitter_thread.map(t => cleanSocialText(t));
   }
 
-  // 6. Save to Supabase 'repurposed_posts'
+  // 7. Save to Supabase 'repurposed_posts'
   let savedPostId = null;
   if (userId) {
     try {
@@ -327,11 +324,14 @@ CRITICAL:
     }
   }
 
-  // 7. Deduct credit persistently (in Supabase profile or guest storage)
+  // 8. Deduct credit persistently
   const remainingCredits = await deductCredit(userId);
 
   return {
     ...parsedOutput,
+    linkedin: parsedOutput.linkedin_post,
+    twitter: Array.isArray(parsedOutput.twitter_thread) ? parsedOutput.twitter_thread.join('\n\n') : (parsedOutput.twitter_thread || ''),
+    newsletter: parsedOutput.newsletter_blurb,
     remainingCredits,
     id: savedPostId || `post-${Date.now()}`
   };
