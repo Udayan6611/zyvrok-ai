@@ -21,9 +21,9 @@ export function StudioPage() {
   const navigate = useNavigate();
 
   const [output, setOutput] = useState({
-    linkedin: "Most teams build AI wrappers without understanding where inference economics break down.\n\nIn Karpathy's architecture review, three operational constraints determine whether a generative application survives production scale:\n\n1. Pretraining teaches world models; fine-tuning only adjusts the conversational format.\n2. Reinforcement learning from human feedback introduces alignment tax and hallucinations.\n3. Context window retrieval is not memory—it is working scratchpad space.\n\nOptimize your pipeline for context precision rather than model parameter scale. The real edge is retrieval density.",
-    twitter: "1/5 Most teams build AI wrappers without understanding where inference economics break down.\n\n2/5 Rule 1: Pretraining teaches world models; fine-tuning only adjusts conversational format.\n\n3/5 Rule 2: Context window retrieval is not memory—it is scratchpad memory. Keep retrieval dense.\n\n4/5 Rule 3: High-latency loops kill retention. Decouple extraction from real-time generation.\n\n5/5 The competitive moat in 2026 isn't which base foundation model you call. It's how cleanly you synthesize context.",
-    newsletter: "Executive Brief: The Real Economics of Edge vs Cloud Inference\n\nKey Takeaway:\nKarpathy highlights that teams prioritizing raw model size over contextual density end up with unsustainable operational expenditure. Decoupling the retrieval pipeline from generation yields 3x faster response times with negligible hallucination drift.\n\nActionable Implementation:\nAudit your retrieval latency before upgrading model parameter classes."
+    linkedin: '',
+    twitter: '',
+    newsletter: ''
   });
 
   useEffect(() => {
@@ -59,21 +59,29 @@ export function StudioPage() {
   };
 
   const handleRefine = (instruction) => {
+    const currentText = output[activeTab];
+    if (!currentText || !currentText.trim()) return;
+
     if (instruction === 'condense') {
-      setOutput(prev => ({
-        ...prev,
-        [activeTab]: prev[activeTab].split('\n\n').slice(0, 3).join('\n\n')
-      }));
+      // Condenses text to core insights
+      const paragraphs = currentText.split('\n\n').filter(p => p.trim());
+      const condensed = paragraphs.slice(0, Math.max(2, Math.ceil(paragraphs.length / 2))).join('\n\n');
+      setOutput(prev => ({ ...prev, [activeTab]: condensed }));
     } else if (instruction === 'sharpen') {
-      setOutput(prev => ({
-        ...prev,
-        [activeTab]: "[Sharpened Hook]: Stop burning cloud compute on unoptimized prompts.\n\n" + prev[activeTab]
-      }));
+      // Sharpen the first line/hook dynamically based on the actual text
+      const lines = currentText.split('\n');
+      const firstLine = lines[0] || '';
+      const remaining = lines.slice(1).join('\n');
+      const tightenedHook = firstLine.replace(/^(Most people|In today's|Everyone|I think)\s+/i, '').trim();
+      const sharpened = `${tightenedHook ? tightenedHook.charAt(0).toUpperCase() + tightenedHook.slice(1) : firstLine}\n${remaining}`;
+      setOutput(prev => ({ ...prev, [activeTab]: sharpened.trim() }));
     } else if (instruction === 'contrarian') {
-      setOutput(prev => ({
-        ...prev,
-        [activeTab]: "[Contrarian Take]: Bigger LLM models aren't making your product smarter—they're making your infrastructure slower.\n\n" + prev[activeTab]
-      }));
+      // Reframes opening into a sharp contrarian lens
+      const lines = currentText.split('\n');
+      const firstLine = lines[0] || '';
+      const remaining = lines.slice(1).join('\n');
+      const contrarian = `The conventional playbook says one thing. Production reality proves the opposite:\n\n${firstLine}\n${remaining}`;
+      setOutput(prev => ({ ...prev, [activeTab]: contrarian.trim() }));
     }
   };
 
@@ -404,9 +412,10 @@ export function StudioPage() {
               <div className="space-y-2">
                 <textarea
                   rows={14}
-                  value={output[activeTab]}
+                  value={output[activeTab] || ''}
                   onChange={(e) => setOutput({ ...output, [activeTab]: e.target.value })}
-                  className="w-full p-4 rounded-xl bg-zinc-900/50 border border-white/10 text-xs font-mono text-zinc-200 leading-relaxed focus:outline-none focus:border-white/30 resize-y"
+                  placeholder="Your generated distribution bundle will appear here once you click 'Morph Content'..."
+                  className="w-full p-4 rounded-xl bg-zinc-900/50 border border-white/10 text-xs font-mono text-zinc-200 leading-relaxed focus:outline-none focus:border-white/30 resize-y placeholder-zinc-600"
                 />
                 <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 px-1">
                   <span>{output[activeTab].split(/\s+/).filter(Boolean).length} words · {output[activeTab].length} characters</span>
